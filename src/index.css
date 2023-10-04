@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  @apply box-border;
+}
+
+body {
+  @apply font-normal text-left text-sm relative text-gray-700;
+}

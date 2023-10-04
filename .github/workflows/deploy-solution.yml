@@ -1,0 +1,51 @@
+name: 'Build, Test and Deploy MoniShare Frontend'
+
+on:
+  push:
+    branches:
+      - solution
+      
+env:
+  VITE_API_URL: ${{ vars.VITE_API_URL }}
+  AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  build-solution:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build frontend
+      working-directory: .
+      run: npm run build 
+      env:
+        VITE_API_URL: ${{ env.VITE_API_URL }}
+      
+    - name: Setup AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-central-1
+        
+    - name: Deploy
+      working-directory: ./dist
+      run: aws s3 sync --delete . s3://monishare.ojemba.com
