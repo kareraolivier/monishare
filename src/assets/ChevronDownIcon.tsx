@@ -13,7 +13,7 @@ export function ChevronDownIcon({ className }: ChevronDownIconProps): ReactEleme
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      stroke="currentColor"
+      stroke="white"
     >
       <path d="M6 9L12 15L18 9" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
