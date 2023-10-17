@@ -12,7 +12,7 @@ export default function CarIcon({ className }: CarIconProps): ReactElement {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke="currentColor"
+      stroke="white"
       className={className}
     >
       <path

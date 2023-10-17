@@ -12,13 +12,7 @@ export default function XIcon({
   height = '18',
 }: XIconProps): ReactElement {
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 18 18"
-      stroke="currentColor"
-      className={className}
-    >
+    <svg width={width} height={height} viewBox="0 0 18 18" stroke="white" className={className}>
       <path
         d="M12.75 5.25L5.25 12.75M5.25 5.25L12.75 12.75"
         strokeLinecap="round"

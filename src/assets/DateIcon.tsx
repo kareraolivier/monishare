@@ -12,7 +12,7 @@ export default function DateIcon({ className }: DateIconProps): ReactElement {
       viewBox="0 0 18 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke="currentColor"
+      stroke="white"
       className={className}
     >
       <path

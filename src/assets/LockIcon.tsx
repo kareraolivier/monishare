@@ -11,7 +11,7 @@ export default function LockIcon({ className }: LockIconProps): ReactElement {
       viewBox="0 0 13 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke="currentColor"
+      stroke="white"
       className={className}
     >
       <path
