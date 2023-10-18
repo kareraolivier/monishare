@@ -31,9 +31,9 @@ function App(): ReactElement {
         <Route index element={<HomePage />} />
         <Route path="cars" element={<CarsPage />} />
         <Route path="bookings" element={<BookingsPage />} />
-        <Route path="managebookings" element={<ManageBookingsPage />} />
-        <Route path="newbookings" element={<NewBookingsPage />} />
-        <Route path="newcar" element={<NewCarPage />} />
+        <Route path="manage-bookings" element={<ManageBookingsPage />} />
+        <Route path="book" element={<NewBookingsPage />} />
+        <Route path="new-car" element={<NewCarPage />} />
       </Route>,
     ),
   )
