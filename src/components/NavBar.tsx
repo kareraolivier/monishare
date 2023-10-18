@@ -5,11 +5,11 @@ import ProfileIcon from '../assets/ProfileIcon'
 import Logo from '../assets/Logo'
 import CarIcon from '../assets/CarIcon'
 import ListIcon from '../assets/ListIcon'
-import PlateIcon from '../assets/PlateIcon'
 import LogoutIcon from '../assets/LogoutIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import CarsIcon from '../assets/CarsIcon'
 import { ReactElement } from 'react'
+import BookingIcon from '../assets/BookingIcon'
 
 function NavBar(): ReactElement {
   return (
@@ -30,7 +30,7 @@ function NavBar(): ReactElement {
               <Menu.Item>
                 {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/bookings">
-                    <PlateIcon />
+                    <BookingIcon />
                     <span>My Bookings</span>
                   </Link>
                 )}
