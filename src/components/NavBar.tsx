@@ -18,18 +18,18 @@ function NavBar() {
         <Menu.Items className="absolute top-24 flex flex-col rounded-lg border bg-indigo-400 text-gray-100">
           <Menu.Item>
             {({ active }) => (
-              <a className={`nav-link ${active && 'bg-gray-800'}`} href="/account-settings">
+              <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/book">
                 <CarIcon />
                 <span>Book A Car</span>
-              </a>
+              </Link>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a className={`nav-link ${active && 'bg-gray-800'}`} href="/account-settings">
+              <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/bookings">
                 <PlateIcon />
                 <span>My Bookings</span>
-              </a>
+              </Link>
             )}
           </Menu.Item>
           <div className="px-4 py-2">
@@ -38,26 +38,26 @@ function NavBar() {
           <h5 className="px-4 py-2 font-bold">My Cars</h5>
           <Menu.Item>
             {({ active }) => (
-              <a className={`nav-link ${active && 'bg-gray-800'}`} href="/account-settings">
+              <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/cars">
                 <CarsIcon />
                 <span>See My Cars</span>
-              </a>
+              </Link>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a className={`nav-link ${active && 'bg-gray-800'}`} href="/account-settings">
+              <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/manage-bookings">
                 <ListIcon />
                 <span>My Car&apos;s Bookings</span>
-              </a>
+              </Link>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a className={`nav-link ${active && 'bg-gray-800'}`} href="/account-settings">
+              <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/new-car">
                 <CarPlusIcon />
                 <span>Add New Car</span>
-              </a>
+              </Link>
             )}
           </Menu.Item>
           <div className="px-4 py-2">
@@ -65,10 +65,10 @@ function NavBar() {
           </div>
           <Menu.Item>
             {({ active }) => (
-              <a className={`nav-link ${active && 'bg-gray-800'}`} href="/account-settings">
+              <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/logout">
                 <LogoutIcon />
                 <span>Log Out</span>
-              </a>
+              </Link>
             )}
           </Menu.Item>
         </Menu.Items>
