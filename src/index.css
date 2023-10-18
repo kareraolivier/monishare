@@ -11,47 +11,47 @@ body {
 
 /* Inter fonts */
 @font-face {
-  font-family: 'Inter-Black';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-Black.ttf");
   font-weight: 900
 }
 @font-face {
-  font-family: 'Inter-Bold';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-Bold.ttf");
   font-weight: 700
 }
 @font-face {
-  font-family: 'Inter-ExtraBold';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-ExtraBold.ttf");
   font-weight: 800
 }
 @font-face {
-  font-family: 'Inter-ExtraLight';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-ExtraLight.ttf");
   font-weight: 200
 }
 @font-face {
-  font-family: 'Inter-Light';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-Light.ttf");
   font-weight: 300
 }
 @font-face {
-  font-family: 'Inter-Medium';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-Medium.ttf");
   font-weight: 500
 }
 @font-face {
-  font-family: 'Inter-Regular';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-Regular.ttf");
   font-weight: 400
 }
 @font-face {
-  font-family: 'Inter-SemiBold';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-SemiBold.ttf");
   font-weight: 600
 }
 @font-face {
-  font-family: 'Inter-Thin';
+  font-family: 'Inter';
   src: url("fonts/inter/Inter-Thin.ttf");
   font-weight: 100
 }
@@ -59,22 +59,22 @@ body {
 /* Lora fonts */
 
 @font-face {
-  font-family: 'Lora-Bold';
+  font-family: 'Lora';
   src: url("fonts/lora/Lora-Bold.ttf");
   font-weight: 700
 }
 @font-face {
-  font-family: 'Lora-Medium';
+  font-family: 'Lora';
   src: url("fonts/lora/Lora-Medium.ttf");
   font-weight: 500
 }
 @font-face {
-  font-family: 'Lora-Regular';
+  font-family: 'Lora';
   src: url("fonts/lora/Lora-Regular.ttf");
   font-weight: 400
 }
 @font-face {
-  font-family: 'Lora-SemiBold';
+  font-family: 'Lora';
   src: url("fonts/lora/Lora-SemiBold.ttf");
   font-weight: 600
 }
