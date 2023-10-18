@@ -81,7 +81,9 @@ function NavBar(): ReactElement {
       <Link to="/" className="absolute left-1/2 -translate-x-1/2 translate-y-2">
         <Logo className="w-18" />
       </Link>
-      <ProfileIcon className="" />
+      <button>
+        <ProfileIcon className="" />
+      </button>
     </div>
   )
 }
