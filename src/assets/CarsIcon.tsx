@@ -12,34 +12,34 @@ export default function CarsIcon(): ReactElement {
       />
       <path
         d="M20.1518 13.9023L21.37 13.9023V9.42355C21.37 9.42355 20.4534 6.71842 19.3396 5.37479C17.9474 4.14092 14.9889 3.44297 10.8121 4.56265L10 5.78087"
-        stroke="#059669"
+        stroke="#FFFFFF"
         strokeWidth="0.869565"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M8.49716 11.6537L14.9943 11.6537"
-        stroke="#059669"
+        stroke="#FFFFFF"
         strokeWidth="0.869565"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M16.6186 13.278L16.6186 14.0902"
-        stroke="#059669"
+        stroke="#FFFFFF"
         strokeWidth="0.869565"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M19 9.00001L19 9.81215"
-        stroke="#059669"
+        stroke="#FFFFFF"
         strokeWidth="0.869565"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="5.60954" cy="17.3387" r="1.80476" stroke="#059669" strokeWidth="0.869565" />
-      <circle cx="14.6333" cy="17.3387" r="1.80476" stroke="#059669" strokeWidth="0.869565" />
+      <circle cx="5.60954" cy="17.3387" r="1.80476" stroke="#FFFFFF" strokeWidth="0.869565" />
+      <circle cx="14.6333" cy="17.3387" r="1.80476" stroke="#FFFFFF" strokeWidth="0.869565" />
     </svg>
   )
 }
