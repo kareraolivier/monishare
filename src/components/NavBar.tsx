@@ -9,17 +9,18 @@ import PlateIcon from '../assets/PlateIcon'
 import LogoutIcon from '../assets/LogoutIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import CarsIcon from '../assets/CarsIcon'
+import { ReactElement } from 'react'
 
-function NavBar() {
+function NavBar(): ReactElement {
   return (
     <div className="relative flex items-center justify-between bg-gray-800 p-5">
       <Menu>
-        {({ open }) => (
+        {({ open }: { open: boolean }) => (
           <>
             <Menu.Button className="text-gray-100">{open ? 'Close' : 'Menu'}</Menu.Button>
             <Menu.Items className="absolute top-24 flex flex-col rounded-lg border bg-indigo-400 text-gray-100">
               <Menu.Item>
-                {({ active }) => (
+                {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/book">
                     <CarIcon />
                     <span>Book A Car</span>
@@ -27,7 +28,7 @@ function NavBar() {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }) => (
+                {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/bookings">
                     <PlateIcon />
                     <span>My Bookings</span>
@@ -39,7 +40,7 @@ function NavBar() {
               </div>
               <h5 className="px-4 py-2 font-bold">My Cars</h5>
               <Menu.Item>
-                {({ active }) => (
+                {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/cars">
                     <CarsIcon />
                     <span>See My Cars</span>
@@ -47,7 +48,7 @@ function NavBar() {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }) => (
+                {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/manage-bookings">
                     <ListIcon />
                     <span>My Car&apos;s Bookings</span>
@@ -55,7 +56,7 @@ function NavBar() {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }) => (
+                {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/new-car">
                     <CarPlusIcon />
                     <span>Add New Car</span>
@@ -66,7 +67,7 @@ function NavBar() {
                 <hr className="h-[1px] bg-gray-100" />
               </div>
               <Menu.Item>
-                {({ active }) => (
+                {({ active }: { active: boolean }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/logout">
                     <LogoutIcon />
                     <span>Log Out</span>
