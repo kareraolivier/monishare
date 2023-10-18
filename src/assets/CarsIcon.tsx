@@ -5,7 +5,7 @@ export default function CarsIcon(): ReactElement {
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M3.39225 17.3387H2V14.8536C2 13.9607 2.45664 13.1299 3.21041 12.6513L6.06072 10.8416L8.03307 8.26703C12.2098 7.14735 15.2727 7.48325 16.3865 8.82687C17.5003 10.1705 18.2429 12.86 18.2429 12.86V17.3387H16.8506M7.685 17.3387H12.5579"
-        stroke="#059669"
+        stroke="#FFFFFF"
         strokeWidth="0.869565"
         strokeLinecap="round"
         strokeLinejoin="round"
