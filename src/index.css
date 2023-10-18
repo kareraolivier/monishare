@@ -1,13 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-* {
-  @apply box-border;
+
+
+@layer components {
+  * {
+    @apply box-border;
+  }
+  
+  body {
+    @apply font-normal text-left text-sm relative text-gray-700;
+  }
+
+  .nav-link {
+    @apply flex gap-3 items-center px-4 py-2 rounded-lg
+  }
 }
 
-body {
-  @apply font-normal text-left text-sm relative text-gray-700;
-}
 
 /* Inter fonts */
 @font-face {
