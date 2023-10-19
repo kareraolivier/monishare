@@ -33,6 +33,7 @@ module.exports = {
       fontFamily: {
         inter: ['Inter'],
         lora: ['Lora'],
+        italic: ['Italic'],
       },
     },
     plugins: [],
