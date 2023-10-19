@@ -31,7 +31,7 @@ export default function Button({ filled = true, type, onClick, children }: Props
   return (
     <button
       onClick={onClick}
-      className={`${classes} w-100 rounded-3xl p-4 text-xl font-bold shadow-lg md:w-96`}
+      className={`${classes} w-100 text-md rounded-[3rem] py-3 font-bold shadow-xl md:w-96`}
     >
       {children}
     </button>
