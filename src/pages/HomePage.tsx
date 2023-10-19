@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import Button from '../components/Button'
 
 export default function HomePage(): ReactElement {
   return (
@@ -6,6 +7,7 @@ export default function HomePage(): ReactElement {
       <h1 className="text-4xl font-bold">Hello to MoniShare</h1>
       <p>If you can read this, you have successfully started the base frontend repository!</p>
       <p>Happy coding!</p>
+      <Button>Button</Button>
     </main>
   )
 }
