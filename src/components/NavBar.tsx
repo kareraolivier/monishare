@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { Menu } from '@headlessui/react'
-
 import ProfileIcon from '../assets/ProfileIcon'
 import Logo from '../assets/Logo'
 import CarIcon from '../assets/CarIcon'
@@ -15,12 +14,12 @@ function NavBar(): ReactElement {
   return (
     <div className="relative flex items-center justify-between bg-gray-800 p-5">
       <Menu>
-        {({ open }: { open: boolean }) => (
+        {({ open }) => (
           <>
             <Menu.Button className="text-gray-100">{open ? 'Close' : 'Menu'}</Menu.Button>
             <Menu.Items className="absolute top-24 flex flex-col rounded-lg border bg-indigo-400 text-gray-100">
               <Menu.Item>
-                {({ active }: { active: boolean }) => (
+                {({ active }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/book">
                     <CarIcon />
                     <span>Book A Car</span>
@@ -28,7 +27,7 @@ function NavBar(): ReactElement {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }: { active: boolean }) => (
+                {({ active }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/bookings">
                     <BookingIcon />
                     <span>My Bookings</span>
@@ -36,11 +35,11 @@ function NavBar(): ReactElement {
                 )}
               </Menu.Item>
               <div className="px-4 py-2">
-                <hr className="h-[1px] bg-gray-100" />
+                <hr className="h-px bg-gray-100" />
               </div>
               <h5 className="px-4 py-2 font-bold">My Cars</h5>
               <Menu.Item>
-                {({ active }: { active: boolean }) => (
+                {({ active }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/cars">
                     <CarsIcon />
                     <span>See My Cars</span>
@@ -48,7 +47,7 @@ function NavBar(): ReactElement {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }: { active: boolean }) => (
+                {({ active }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/manage-bookings">
                     <ListIcon />
                     <span>My Car&apos;s Bookings</span>
@@ -56,7 +55,7 @@ function NavBar(): ReactElement {
                 )}
               </Menu.Item>
               <Menu.Item>
-                {({ active }: { active: boolean }) => (
+                {({ active }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/new-car">
                     <CarPlusIcon />
                     <span>Add New Car</span>
@@ -64,10 +63,10 @@ function NavBar(): ReactElement {
                 )}
               </Menu.Item>
               <div className="px-4 py-2">
-                <hr className="h-[1px] bg-gray-100" />
+                <hr className="h-px bg-gray-100" />
               </div>
               <Menu.Item>
-                {({ active }: { active: boolean }) => (
+                {({ active }) => (
                   <Link className={`nav-link ${active && 'bg-gray-800'}`} to="/logout">
                     <LogoutIcon />
                     <span>Log Out</span>
@@ -82,7 +81,7 @@ function NavBar(): ReactElement {
         <Logo className="w-18" />
       </Link>
       <button>
-        <ProfileIcon className="" />
+        <ProfileIcon />
       </button>
     </div>
   )

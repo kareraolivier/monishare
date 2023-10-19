@@ -7,7 +7,7 @@
   * {
     @apply box-border;
   }
-  
+
   body {
     @apply font-normal text-left text-sm relative text-gray-700;
   }
@@ -24,41 +24,49 @@
   src: url("fonts/inter/Inter-Black.ttf");
   font-weight: 900
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-Bold.ttf");
   font-weight: 700
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-ExtraBold.ttf");
   font-weight: 800
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-ExtraLight.ttf");
   font-weight: 200
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-Light.ttf");
   font-weight: 300
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-Medium.ttf");
   font-weight: 500
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-Regular.ttf");
   font-weight: 400
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-SemiBold.ttf");
   font-weight: 600
 }
+
 @font-face {
   font-family: 'Inter';
   src: url("fonts/inter/Inter-Thin.ttf");
@@ -72,16 +80,19 @@
   src: url("fonts/lora/Lora-Bold.ttf");
   font-weight: 700
 }
+
 @font-face {
   font-family: 'Lora';
   src: url("fonts/lora/Lora-Medium.ttf");
   font-weight: 500
 }
+
 @font-face {
   font-family: 'Lora';
   src: url("fonts/lora/Lora-Regular.ttf");
   font-weight: 400
 }
+
 @font-face {
   font-family: 'Lora';
   src: url("fonts/lora/Lora-SemiBold.ttf");
