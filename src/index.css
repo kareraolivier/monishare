@@ -98,3 +98,23 @@
   src: url("fonts/lora/Lora-SemiBold.ttf");
   font-weight: 600
 }
+
+/* Italic fonts */
+
+@font-face {
+  font-family: 'Italic';
+  src: url("fonts/italic/Lora-BoldItalic.ttf");
+  font-weight: 700
+}
+
+@font-face {
+  font-family: 'Italic';
+  src: url("fonts/italic/Lora-SemiBoldItalic.ttf");
+  font-weight: 600
+}
+
+@font-face {
+  font-family: 'Italic';
+  src: url("fonts/italic/Lora-MediumItalic.ttf");
+  font-weight: 500
+}
