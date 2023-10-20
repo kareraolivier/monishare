@@ -1,29 +1,35 @@
 import { ReactElement, ReactNode } from 'react'
-import { ButtonTypes } from '../types/enums'
 
 interface Props {
   filled?: boolean
-  type?: ButtonTypes
+  variant?: 'primary' | 'secondary' | 'disabled'
   children: ReactNode
+  type?: 'submit' | 'button' | 'reset'
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-export default function Button({ filled = true, type, onClick, children }: Props): ReactElement {
+export default function Button({
+  filled = true,
+  variant,
+  type,
+  onClick,
+  children,
+}: Props): ReactElement {
   let classes = ''
-  switch (type) {
-    case 'SECONDARY':
+  switch (variant) {
+    case 'secondary':
       classes = `${
-        filled ? 'bg-indigo-800 text-gray-100' : 'border-[3px] border-indigo-800 text-indigo-800'
+        filled ? 'bg-indigo-800 text-gray-100' : 'border-2 border-indigo-800 text-indigo-800'
       }`
       break
-    case 'DISABLED':
+    case 'disabled':
       classes = `${
-        filled ? 'bg-gray-200 text-indigo-800' : 'border-[3px] border-gray-200 text-gray-200'
+        filled ? 'bg-gray-200 text-indigo-800' : 'border-2 border-gray-200 text-gray-200'
       } `
       break
     default:
       classes = `${
-        filled ? 'bg-gray-100 text-indigo-800' : 'border-[3px] border-gray-100 text-gray-100'
+        filled ? 'bg-gray-100 text-indigo-800' : 'border-2 border-gray-100 text-gray-100'
       }`
       break
   }
@@ -31,7 +37,9 @@ export default function Button({ filled = true, type, onClick, children }: Props
   return (
     <button
       onClick={onClick}
-      className={`${classes} w-100 text-md rounded-[3rem] py-3 font-bold shadow-xl md:w-96`}
+      type={type || 'button'}
+      disabled={variant === 'disabled'}
+      className={`w-100 text-md rounded-[3rem] py-3 font-bold shadow-xl md:w-96 ${classes}`}
     >
       {children}
     </button>
