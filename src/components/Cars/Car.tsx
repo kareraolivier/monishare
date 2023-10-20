@@ -2,10 +2,11 @@ import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
+import Button from '../Button'
 
 function Car(): ReactElement {
   return (
-    <div className="rounded-xl bg-indigo-400 px-8 py-4">
+    <div className="rounded-xl border border-red-500 bg-indigo-400 px-8 py-4">
       <div className="grid grid-cols-5 gap-4">
         <div className="col-span-3 flex items-end justify-end">
           <img src="images/Car-Orange.png" alt="" />
@@ -27,6 +28,7 @@ function Car(): ReactElement {
           </Link>
         </div>
       </div>
+      <Button>Book Car</Button>
     </div>
   )
 }
