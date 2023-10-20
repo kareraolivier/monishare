@@ -21,6 +21,7 @@ export enum FuelType {
 }
 
 interface CarDto {
+  licensePlate: null
   id: number
   name: string
   carTypeId: number
