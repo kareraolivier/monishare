@@ -1,20 +1,18 @@
 // import { ReactElement } from 'react'
 // import { useParams } from 'react-router-dom'
-// import { CarDto,UserDto,CarTypeDto } from '../util/api'
+// import { CarDto, UserDto, CarTypeDto } from '../util/api'
 // import CarDetail from '../components/cars/CarDetail'
 // import { useCars, useCarTypes, useUser } from '../hooks'
 // export default function CarDetailsPage(): ReactElement {
 //   const param = useParams()
 
-//   const [{ data, loading, error }] = useCars()
-
-//   const [{ data: typeData, loading: typeLoading, error: typeError }] = useCarTypes()
+//   const [{ data }] = useCars()
 
 //   const item: CarDto = data?.filter(car => car.id === Number(param.id))[0]
 
-//   const [{ data: image, loading: imageLoading, error: imageError }] = useCarTypes(item?.carTypeId)
+//   const [{ data: image }] = useCarTypes()
 //   const carImage: CarTypeDto = image?.filter(el => el.id === item?.carTypeId)[0]
-//   const [{ data: owner, loading: userLoading, error: userError }] = useUser(item?.ownerId)
+//   const [{ data: owner }] = useUser(item?.ownerId)
 
 //   return (
 //     <div>
