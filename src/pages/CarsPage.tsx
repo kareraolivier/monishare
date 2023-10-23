@@ -3,7 +3,7 @@ import Car from '../components/Cars/Car'
 
 export default function CarsPage(): ReactElement {
   return (
-    <div>
+    <div className="py-20">
       <Car />
     </div>
   )

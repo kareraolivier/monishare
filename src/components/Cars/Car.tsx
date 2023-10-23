@@ -6,8 +6,8 @@ import Button from '../Button'
 
 function Car(): ReactElement {
   return (
-    <div className="rounded-xl border border-red-500 bg-indigo-400 px-8 py-4">
-      <div className="grid grid-cols-5 gap-4">
+    <div className="flex flex-col items-center rounded-xl bg-indigo-400 px-8 py-4">
+      <div className="grid grid-cols-5 gap-2">
         <div className="col-span-3 flex items-end justify-end">
           <img src="images/Car-Orange.png" alt="" />
         </div>
