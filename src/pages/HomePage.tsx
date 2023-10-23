@@ -14,8 +14,8 @@ export default function HomePage(): ReactElement {
       <div className="flex flex-col gap-4 px-2 md:mx-auto md:w-2/3">
         <Button>Book a car</Button>
         <p className="text-center text-lg text-gray-100">or</p>
-        <Button filled={false}>Book a car</Button>
-        <Button filled={false}>Book a car</Button>
+        <Button filled={false}>See My Cars</Button>
+        <Button filled={false}>See My Bookings</Button>
       </div>
     </main>
   )
