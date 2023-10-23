@@ -11,15 +11,15 @@ export default function CarDetail({
   carImage,
   owner,
 }: {
-  item: CarDto
-  carImage: CarTypeDto
-  owner: UserDto
+  item?: CarDto
+  carImage?: CarTypeDto
+  owner?: UserDto
 }): ReactElement {
   return (
-    <div className="bg-indigo-800 text-gray-100">
-      <img src={carImage?.imageUrl} alt="carImage" />
+    <div className=" text-gray-100 flex flex-col md:flex-row justify-start md:items-center mx-w-[768px]">
+      <img src={carImage?.imageUrl} alt="carImage" className="md:w-1/2" />
       <div className="flex flex-col gap-2 p-8">
-        <h3 className="py-5 font-lora font-semibold">{owner?.name}</h3>
+        <h3 className="py-5 font-lora text-xl font-medium">{owner?.name}</h3>
         <div className="flex items-center gap-2">
           <ProfileIcon />
           <p>{carImage?.name}</p>
