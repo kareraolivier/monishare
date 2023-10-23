@@ -39,7 +39,7 @@ export default function Button({
       onClick={onClick}
       type={type || 'button'}
       disabled={variant === 'disabled'}
-      className={`text-md w-full rounded-[3rem] py-3 font-bold shadow-xl md:w-96 ${classes}`}
+      className={`text-md w-full max-w-sm rounded-[3rem] py-3 font-bold shadow-xl ${classes}`}
     >
       {children}
     </button>
