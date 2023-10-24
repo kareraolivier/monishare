@@ -16,7 +16,7 @@ function Car({ carDetails }: { carDetails: CarDetails }): ReactElement {
     <div className="flex flex-col items-center rounded-xl bg-indigo-400 px-8 py-4">
       <div className="grid grid-cols-5 gap-2">
         <div className="col-span-3 flex items-end justify-end">
-          <img src={carDetails.image} alt="" />
+          <img src={carDetails.image} alt={carDetails.name} />
         </div>
         <div className="col-span-2 flex flex-col gap-5">
           <h1 className="font-lora text-xl font-medium text-white">{carDetails.name}</h1>
