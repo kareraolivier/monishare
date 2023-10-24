@@ -4,7 +4,7 @@ import NavBar from '../NavBar'
 
 export default function Layout(): ReactElement {
   return (
-    <div>
+    <div className="bg-indigo-800">
       <NavBar />
       <Outlet />
     </div>
