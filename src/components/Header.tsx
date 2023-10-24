@@ -8,7 +8,7 @@ interface Props {
 
 function Header({ title }: Props): ReactElement {
   return (
-    <div className="py-8 flex items-center">
+    <div className="flex items-center py-8">
       <Link to="..">
         <ChevronBackIcon className="h-auto w-4 stroke-mustard-100" />
       </Link>
