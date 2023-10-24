@@ -2,22 +2,29 @@ import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
-import Button from '../Button'
 
-function Car(): ReactElement {
+interface CarDetails {
+  name: string
+  owner: string
+  type: string
+  image: string
+  url: string
+}
+
+function Car({ carDetails }: { carDetails: CarDetails }): ReactElement {
   return (
     <div className="flex flex-col items-center rounded-xl bg-indigo-400 px-8 py-4">
       <div className="grid grid-cols-5 gap-2">
         <div className="col-span-3 flex items-end justify-end">
-          <img src="images/Car-Orange.png" alt="" />
+          <img src={carDetails.image} alt="" />
         </div>
         <div className="col-span-2 flex flex-col gap-5">
-          <h1 className="font-lora text-xl font-medium text-white">Mighty Mouse</h1>
+          <h1 className="font-lora text-xl font-medium text-white">{carDetails.name}</h1>
           <div className="flex gap-x-3 text-sm font-normal text-gray-100">
-            <ProfileIcon /> <span>Manuela</span>
+            <ProfileIcon /> <span>{carDetails.owner}</span>
           </div>
           <div className="flex gap-x-3 text-sm font-normal text-gray-100">
-            <CarIcon /> <span>Moni cooper</span>
+            <CarIcon /> <span>{carDetails.type}</span>
           </div>
         </div>
       </div>
@@ -28,7 +35,6 @@ function Car(): ReactElement {
           </Link>
         </div>
       </div>
-      <Button>Book Car</Button>
     </div>
   )
 }
