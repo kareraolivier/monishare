@@ -8,9 +8,10 @@ import { CarsUser } from '../types/interface'
 export default function CarDetailsPage(): ReactElement {
   const param = useParams()
 
-  const [{ data }] = useCars()
+  const [{ data, loading }] = useCars()
   const [{ data: image }] = useCarTypes()
   const carData = data?.filter(car => car.id === Number(param.id))[0]
+  if (loading === false && carData === undefined) throw Error
   const carImage = image?.filter(el => el.id === carData?.carTypeId)[0]
   const [{ data: owner, loading: ownerLoading }] = useUser(Number(carData?.ownerId))
   if (!owner || ownerLoading) return <p>Loading...</p>
@@ -18,8 +19,8 @@ export default function CarDetailsPage(): ReactElement {
   if (!updatedData) return <p>no data</p>
 
   return (
-    <div className="bg-indigo-800 px-4">
-      <Header title="Available cars" />
+    <div className="h-screen px-4 pt-16">
+      <Header title="Details" />
       <div className=" flex flex-col items-center justify-center ">
         <CarDetail carData={updatedData} carImage={carImage} />
       </div>
