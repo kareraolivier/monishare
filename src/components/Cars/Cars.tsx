@@ -1,5 +1,5 @@
 import Car from './CarCard'
-import { CarDetails } from '../../types/interface'
+import { CarDetails } from '../../types/interfaces'
 
 export default function Cars({ cars }: { cars: CarDetails[] }) {
   return (

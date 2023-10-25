@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
-import { CarDetails } from '../../types/interface'
+import { CarDetails } from '../../types/interfaces'
 
 function Car({ carDetails }: { carDetails: CarDetails }): ReactElement {
   return (
