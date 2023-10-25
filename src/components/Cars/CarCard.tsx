@@ -2,15 +2,7 @@ import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
-
-export interface CarDetails {
-  id: string | number
-  name: string
-  owner: string
-  type: string
-  image: string
-  url: string
-}
+import { CarDetails } from '../../types/interface'
 
 function Car({ carDetails }: { carDetails: CarDetails }): ReactElement {
   return (

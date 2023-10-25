@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import Cars from '../components/Cars/Cars'
+import Cars from '../components/cars/Cars'
 
 const cars = [
   {
