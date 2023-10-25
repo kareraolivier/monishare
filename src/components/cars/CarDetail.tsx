@@ -36,7 +36,7 @@ export default function CarDetail({
         )}
         <div className="flex items-center gap-2">
           <HorseIcon />
-          <p>{carData?.horsepower}hp</p>
+          {carData?.horsepower && <p>{carData?.horsepower}hp</p>}
         </div>
         <div className="flex items-center gap-2">
           <FuelIcon />
