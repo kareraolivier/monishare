@@ -44,7 +44,7 @@ export default function CarDetail({
         </div>
         <div className="flex items-center gap-2">
           <AlertIcon />
-          <p>No smooking</p>
+          <p className="font-bold">No smoking</p>
         </div>
       </div>
     </div>
