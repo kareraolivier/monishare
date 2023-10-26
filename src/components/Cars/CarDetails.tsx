@@ -12,18 +12,18 @@ export default function CarDetail({
   carType,
   carOwner,
 }: {
-  carData: CarDto | undefined
-  carType?: CarTypeDto | undefined
-  carOwner?: UserDto | undefined
+  carData?: CarDto
+  carType?: CarTypeDto
+  carOwner?: UserDto
 }): ReactElement {
   return (
     <div className="mx-w-[768px] flex flex-col justify-start text-gray-100 md:flex-row md:items-center">
       <img src={carType?.imageUrl} alt={carType?.name} className="md:w-1/2" />
       <div className="flex flex-col gap-2 p-8">
-        <h3 className="py-5 font-lora text-xl font-medium">{carOwner?.name}</h3>
+        <h3 className="py-5 font-lora text-xl font-medium">{carType?.name}</h3>
         <div className="flex items-center gap-2">
           <ProfileIcon />
-          <p>{carType?.name}</p>
+          <p>{carOwner?.name}</p>
         </div>
         <div className="flex items-center gap-2">
           <CarIcon />

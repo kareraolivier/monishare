@@ -11,9 +11,9 @@ function Header({ title }: Props): ReactElement {
   const goBack = () => navigate(-1)
   return (
     <div className="flex items-center py-8">
-      <div onClick={goBack}>
+      <button onClick={goBack}>
         <ChevronBackIcon className="h-auto w-4 cursor-pointer stroke-mustard-100" />
-      </div>
+      </button>
       <h1 className="flex-1 text-center font-lora text-3xl uppercase text-white">{title}</h1>
     </div>
   )
