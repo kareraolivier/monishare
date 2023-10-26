@@ -21,100 +21,100 @@
 /* Inter fonts */
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-Black.ttf");
+  src: url("/fonts/inter/Inter-Black.ttf");
   font-weight: 900
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-Bold.ttf");
+  src: url("/fonts/inter/Inter-Bold.ttf");
   font-weight: 700
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-ExtraBold.ttf");
+  src: url("/fonts/inter/Inter-ExtraBold.ttf");
   font-weight: 800
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-ExtraLight.ttf");
+  src: url("/fonts/inter/Inter-ExtraLight.ttf");
   font-weight: 200
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-Light.ttf");
+  src: url("/fonts/inter/Inter-Light.ttf");
   font-weight: 300
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-Medium.ttf");
+  src: url("/fonts/inter/Inter-Medium.ttf");
   font-weight: 500
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-Regular.ttf");
+  src: url("/fonts/inter/Inter-Regular.ttf");
   font-weight: 400
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-SemiBold.ttf");
+  src: url("/fonts/inter/Inter-SemiBold.ttf");
   font-weight: 600
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url("fonts/inter/Inter-Thin.ttf");
+  src: url("/fonts/inter/Inter-Thin.ttf");
   font-weight: 100
 }
 
-/* Lora fonts */
+/* Lora /fonts */
 
 @font-face {
   font-family: 'Lora';
-  src: url("fonts/lora/Lora-Bold.ttf");
+  src: url("/fonts/lora/Lora-Bold.ttf");
   font-weight: 700
 }
 
 @font-face {
   font-family: 'Lora';
-  src: url("fonts/lora/Lora-Medium.ttf");
+  src: url("/fonts/lora/Lora-Medium.ttf");
   font-weight: 500
 }
 
 @font-face {
   font-family: 'Lora';
-  src: url("fonts/lora/Lora-Regular.ttf");
+  src: url("/fonts/lora/Lora-Regular.ttf");
   font-weight: 400
 }
 
 @font-face {
   font-family: 'Lora';
-  src: url("fonts/lora/Lora-SemiBold.ttf");
+  src: url("/fonts/lora/Lora-SemiBold.ttf");
   font-weight: 600
 }
 
-/* Italic fonts */
+/* Italic /fonts */
 
 @font-face {
   font-family: 'Italic';
-  src: url("fonts/italic/Lora-BoldItalic.ttf");
+  src: url("/fonts/italic/Lora-BoldItalic.ttf");
   font-weight: 700
 }
 
 @font-face {
   font-family: 'Italic';
-  src: url("fonts/italic/Lora-SemiBoldItalic.ttf");
+  src: url("/fonts/italic/Lora-SemiBoldItalic.ttf");
   font-weight: 600
 }
 
 @font-face {
   font-family: 'Italic';
-  src: url("fonts/italic/Lora-MediumItalic.ttf");
+  src: url("/fonts/italic/Lora-MediumItalic.ttf");
   font-weight: 500
 }

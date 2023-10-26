@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 
 interface Props {
@@ -7,11 +7,13 @@ interface Props {
 }
 
 function Header({ title }: Props): ReactElement {
+  const navigate = useNavigate()
+  const goBack = () => navigate(-1)
   return (
     <div className="flex items-center py-8">
-      <Link to="..">
-        <ChevronBackIcon className="h-auto w-4 stroke-mustard-100" />
-      </Link>
+      <div onClick={goBack}>
+        <ChevronBackIcon className="h-auto w-4 cursor-pointer stroke-mustard-100" />
+      </div>
       <h1 className="flex-1 text-center font-lora text-3xl uppercase text-white">{title}</h1>
     </div>
   )
