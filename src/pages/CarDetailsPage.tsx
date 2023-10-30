@@ -28,7 +28,7 @@ export default function CarDetailsPage(): ReactElement {
         {!loading && !carTypesLoading && !ownerLoading ? (
           <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
         ) : (
-          <Loading className={LoadingStyles.Medium} />
+          <Loading className={LoadingStyles.Default} />
         )}
       </div>
     </>
