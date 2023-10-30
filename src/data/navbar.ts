@@ -4,9 +4,9 @@ import CarsIcon from '../assets/CarsIcon'
 import ListIcon from '../assets/ListIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
-import { MenuItem } from '../types/interfaces'
+import { MenuItemProps } from '../types/interfaces'
 
-export const menuLink: MenuItem[] = [
+export const menuLink: MenuItemProps[] = [
   { id: 1, link: '/book', text: 'Book A Car', icon: CarIcon },
   { id: 2, link: '/bookings', text: 'My Bookings', icon: BookingIcon },
   { id: 3, text: 'divider' },

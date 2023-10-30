@@ -7,7 +7,7 @@ export interface CarDetails {
   url: string
 }
 
-export interface MenuItem {
+export interface MenuItemProps {
   id: number
   text?: string
   link?: string
