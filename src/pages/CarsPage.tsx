@@ -36,7 +36,7 @@ export default function CarsPage(): ReactElement {
   if (!updatedCars) return <h1>No</h1>
 
   return (
-    <div className="py-20">
+    <div className="">
       <Header title="All Cars" />
       <Cars cars={availableCars} />
     </div>
