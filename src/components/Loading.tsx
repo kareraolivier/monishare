@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 
 export enum LoadingStyles {
-  Default = 'h-24 w-24',
-  Medium = 'h-16 w-16',
-  Small = 'h-4 w-4',
+  DEFAULT = 'h-24 w-24',
+  MEDIUM = 'h-16 w-16',
+  SMALL = 'h-4 w-4',
 }
 
 export default function Loading({ className }: { className: LoadingStyles }): ReactElement {
