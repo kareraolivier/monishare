@@ -1,10 +1,19 @@
 import { ReactElement } from 'react'
-export default function Loading(): ReactElement {
+
+export enum LoadingStyles {
+  Default = 'h-24 w-24',
+  Medium = 'h-16 w-16',
+  Small = 'h-4 w-4',
+}
+
+export default function Loading({ className }: { className: LoadingStyles }): ReactElement {
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex items-center justify-center">
       <div className="relative">
-        <div className="h-24 w-24 rounded-full border-y-8 border-gray-200"></div>
-        <div className="absolute left-0 top-0 h-24 w-24 animate-spin rounded-full border-y-8 border-indigo-800"></div>
+        <div className={`${className} rounded-full border-y-8`}></div>
+        <div
+          className={`absolute left-0 top-0 animate-spin rounded-full border-y-8 ${className}  border-b-8 border-indigo-800`}
+        ></div>
       </div>
     </div>
   )

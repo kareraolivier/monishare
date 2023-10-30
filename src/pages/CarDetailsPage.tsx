@@ -4,7 +4,7 @@ import CarDetails from '../components/cars/CarDetails'
 import { useCars, useCarTypes, useUsers } from '../hooks'
 import Header from '../components/Header'
 import Loading from '../components/Loading'
-
+import { LoadingStyles } from '../components/Loading'
 export default function CarDetailsPage(): ReactElement {
   const { id } = useParams()
 
@@ -25,7 +25,7 @@ export default function CarDetailsPage(): ReactElement {
         {!loading && !carTypesLoading && !ownerLoading ? (
           <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
         ) : (
-          <Loading />
+          <Loading className={LoadingStyles.Medium} />
         )}
       </div>
     </div>

@@ -12,7 +12,7 @@ import BookingIcon from '../assets/BookingIcon'
 
 function NavBar(): ReactElement {
   return (
-    <div className="fixed mx-auto flex w-full max-w-[1500px] items-center justify-between bg-gray-800 p-5">
+    <div className="fixed mx-auto flex w-full items-center justify-between bg-gray-800 p-5">
       <Menu>
         {({ open }) => (
           <>
