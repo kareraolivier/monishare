@@ -1,4 +1,4 @@
-export enum ButtonVariant {
+export enum BUTTON_VARIANT {
   PRIMARY = 'PRIMARY',
   SECONDARY = 'SECONDARY',
   DISABLED = 'DISABLED',
