@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function HomePage(): ReactElement {
   return (
-    <main className="mx-auto flex h-screen flex-col justify-center gap-8 py-10 font-lora lg:w-1/3">
+    <div className="mx-auto flex flex-col gap-8 pt-10 font-lora lg:w-1/3">
       <h1 className="flex flex-col items-center text-5xl font-extrabold text-gray-100">
         Moni <span className="font-italic font-medium">share</span>
       </h1>
@@ -25,6 +25,6 @@ export default function HomePage(): ReactElement {
           <Button filled={false}>See My Bookings</Button>
         </Link>
       </div>
-    </main>
+    </div>
   )
 }

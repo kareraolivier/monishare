@@ -23,7 +23,7 @@ function Car({ carDetails }: { carDetails: CarDetails }): ReactElement {
       </div>
       <div className="my-5 grid grid-cols-5 content-end gap-x-5">
         <div className="col-span-2 col-start-4">
-          <Link to="#" className="text-sm font-bold text-mustard-100">
+          <Link to={carDetails.url} className="text-sm font-bold text-mustard-100">
             Show details
           </Link>
         </div>
