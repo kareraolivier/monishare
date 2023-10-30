@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import CarDetails from '../components/cars/CarDetails'
 import { useCars, useCarTypes, useUsers } from '../hooks'
 import Header from '../components/Header'
+import Loading from '../components/Loading'
 
 export default function CarDetailsPage(): ReactElement {
   const { id } = useParams()
@@ -21,8 +22,10 @@ export default function CarDetailsPage(): ReactElement {
     <div className="h-screen px-4 pt-16">
       <Header title="Details" />
       <div className=" flex flex-col items-center justify-center ">
-        {!loading && !carTypesLoading && !ownerLoading && (
+        {!loading && !carTypesLoading && !ownerLoading ? (
           <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
+        ) : (
+          <Loading />
         )}
       </div>
     </div>
