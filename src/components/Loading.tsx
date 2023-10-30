@@ -10,9 +10,9 @@ export default function Loading({ className }: { className: LOADING_STYLES }): R
   return (
     <div className="flex items-center justify-center">
       <div className="relative">
-        <div className={`${className} rounded-full border-y-8`}></div>
+        <div className={`rounded-full border-y-8 ${className}`}></div>
         <div
-          className={`absolute left-0 top-0 animate-spin rounded-full border-y-8 ${className}  border-b-8 border-indigo-800`}
+          className={`absolute left-0 top-0 animate-spin rounded-full border-y-8 border-indigo-800 ${className}`}
         ></div>
       </div>
     </div>
