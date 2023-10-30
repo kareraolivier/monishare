@@ -10,21 +10,24 @@ export default function CarDetailsPage(): ReactElement {
   const [{ data, loading, error }] = useCars()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ data: owner, loading: ownerLoading, error: ownerError }] = useUsers()
-  const carData = data?.find(car => car.id === Number(id))
-  if (error || (!loading && !carData)) throw new Error('No cars found on that Id')
-  const carType = carTypes?.find(el => el.id === carData?.carTypeId)
+
+  if (error) throw new Error('No cars found on that Id')
   if (carTypesError) throw new Error('No carType found')
-  const carOwner = owner?.find(el => el.id === carData?.ownerId)
   if (ownerError) throw new Error('No owner found')
 
+  const carData = data?.find(car => car.id === Number(id))
+  if (!loading && !carData) throw new Error('No car found on this id')
+  const carType = carTypes?.find(el => el.id === carData?.carTypeId)
+  const carOwner = owner?.find(el => el.id === carData?.ownerId)
+
   return (
-    <div className="h-screen px-4 pt-16">
+    <>
       <Header title="Details" />
       <div className=" flex flex-col items-center justify-center ">
         {!loading && !carTypesLoading && !ownerLoading && (
           <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
         )}
       </div>
-    </div>
+    </>
   )
 }
