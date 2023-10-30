@@ -1,8 +1,9 @@
 import { ReactElement, ReactNode } from 'react'
+import { ButtonVariant } from '../types/enums'
 
 interface Props {
   filled?: boolean
-  variant?: 'primary' | 'secondary' | 'disabled'
+  variant?: ButtonVariant
   children: ReactNode
   type?: 'submit' | 'button' | 'reset'
   onClick?: React.MouseEventHandler<HTMLButtonElement>
@@ -17,12 +18,12 @@ export default function Button({
 }: Props): ReactElement {
   let classes = ''
   switch (variant) {
-    case 'secondary':
+    case ButtonVariant.SECONDARY:
       classes = `${
         filled ? 'bg-indigo-800 text-gray-100' : 'border-2 border-indigo-800 text-indigo-800'
       }`
       break
-    case 'disabled':
+    case ButtonVariant.DISABLED:
       classes = `${
         filled ? 'bg-gray-200 text-indigo-800' : 'border-2 border-gray-200 text-gray-200'
       } `
@@ -38,7 +39,7 @@ export default function Button({
     <button
       onClick={onClick}
       type={type || 'button'}
-      disabled={variant === 'disabled'}
+      disabled={variant === ButtonVariant.DISABLED}
       className={`text-md w-full max-w-sm rounded-[3rem] py-3 font-bold shadow-xl ${classes}`}
     >
       {children}
