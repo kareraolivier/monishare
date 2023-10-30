@@ -24,7 +24,7 @@ export default function CarDetailsPage(): ReactElement {
   return (
     <>
       <Header title="Details" />
-      <div className=" flex flex-col items-center justify-center ">
+      <div className="flex flex-col items-center justify-center">
         {!loading && !carTypesLoading && !ownerLoading ? (
           <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
         ) : (
