@@ -11,7 +11,7 @@ export const menuLink = [
   { id: 3, text: 'divider' },
   { id: 4, title: 'My Cars' },
   { id: 5, link: '/cars', text: 'See My Cars', icon: CarsIcon },
-  { id: 6, link: '/manage-bookings', text: 'My Car&apos;s Bookings', icon: ListIcon },
+  { id: 6, link: '/manage-bookings', text: "My Car's Bookings", icon: ListIcon },
   { id: 7, link: '/new-car', text: 'Add New Car', icon: CarPlusIcon },
   { id: 8, text: 'divider' },
   { id: 9, link: '/logout', text: 'Log Out', icon: LogoutIcon },
