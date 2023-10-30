@@ -6,3 +6,15 @@ export interface CarDetails {
   image: string
   url: string
 }
+
+export interface MenuItem {
+  id: number
+  text?: string
+  link?: string
+  icon?: ({
+    className,
+  }: {
+    className?: string
+  }) => React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
+  title?: string
+}
