@@ -38,7 +38,7 @@ interface NewCarDto {
   carTypeId: number
   horsepower: number | null
   info: string | null
-  plate: string | null
+  licensePlate: string | null
   fuelType: FuelType
 }
 
