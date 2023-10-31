@@ -2,7 +2,6 @@ import { ReactElement } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
-import { CarDetails } from '../types/interfaces'
 import Loading, { LOADING_STYLES } from '../components/Loading'
 
 export default function CarsPage(): ReactElement {
@@ -49,13 +48,10 @@ export default function CarsPage(): ReactElement {
     }
   })
 
-  // casting because we expect backend to give cars with owner and type
-  const availableCars = updatedCars as CarDetails[]
-
   return (
     <>
       <Header title="All Cars" />
-      <Cars cars={availableCars} />
+      <Cars cars={updatedCars} />
     </>
   )
 }

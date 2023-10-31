@@ -4,7 +4,9 @@ import Button from '../components/Button'
 import { useNavigate, useRouteError } from 'react-router-dom'
 
 export default function ErrorPage(): ReactElement {
-  const errorMessage = useRouteError() as Error
+  const error = useRouteError()
+  const errorMessage = error instanceof Error ? error.message : 'We will solve your issue soon.'
+
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
   return (
@@ -18,7 +20,7 @@ export default function ErrorPage(): ReactElement {
         </div>
         <p className="flex flex-col items-center text-center text-lg text-gray-100">
           Something went wrong.
-          <span>{errorMessage ? errorMessage.message : 'We will solve your issue soon.'}</span>
+          <span>{errorMessage}</span>
         </p>
         <div className="flex justify-center px-2 font-inter">
           <Button onClick={goBack}>Go back</Button>

@@ -1,9 +1,9 @@
 export interface CarDetails {
   id: number
   name: string
-  owner: string
-  type: string
-  image: string
+  owner: string | undefined
+  type: string | undefined
+  image: string | undefined
   url: string
 }
 
