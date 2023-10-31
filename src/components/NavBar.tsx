@@ -4,28 +4,17 @@ import ProfileIcon from '../assets/ProfileIcon'
 import Logo from '../assets/Logo'
 import { ReactElement } from 'react'
 import { menuLink } from '../data/navbar'
-
-type MenuItem = {
-  id: number
-  text: string
-  link?: string
-  icon?: ({
-    className,
-  }: {
-    className?: string
-  }) => React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
-  title?: Text
-}
+import { MenuItemProps } from '../types/interfaces'
 
 function NavBar(): ReactElement {
   return (
-    <div className="fixed flex w-full items-center justify-between bg-gray-800 p-5">
+    <div className="fixed mx-auto flex w-full items-center justify-between bg-gray-800 p-5">
       <Menu>
         {({ open }) => (
           <>
             <Menu.Button className="text-gray-100">{open ? 'Close' : 'Menu'}</Menu.Button>
             <Menu.Items className="absolute top-24 flex flex-col rounded-lg border bg-indigo-400 text-gray-100">
-              {menuLink.map((item: MenuItem) => {
+              {menuLink.map((item: MenuItemProps) => {
                 if (item.title)
                   return (
                     <h5 key={item.id} className="px-4 py-2 font-bold">
