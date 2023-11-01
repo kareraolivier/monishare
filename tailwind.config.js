@@ -40,8 +40,8 @@ module.exports = {
       },
       animation: {
         pop: 'pop 500ms ease-in-out',
-        slideLeft: 'slideLeft 300ms ease-in',
-        slideRight: 'slideRight 300ms ease-in',
+        slideLeft: 'slideLeft 700ms ease',
+        slideRight: 'slideRight 700ms ease',
       },
       keyframes: {
         pop: {
@@ -49,11 +49,11 @@ module.exports = {
           '100%': { transform: 'translateX(0px) scale(1)' },
         },
         slideLeft: {
-          '0%': { transform: 'translateX(-100%)' },
+          '0%': { transform: 'translateX(-50%)' },
           '100%': { transform: 'translateX(0px)' },
         },
         slideRight: {
-          '0%': { transform: 'translateX(100%)' },
+          '0%': { transform: 'translateX(50%)' },
           '100%': { transform: 'translateX(0px)' },
         },
       },
