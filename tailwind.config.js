@@ -35,6 +35,25 @@ module.exports = {
         lora: ['Lora'],
         italic: ['Italic'],
       },
+      animation: {
+        pop: 'pop 500ms ease-in-out',
+        slideLeft: 'slideLeft 300ms ease-in',
+        slideRight: 'slideRight 300ms ease-in',
+      },
+      keyframes: {
+        pop: {
+          '0%': { transform: 'translateX(-300px) scale(0.5)' },
+          '100%': { transform: 'translateX(0px) scale(1)' },
+        },
+        slideLeft: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0px)' },
+        },
+        slideRight: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0px)' },
+        },
+      },
     },
     plugins: [],
   },
