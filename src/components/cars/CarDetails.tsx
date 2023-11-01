@@ -17,9 +17,9 @@ export default function CarDetail({
   carOwner?: UserDto
 }): ReactElement {
   return (
-    <div className="mx-w-[768px] flex flex-col justify-start text-gray-100 md:flex-row md:items-center">
-      <img src={carType?.imageUrl} alt={carType?.name} className="md:w-1/2" />
-      <div className="flex flex-col gap-2 p-8">
+    <div className="mx-w-3xl flex flex-col justify-start overflow-x-hidden text-gray-100 md:flex-row md:items-center">
+      <img src={carType?.imageUrl} alt={carType?.name} className="animate-slideLeft md:w-1/2" />
+      <div className="flex animate-slideRight flex-col gap-2 p-8">
         <h3 className="py-5 font-lora text-xl font-medium">{carType?.name}</h3>
         <div className="flex items-center gap-2">
           <ProfileIcon />

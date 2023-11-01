@@ -12,7 +12,7 @@ function NavBar(): ReactElement {
         {({ open }) => (
           <>
             <Menu.Button className="text-gray-100">{open ? 'Close' : 'Menu'}</Menu.Button>
-            <Menu.Items className="absolute top-24 flex flex-col rounded-lg border bg-indigo-400 text-gray-100">
+            <Menu.Items className="absolute top-24 flex animate-pop flex-col rounded-lg bg-indigo-400 text-gray-100 shadow-2xl">
               {menuLink.map(item => {
                 if (item.title)
                   return (
