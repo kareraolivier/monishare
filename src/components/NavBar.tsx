@@ -4,7 +4,6 @@ import ProfileIcon from '../assets/ProfileIcon'
 import Logo from '../assets/Logo'
 import { ReactElement } from 'react'
 import { menuLink } from '../data/navbar'
-import { MenuItemProps } from '../types/interfaces'
 
 function NavBar(): ReactElement {
   return (
@@ -14,7 +13,7 @@ function NavBar(): ReactElement {
           <>
             <Menu.Button className="text-gray-100">{open ? 'Close' : 'Menu'}</Menu.Button>
             <Menu.Items className="absolute top-24 flex flex-col rounded-lg border bg-indigo-400 text-gray-100">
-              {menuLink.map((item: MenuItemProps) => {
+              {menuLink.map(item => {
                 if (item.title)
                   return (
                     <h5 key={item.id} className="px-4 py-2 font-bold">
@@ -25,10 +24,7 @@ function NavBar(): ReactElement {
                   return (
                     <Menu.Item key={item.id}>
                       {({ active }) => (
-                        <Link
-                          className={`nav-link ${active && 'bg-gray-800'}`}
-                          to={item.link as string}
-                        >
+                        <Link className={`nav-link ${active && 'bg-gray-800'}`} to={`${item.link}`}>
                           {item.icon && <item.icon />}
                           <span>{item.text}</span>
                         </Link>
