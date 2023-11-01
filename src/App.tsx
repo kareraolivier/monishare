@@ -27,11 +27,11 @@ configure({
 function App(): ReactElement {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
         <Route path="*" element={<ErrorPage />} />
         <Route index element={<HomePage />} />
         <Route path="cars" element={<CarsPage />} />
-        <Route path="cars/:id" element={<CarDetailsPage />} errorElement={<ErrorPage />} />
+        <Route path="cars/:id" element={<CarDetailsPage />} />
         <Route path="bookings" element={<BookingsPage />} />
         <Route path="manage-bookings" element={<ManageBookingsPage />} />
         <Route path="book" element={<NewBookingsPage />} />
