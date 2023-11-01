@@ -5,7 +5,7 @@ export default function Layout(): ReactElement {
   return (
     <main className="min-h-screen bg-indigo-800">
       <NavBar />
-      <div className="mx-auto w-full max-w-[1500px] px-4 pb-10 pt-20">
+      <div className="mx-auto w-full max-w-8xl px-4 pb-10 pt-20">
         <Outlet />
       </div>
     </main>
