@@ -20,14 +20,7 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  if (
-    !cars ||
-    cars.length === 0 ||
-    !users ||
-    users.length === 0 ||
-    !carTypes ||
-    carTypes.length === 0
-  )
+  if (!cars || !cars.length || !users || !users.length || !carTypes || !carTypes)
     return (
       <>
         <Header title="All Cars" />
