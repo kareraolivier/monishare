@@ -4,9 +4,20 @@ import CarsIcon from '../assets/CarsIcon'
 import ListIcon from '../assets/ListIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
-import { MenuItemProps } from '../types/interfaces'
 
-export const menuLink: MenuItemProps[] = [
+interface MenuLink {
+  id: number
+  text?: string
+  link?: string
+  icon?: ({
+    className,
+  }: {
+    className?: string
+  }) => React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>>
+  title?: string
+}
+
+export const menuLink: MenuLink[] = [
   { id: 1, link: '/book', text: 'Book A Car', icon: CarIcon },
   { id: 2, link: '/bookings', text: 'My Bookings', icon: BookingIcon },
   { id: 3, text: 'divider' },

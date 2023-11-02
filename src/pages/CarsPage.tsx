@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
-import Loading, { LOADING_STYLES } from '../components/Loading'
+import Loading, { LoadingStyle } from '../components/Loading'
 
 export default function CarsPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
@@ -16,11 +16,11 @@ export default function CarsPage(): ReactElement {
     return (
       <>
         <Header title="All Cars" />
-        <Loading className={LOADING_STYLES.MEDIUM} />
+        <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
 
-  if (!cars || !cars.length || !users || !users.length || !carTypes || !carTypes)
+  if (cars?.length === 0)
     return (
       <>
         <Header title="All Cars" />
@@ -28,9 +28,9 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  const updatedCars = cars.map(car => {
-    const owner = users.find(user => car.ownerId === user.id)
-    const type = carTypes.find(carType => car.carTypeId === carType.id)
+  const updatedCars = cars?.map(car => {
+    const owner = users?.find(user => car.ownerId === user.id)
+    const type = carTypes?.find(carType => car.carTypeId === carType.id)
     return {
       id: car.id,
       name: car.name,

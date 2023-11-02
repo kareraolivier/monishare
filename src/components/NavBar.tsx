@@ -7,7 +7,7 @@ import { menuLink } from '../data/navbar'
 
 function NavBar(): ReactElement {
   return (
-    <div className="fixed mx-auto flex w-full items-center justify-between bg-gray-800 p-5">
+    <div className="fixed z-10 mx-auto flex w-full items-center justify-between bg-gray-800 p-5">
       <Menu>
         {({ open }) => (
           <>

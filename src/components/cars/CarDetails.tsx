@@ -20,14 +20,14 @@ export default function CarDetail({
     <div className="mx-w-3xl flex flex-col justify-start overflow-x-hidden text-gray-100 md:flex-row md:items-center">
       <img src={carType?.imageUrl} alt={carType?.name} className="animate-slideLeft md:w-1/2" />
       <div className="flex animate-slideRight flex-col gap-2 p-8">
-        <h3 className="py-5 font-lora text-xl font-medium">{carType?.name}</h3>
+        <h3 className="py-5 font-lora text-xl font-medium">{carData?.name}</h3>
         <div className="flex items-center gap-2">
           <ProfileIcon />
           <p>{carOwner?.name}</p>
         </div>
         <div className="flex items-center gap-2">
           <CarIcon />
-          <p>{carData?.name}</p>
+          <p>{carType?.name}</p>
         </div>
         {carData?.licensePlate !== null && (
           <div className="flex items-center gap-2">

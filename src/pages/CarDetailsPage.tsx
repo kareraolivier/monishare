@@ -3,33 +3,40 @@ import { useParams } from 'react-router-dom'
 import CarDetails from '../components/cars/CarDetails'
 import { useCars, useCarTypes, useUsers } from '../hooks'
 import Header from '../components/Header'
-import Loading, { LOADING_STYLES } from '../components/Loading'
+import Loading, { LoadingStyle } from '../components/Loading'
 
 export default function CarDetailsPage(): ReactElement {
   const { id } = useParams()
 
-  const [{ data, loading, error }] = useCars()
+  const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ data: owner, loading: ownerLoading, error: ownerError }] = useUsers()
+  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
 
-  if (error) throw new Error('No cars found on that Id')
+  if (carsError) throw new Error('No cars found on that Id')
   if (carTypesError) throw new Error('No carType found')
-  if (ownerError) throw new Error('No owner found')
+  if (usersError) throw new Error('No owner found')
 
-  const carData = data?.find(car => car.id === Number(id))
-  if (!loading && !carData) throw new Error('No car found on this id')
-  const carType = carTypes?.find(el => el.id === carData?.carTypeId)
-  const carOwner = owner?.find(el => el.id === carData?.ownerId)
+  if (carsLoading || carTypesLoading || usersLoading) {
+    return (
+      <>
+        <Header title="Details" />
+        <div className="flex flex-col items-center justify-center">
+          <Loading loadingStyle={LoadingStyle.Default} />
+        </div>
+      </>
+    )
+  }
+
+  const carData = cars?.find(car => car.id === Number(id))
+  if (!carsLoading && !carData) throw new Error('No car found on this id')
+  const carType = carTypes?.find(carType => carType.id === carData?.carTypeId)
+  const carOwner = users?.find(user => user.id === carData?.ownerId)
 
   return (
     <>
       <Header title="Details" />
       <div className="flex flex-col items-center justify-center">
-        {!loading && !carTypesLoading && !ownerLoading ? (
-          <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
-        ) : (
-          <Loading className={LOADING_STYLES.DEFAULT} />
-        )}
+        <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
       </div>
     </>
   )
