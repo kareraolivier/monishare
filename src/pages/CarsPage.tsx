@@ -32,8 +32,8 @@ export default function CarsPage(): ReactElement {
     const owner = users?.find(user => car.ownerId === user.id)
     const type = carTypes?.find(carType => car.carTypeId === carType.id)
     return {
-      id: car.id,
-      name: car.name,
+      id: car?.id,
+      name: car?.name,
       owner: owner?.name,
       type: type?.name,
       image: type?.imageUrl,
