@@ -27,9 +27,9 @@ interface CarDto {
   ownerId: number
   horsepower?: number
   info?: string
-  plate?: string
+  licensePlate?: string | null
   fuelType: FuelType
-  carState: CarState
+  state: CarState
 }
 
 interface NewCarDto {
@@ -38,7 +38,7 @@ interface NewCarDto {
   carTypeId: number
   horsepower: number | null
   info: string | null
-  plate: string | null
+  licensePlate: string | null
   fuelType: FuelType
 }
 
