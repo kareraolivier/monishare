@@ -1,10 +1,11 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/Loading'
 
 export default function CarsPage(): ReactElement {
+  const [carId, setCarId] = useState<(number | undefined)[]>([0])
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -28,23 +29,28 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  const updatedCars = cars?.map(car => {
-    const owner = users?.find(user => car.ownerId === user.id)
-    const type = carTypes?.find(carType => car.carTypeId === carType.id)
-    return {
-      id: car?.id,
-      name: car?.name,
-      owner: owner?.name,
-      type: type?.name,
-      image: type?.imageUrl,
-      url: `/cars/${car.id}`,
-    }
-  })
+  const updatedCars = cars
+    ?.map(car => {
+      const owner = users?.find(user => car.ownerId === user.id)
+      const type = carTypes?.find(carType => car.carTypeId === carType.id)
+      return {
+        id: car?.id,
+        name: car?.name,
+        owner: owner?.name,
+        type: type?.name,
+        image: type?.imageUrl,
+        url: `/cars/${car.id}`,
+      }
+    })
+    .filter(cars => !carId.includes(cars.id))
 
+  const deleteCar = (id?: number) => {
+    setCarId(previous => [...previous, id])
+  }
   return (
     <>
       <Header title="All Cars" />
-      <Cars cars={updatedCars} />
+      <Cars cars={updatedCars} deleteCar={deleteCar} />
     </>
   )
 }

@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
 import { CarDetails } from '../../types/interfaces'
+import Button from '../Button'
+import { ButtonVariant } from '../../types/enums'
 
-function CarCard({ carDetails }: { carDetails: CarDetails }): ReactElement {
+interface Props {
+  carDetails: CarDetails
+  deleteCar: (id?: number) => void
+}
+function CarCard({ carDetails, deleteCar }: Props): ReactElement {
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
@@ -35,6 +41,13 @@ function CarCard({ carDetails }: { carDetails: CarDetails }): ReactElement {
           </Link>
         </div>
       </div>
+      <Button
+        filled={false}
+        variant={ButtonVariant.Delete}
+        onClick={() => deleteCar(carDetails.id)}
+      >
+        Delete Car
+      </Button>
     </div>
   )
 }

@@ -28,6 +28,11 @@ export default function Button({
         filled ? 'bg-gray-200 text-indigo-800' : 'border-2 border-gray-200 text-gray-200'
       } `
       break
+    case ButtonVariant.Delete:
+      classes = `${
+        filled ? 'bg-lachs-200 text-indigo-100' : 'border-2 border-lachs-200 text-lachs-200'
+      } `
+      break
     default:
       classes = `${
         filled ? 'bg-gray-100 text-indigo-800' : 'border-2 border-gray-100 text-gray-100'
