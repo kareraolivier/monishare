@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export default function LoginPage(): ReactElement {
   const navigate = useNavigate()
 
-  const [{ data, loading, error }, executePost] = useAuth()
+  const [{ data: user, loading: userLoading, error: userError }, executePost] = useAuth()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -19,8 +19,8 @@ export default function LoginPage(): ReactElement {
     setUsername(name)
   }
 
-  const passwordChangeHandler = (passcode: string) => {
-    setPassword(passcode)
+  const passwordChangeHandler = (secrete: string) => {
+    setPassword(secrete)
   }
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,9 +33,9 @@ export default function LoginPage(): ReactElement {
     })
   }
 
-  if (data) {
-    localStorage.setItem('token', data.token)
-    localStorage.setItem('userId', data.userId.toString())
+  if (user) {
+    localStorage.setItem('token', user.token)
+    localStorage.setItem('userId', user.userId.toString())
     navigate('/')
   }
 
@@ -45,7 +45,7 @@ export default function LoginPage(): ReactElement {
         MONI<span className="block font-italic font-medium">share</span>
       </h1>
 
-      <form onSubmit={submitHandler} className="">
+      <form onSubmit={submitHandler}>
         <h1 className="mb-10 mt-20 text-center font-lora text-2xl text-white">Login</h1>
         <div className="flex flex-col items-center gap-4">
           <Input
@@ -62,9 +62,9 @@ export default function LoginPage(): ReactElement {
         </div>
         <div className="flex flex-col items-center py-20">
           <Button type="submit">
-            {loading ? <Loading loadingStyle={LoadingStyle.Small} /> : 'Login'}
+            {userLoading ? <Loading loadingStyle={LoadingStyle.Small} /> : 'Login'}
           </Button>
-          <p className="py-3 text-red-200">{error && error.response?.data.message}</p>
+          <p className="py-3 text-red-200">{userError && userError.response?.data.message}</p>
         </div>
       </form>
     </div>
