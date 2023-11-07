@@ -29,19 +29,16 @@ configure({
 function App(): ReactElement {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route>
-        <Route path="/" element={<HomePage />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="hello" element={<HelloPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="dashboard" element={<Layout />}>
-          <Route path="*" element={<ErrorPage />} />
-          <Route index element={<HelloPage />} />
-          <Route path="cars" element={<CarsPage />} />
-          <Route path="cars/:id" element={<CarDetailsPage />} />
-          <Route path="bookings" element={<BookingsPage />} />
-          <Route path="manage-bookings" element={<ManageBookingsPage />} />
-          <Route path="book" element={<NewBookingsPage />} />
-          <Route path="new-car" element={<NewCarPage />} />
-        </Route>
+        <Route path="cars" element={<CarsPage />} />
+        <Route path="cars/:id" element={<CarDetailsPage />} />
+        <Route path="bookings" element={<BookingsPage />} />
+        <Route path="manage-bookings" element={<ManageBookingsPage />} />
+        <Route path="book" element={<NewBookingsPage />} />
+        <Route path="new-car" element={<NewCarPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>,
     ),
