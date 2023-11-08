@@ -17,6 +17,7 @@ import ManageBookingsPage from './pages/ManageBookingsPage'
 import NewBookingsPage from './pages/NewBookingsPage'
 import NewCarPage from './pages/NewCarPage'
 import CarDetailsPage from './pages/CarDetailsPage'
+import AddCarPage from './pages/AddCarPage'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -40,6 +41,7 @@ function App(): ReactElement {
         <Route path="book" element={<NewBookingsPage />} />
         <Route path="new-car" element={<NewCarPage />} />
         <Route path="*" element={<ErrorPage />} />
+        <Route path="add-car" element={<AddCarPage />} />
       </Route>,
     ),
   )
