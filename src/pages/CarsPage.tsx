@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import Cars from '../components/cars/Cars'
-import Header from '../components/Header'
+import Header from '../components/ui/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
-import Loading, { LoadingStyle } from '../components/Loading'
+import Loading, { LoadingStyle } from '../components/ui/Loading'
 
 export default function CarsPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()

@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
-import { ButtonVariant } from '../types/enums'
+import { ButtonVariant } from '../../types/enums'
 
 interface Props {
   filled?: boolean
