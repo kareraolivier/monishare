@@ -12,7 +12,7 @@ export default function AddCarPage() {
     licensePlate: '',
     info: '',
   })
-  const handleInputChange = (event: { target: { name: string; value: string } }) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setFormData({ ...formData, [name]: value })
   }
