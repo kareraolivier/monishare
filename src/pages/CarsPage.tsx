@@ -3,8 +3,13 @@ import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
+import { useNavigate } from 'react-router-dom'
 
 export default function CarsPage(): ReactElement {
+  const navigate = useNavigate()
+  const loginUserId = localStorage.getItem('id')
+  if (loginUserId === null) navigate('/login')
+
   const [carId, setCarId] = useState<(number | undefined)[]>([0])
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
@@ -31,7 +36,7 @@ export default function CarsPage(): ReactElement {
 
   const updatedCars = cars
     ?.map(car => {
-      const owner = users?.find(user => car.ownerId === user.id)
+      const owner = users?.find(user => Number(loginUserId) === user.id)
       const type = carTypes?.find(carType => car.carTypeId === carType.id)
       return {
         id: car?.id,
