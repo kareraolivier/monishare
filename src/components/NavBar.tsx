@@ -45,12 +45,10 @@ function NavBar(): ReactElement {
                 )
               })}
               <Menu.Item>
-                {() => (
-                  <button className="nav-link hover:bg-gray-800" onClick={logoutHandler}>
-                    <LogoutIcon />
-                    <span>Logout</span>
-                  </button>
-                )}
+                <button className="nav-link hover:bg-gray-800" onClick={logoutHandler}>
+                  <LogoutIcon />
+                  <span>Logout</span>
+                </button>
               </Menu.Item>
             </Menu.Items>
           </>

@@ -5,20 +5,17 @@ import ProfileIcon from '../assets/ProfileIcon'
 import PasswordIcon from '../assets/PasswordIcon'
 import useAuth from '../hooks/useAuth'
 import Loading, { LoadingStyle } from '../components/Loading'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 export default function LoginPage(): ReactElement {
-  const navigate = useNavigate()
-
   const [{ data: user, loading: userLoading, error: userError }, executePost] = useAuth()
+  const [credentials, setCredentials] = useState({ username: '', password: '' })
 
   if (user) {
     localStorage.setItem('token', user.token)
     localStorage.setItem('userId', user.userId.toString())
-    navigate('/')
+    return <Navigate to="/" />
   }
-
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
