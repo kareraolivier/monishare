@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import ErrorIcon from '../assets/ErrorIcon'
-import Button from '../components/Button'
+import Button from '../components/ui/Button'
 import { useNavigate, useRouteError } from 'react-router-dom'
 
 export default function ErrorPage(): ReactElement {

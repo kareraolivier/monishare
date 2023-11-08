@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronBackIcon } from '../assets/ChevronBackIcon'
+import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 
 interface Props {
   title: string
