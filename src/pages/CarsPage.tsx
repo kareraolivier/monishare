@@ -53,13 +53,13 @@ export default function CarsPage(): ReactElement {
     })
     .filter(cars => !carId.includes(cars.id))
 
-  const deleteCar = (id?: number) => {
+  const onDeleteCar = (id?: number) => {
     setCarId(previous => [...previous, id])
   }
   return (
     <>
       <Header title="All Cars" />
-      <Cars cars={updatedCars} deleteCar={deleteCar} />
+      <Cars cars={updatedCars} onDeleteCar={onDeleteCar} />
     </>
   )
 }

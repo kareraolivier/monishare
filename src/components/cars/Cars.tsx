@@ -4,10 +4,10 @@ import { animated, useSpring } from '@react-spring/web'
 
 export default function Cars({
   cars,
-  deleteCar,
+  onDeleteCar,
 }: {
   cars?: CarDetails[]
-  deleteCar: (id?: number) => void
+  onDeleteCar: (id?: number) => void
 }) {
   const springs = useSpring({
     from: { y: 100 },
@@ -15,7 +15,7 @@ export default function Cars({
   })
   return (
     <animated.div style={springs} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {cars?.map(car => <CarCard key={car?.id} carDetails={car} deleteCar={deleteCar} />)}
+      {cars?.map(car => <CarCard key={car?.id} carDetails={car} onDeleteCar={onDeleteCar} />)}
     </animated.div>
   )
 }

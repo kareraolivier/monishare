@@ -8,9 +8,9 @@ import { ButtonVariant } from '../../types/enums'
 
 interface Props {
   carDetails: CarDetails
-  deleteCar: (id?: number) => void
+  onDeleteCar: (id?: number) => void
 }
-function CarCard({ carDetails, deleteCar }: Props): ReactElement {
+function CarCard({ carDetails, onDeleteCar }: Props): ReactElement {
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
@@ -44,7 +44,7 @@ function CarCard({ carDetails, deleteCar }: Props): ReactElement {
       <Button
         filled={false}
         variant={ButtonVariant.Delete}
-        onClick={() => deleteCar(carDetails.id)}
+        onClick={() => onDeleteCar(carDetails.id)}
       >
         Delete Car
       </Button>
