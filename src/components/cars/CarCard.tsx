@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
 import { CarDetails } from '../../types/interfaces'
-import Button from '../Button'
+import Button from '../ui/Button'
 import { ButtonVariant } from '../../types/enums'
 
 interface Props {

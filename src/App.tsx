@@ -10,7 +10,9 @@ import Layout from './components/layout/Layout'
 import BookingsPage from './pages/BookingsPage'
 import CarsPage from './pages/CarsPage'
 import ErrorPage from './pages/ErrorPage'
+import HelloPage from './pages/HelloPage'
 import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
 import ManageBookingsPage from './pages/ManageBookingsPage'
 import NewBookingsPage from './pages/NewBookingsPage'
 import NewCarPage from './pages/NewCarPage'
@@ -27,8 +29,10 @@ configure({
 function App(): ReactElement {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+      <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
+        <Route path="hello" element={<HelloPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="cars" element={<CarsPage />} />
         <Route path="cars/:id" element={<CarDetailsPage />} />
         <Route path="bookings" element={<BookingsPage />} />

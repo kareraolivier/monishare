@@ -2,8 +2,8 @@ import { ReactElement } from 'react'
 import { useParams } from 'react-router-dom'
 import CarDetails from '../components/cars/CarDetails'
 import { useCars, useCarTypes, useUsers } from '../hooks'
-import Header from '../components/Header'
-import Loading, { LoadingStyle } from '../components/Loading'
+import Header from '../components/ui/Header'
+import Loading, { LoadingStyle } from '../components/ui/Loading'
 
 export default function CarDetailsPage(): ReactElement {
   const { id } = useParams()
