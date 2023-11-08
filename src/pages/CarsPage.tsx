@@ -3,12 +3,16 @@ import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
-import { useNavigate } from 'react-router-dom'
 
 export default function CarsPage(): ReactElement {
-  const navigate = useNavigate()
   const loginUserId = localStorage.getItem('userId')
-  if (loginUserId === null) navigate('/login')
+  if (loginUserId === null)
+    return (
+      <>
+        <Header title="All Cars" />
+        <h1 className="text-center text-4xl text-white">No cars found!</h1>
+      </>
+    )
 
   const [carId, setCarId] = useState<(number | undefined)[]>([0])
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
