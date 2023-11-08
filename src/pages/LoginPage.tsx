@@ -15,21 +15,13 @@ export default function LoginPage(): ReactElement {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const usernameChangeHandler = (name: string) => {
-    setUsername(name)
-  }
-
-  const passwordChangeHandler = (secrete: string) => {
-    setPassword(secrete)
-  }
+  const usernameChangeHandler = (name: string) => setUsername(name)
+  const passwordChangeHandler = (secrete: string) => setPassword(secrete)
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     executePost({
-      data: {
-        username,
-        password,
-      },
+      data: { username, password },
     })
   }
 
