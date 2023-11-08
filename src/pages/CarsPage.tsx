@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function CarsPage(): ReactElement {
   const navigate = useNavigate()
-  const loginUserId = localStorage.getItem('id')
+  const loginUserId = localStorage.getItem('userId')
   if (loginUserId === null) navigate('/login')
 
   const [carId, setCarId] = useState<(number | undefined)[]>([0])
