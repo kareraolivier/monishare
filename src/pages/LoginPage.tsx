@@ -12,23 +12,24 @@ export default function LoginPage(): ReactElement {
 
   const [{ data: user, loading: userLoading, error: userError }, executePost] = useAuth()
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  const usernameChangeHandler = (name: string) => setUsername(name)
-  const passwordChangeHandler = (secrete: string) => setPassword(secrete)
-
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    executePost({
-      data: { username, password },
-    })
-  }
-
   if (user) {
     localStorage.setItem('token', user.token)
     localStorage.setItem('userId', user.userId.toString())
     navigate('/')
+  }
+
+  const [credentials, setCredentials] = useState({ username: '', password: '' })
+
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setCredentials(prevCredentials => ({ ...prevCredentials, [name]: value }))
+  }
+
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    executePost({
+      data: credentials,
+    })
   }
 
   return (
@@ -42,12 +43,16 @@ export default function LoginPage(): ReactElement {
         <div className="flex flex-col items-center gap-4">
           <Input
             Icon={ProfileIcon}
-            userInput={usernameChangeHandler}
+            name="username"
+            value={credentials.username}
+            onChange={inputChangeHandler}
             placeholder="Username / e-mail"
           />
           <Input
             Icon={PasswordIcon}
-            userInput={passwordChangeHandler}
+            name="password"
+            value={credentials.password}
+            onChange={inputChangeHandler}
             type="password"
             placeholder="Password"
           />
