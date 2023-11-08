@@ -2,13 +2,12 @@ import CarCard from './CarCard'
 import { CarDetails } from '../../types/interfaces'
 import { animated, useSpring } from '@react-spring/web'
 
-export default function Cars({
-  cars,
-  onDeleteCar,
-}: {
+interface Props {
   cars?: CarDetails[]
   onDeleteCar: (id?: number) => void
-}) {
+}
+
+export default function Cars({ cars, onDeleteCar }: Props) {
   const springs = useSpring({
     from: { y: 100 },
     to: { y: 0 },

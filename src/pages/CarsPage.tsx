@@ -5,8 +5,8 @@ import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 
 export default function CarsPage(): ReactElement {
-  const loginUserId = localStorage.getItem('userId')
-  if (loginUserId === null)
+  const loggedInUserId = localStorage.getItem('userId')
+  if (loggedInUserId === null)
     return (
       <>
         <Header title="All Cars" />
@@ -14,7 +14,7 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  const [carId, setCarId] = useState<(number | undefined)[]>([0])
+  const [carIds, setCarIds] = useState<(number | undefined)[]>([0])
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -38,9 +38,9 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  const updatedCars = cars
+  const userCars = cars
     ?.map(car => {
-      const owner = users?.find(user => Number(loginUserId) === user.id)
+      const owner = users?.find(user => Number(loggedInUserId) === user.id)
       const type = carTypes?.find(carType => car.carTypeId === carType.id)
       return {
         id: car?.id,
@@ -51,15 +51,15 @@ export default function CarsPage(): ReactElement {
         url: `/cars/${car.id}`,
       }
     })
-    .filter(cars => !carId.includes(cars.id))
+    .filter(cars => !carIds.includes(cars.id))
 
   const onDeleteCar = (id?: number) => {
-    setCarId(previous => [...previous, id])
+    setCarIds(previous => [...previous, id])
   }
   return (
     <>
       <Header title="All Cars" />
-      <Cars cars={updatedCars} onDeleteCar={onDeleteCar} />
+      <Cars cars={userCars} onDeleteCar={onDeleteCar} />
     </>
   )
 }
