@@ -5,6 +5,14 @@ import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 
 export default function CarsPage(): ReactElement {
+  const loginUserId = localStorage.getItem('id')
+  if (loginUserId === null)
+    return (
+      <>
+        <Header title="All Cars" />
+        <h1 className="text-center text-4xl text-white">No cars found!</h1>
+      </>
+    )
   const [carId, setCarId] = useState<(number | undefined)[]>([0])
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
@@ -31,7 +39,7 @@ export default function CarsPage(): ReactElement {
 
   const updatedCars = cars
     ?.map(car => {
-      const owner = users?.find(user => car.ownerId === user.id)
+      const owner = users?.find(user => Number(loginUserId) === user.id)
       const type = carTypes?.find(carType => car.carTypeId === carType.id)
       return {
         id: car?.id,
