@@ -11,10 +11,10 @@ function NavBar(): ReactElement {
   const login = localStorage.getItem('userId')
   const logoutHandler = () => {
     localStorage.clear()
-    navigate('/')
+    navigate('/', { replace: true })
   }
   return (
-    <div className="fixed z-10 mx-auto flex w-full items-center justify-between bg-gray-800 p-5">
+    <div className="fixed z-10 mx-auto flex h-16 w-full items-center justify-between bg-gray-800 p-5">
       {login !== null && (
         <Menu>
           {({ open }) => (

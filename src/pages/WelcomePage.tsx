@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import Button from '../components/ui/Button'
 import { Link } from 'react-router-dom'
 
-export default function HelloPage(): ReactElement {
+export default function WelcomePage(): ReactElement {
   return (
     <main className="mx-auto flex h-screen flex-col justify-center gap-8 py-10 font-lora lg:w-1/3">
       <h1 className="flex flex-col items-center text-5xl font-extrabold text-gray-100">
