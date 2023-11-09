@@ -1,6 +1,6 @@
-import { ReactElement } from 'react'
+import { ReactElement, SelectHTMLAttributes } from 'react'
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: {
     id: number
     text: string
