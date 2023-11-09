@@ -16,11 +16,10 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
+  const [{ data: cars, loading: carsLoading, error: carsError }, refetchCars] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ data: deleteCar, loading: deleteLoading, error: deleteError }, deleteMyCar] =
-    useDeleteCar()
+  const [{ loading: deleteLoading, error: deleteError }, deleteCar] = useDeleteCar()
 
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
@@ -41,23 +40,21 @@ export default function CarsPage(): ReactElement {
       </>
     )
   const loggedInUserCars = cars?.filter(car => car.ownerId === Number(loggedInUserId))
-  const userCars = loggedInUserCars
-    ?.map(car => {
-      const owner = users?.find(user => Number(loggedInUserId) === user.id)
-      const type = carTypes?.find(carType => car.carTypeId === carType.id)
-      return {
-        id: car?.id,
-        name: car?.name,
-        owner: owner?.name,
-        type: type?.name,
-        image: type?.imageUrl,
-        url: `/cars/${car.id}`,
-      }
-    })
-    .filter(car => car.id !== deleteCar)
-
-  const onDeleteCar = (id?: number) => {
-    deleteMyCar({ url: `${apiUrl}/cars/${id}` })
+  const userCars = loggedInUserCars?.map(car => {
+    const owner = users?.find(user => Number(loggedInUserId) === user.id)
+    const type = carTypes?.find(carType => car.carTypeId === carType.id)
+    return {
+      id: car?.id,
+      name: car?.name,
+      owner: owner?.name,
+      type: type?.name,
+      image: type?.imageUrl,
+      url: `/cars/${car.id}`,
+    }
+  })
+  const onDeleteCar = async (id?: number) => {
+    await deleteCar({ url: `${apiUrl}/cars/${id}` })
+    await refetchCars()
   }
 
   return (

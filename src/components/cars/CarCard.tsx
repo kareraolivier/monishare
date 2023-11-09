@@ -55,7 +55,7 @@ export default function CarCard({
         variant={ButtonVariant.Delete}
         onClick={() => onDeleteCar(carDetails.id)}
       >
-        {!deleteLoading ? <Loading loadingStyle={LoadingStyle.Small} /> : 'Delete Car'}
+        {deleteLoading ? <Loading loadingStyle={LoadingStyle.Small} /> : 'Delete Car'}
       </Button>
       {deleteError !== null && <span className="text-red-400">failed to delete</span>}
     </div>
