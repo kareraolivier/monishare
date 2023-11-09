@@ -41,7 +41,7 @@ function NavBar(): ReactElement {
           </>
         )}
       </Menu>
-      <Link to="/" className="absolute left-1/2 -translate-x-1/2 translate-y-2">
+      <Link to="welcome" className="absolute left-1/2 -translate-x-1/2 translate-y-2">
         <Logo className="w-18" />
       </Link>
       <button>

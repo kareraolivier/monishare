@@ -13,15 +13,15 @@ export default function HelloPage(): ReactElement {
         <span>What are you up to today?</span>
       </p>
       <div className="flex flex-col items-center gap-4 px-2 font-inter md:mx-auto md:w-2/3">
-        <Link to="book" className="flex w-full justify-center">
+        <Link to="/book" className="flex w-full justify-center">
           <Button>Book a car</Button>
         </Link>
         <p className="text-center text-lg text-gray-100">or</p>
-        <Link to="cars" className="flex w-full justify-center">
+        <Link to="/cars" className="flex w-full justify-center">
           <Button filled={false}>See My Cars</Button>
         </Link>
 
-        <Link to="bookings" className="flex w-full justify-center">
+        <Link to="/bookings" className="flex w-full justify-center">
           <Button filled={false}>See My Bookings</Button>
         </Link>
       </div>

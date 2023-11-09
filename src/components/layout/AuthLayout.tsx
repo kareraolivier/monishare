@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+
 const login = true
 
 export default function AuthLayout(): ReactElement {

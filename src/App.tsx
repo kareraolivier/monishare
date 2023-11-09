@@ -33,8 +33,8 @@ function App(): ReactElement {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="welcome" element={<AuthLayout />}>
-          <Route index element={<HelloPage />} />
+        <Route element={<AuthLayout />}>
+          <Route path="welcome" element={<HelloPage />} />
           <Route path="cars" element={<CarsPage />} />
           <Route path="cars/:id" element={<CarDetailsPage />} />
           <Route path="bookings" element={<BookingsPage />} />
