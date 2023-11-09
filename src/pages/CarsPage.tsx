@@ -19,7 +19,8 @@ export default function CarsPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ data: deleteCar }, deleteMyCar] = useDeleteCar()
+  const [{ data: deleteCar, loading: deleteLoading, error: deleteError }, deleteMyCar] =
+    useDeleteCar()
 
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
@@ -62,7 +63,12 @@ export default function CarsPage(): ReactElement {
   return (
     <>
       <Header title="All Cars" />
-      <Cars cars={userCars} onDeleteCar={onDeleteCar} />
+      <Cars
+        cars={userCars}
+        onDeleteCar={onDeleteCar}
+        deleteLoading={deleteLoading}
+        deleteError={deleteError}
+      />
     </>
   )
 }
