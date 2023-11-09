@@ -1,8 +1,10 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
+import useDeleteCar from '../hooks/useDeleteCar'
+import { apiUrl } from '../util/apiUrl'
 
 export default function CarsPage(): ReactElement {
   const loggedInUserId = localStorage.getItem('userId')
@@ -14,10 +16,10 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  const [carIds, setCarIds] = useState<(number | undefined)[]>([0])
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+  const [{ data: deleteCar }, deleteMyCar] = useDeleteCar()
 
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
@@ -37,8 +39,8 @@ export default function CarsPage(): ReactElement {
         <h1 className="text-center text-4xl text-white">No cars found!</h1>
       </>
     )
-
-  const userCars = cars
+  const loggedInUserCars = cars?.filter(car => car.ownerId === Number(loggedInUserId))
+  const userCars = loggedInUserCars
     ?.map(car => {
       const owner = users?.find(user => Number(loggedInUserId) === user.id)
       const type = carTypes?.find(carType => car.carTypeId === carType.id)
@@ -51,11 +53,12 @@ export default function CarsPage(): ReactElement {
         url: `/cars/${car.id}`,
       }
     })
-    .filter(cars => !carIds.includes(cars.id))
+    .filter(el => el.id !== deleteCar)
 
   const onDeleteCar = (id?: number) => {
-    setCarIds(previous => [...previous, id])
+    deleteMyCar({ url: `${apiUrl}/cars/${id}` })
   }
+
   return (
     <>
       <Header title="All Cars" />
