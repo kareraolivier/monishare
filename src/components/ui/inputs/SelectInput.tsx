@@ -1,3 +1,5 @@
+import { ReactElement } from 'react'
+
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: {
     id: number
@@ -5,7 +7,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   }[]
 }
 
-function SelectInput({ options, name, value, onChange }: SelectProps) {
+export default function SelectInput({ options, name, value, onChange }: SelectProps): ReactElement {
   return (
     <div className="max-w-sm rounded-[3rem] bg-indigo-200 p-3 shadow-xl">
       <select
@@ -23,5 +25,3 @@ function SelectInput({ options, name, value, onChange }: SelectProps) {
     </div>
   )
 }
-
-export default SelectInput
