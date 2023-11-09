@@ -21,9 +21,9 @@ export default function LoginPage(): ReactElement {
     setCredentials(prevCredentials => ({ ...prevCredentials, [name]: value }))
   }
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    executePost({
+    await executePost({
       data: credentials,
     })
   }

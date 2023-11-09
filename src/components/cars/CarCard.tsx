@@ -1,10 +1,25 @@
+import { AxiosError } from 'axios'
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
 import { CarDetails } from '../../types/interfaces'
+import Button from '../ui/Button'
+import { ButtonVariant } from '../../types/enums'
+import Loading, { LoadingStyle } from '../ui/Loading'
 
-function CarCard({ carDetails }: { carDetails: CarDetails }): ReactElement {
+interface Props {
+  carDetails: CarDetails
+  onDeleteCar: (id?: number) => void
+  deleteLoading: boolean
+  deleteError: AxiosError<unknown> | null
+}
+export default function CarCard({
+  carDetails,
+  onDeleteCar,
+  deleteLoading,
+  deleteError,
+}: Props): ReactElement {
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
@@ -35,8 +50,14 @@ function CarCard({ carDetails }: { carDetails: CarDetails }): ReactElement {
           </Link>
         </div>
       </div>
+      <Button
+        filled={false}
+        variant={ButtonVariant.Delete}
+        onClick={() => onDeleteCar(carDetails.id)}
+      >
+        {deleteLoading ? <Loading loadingStyle={LoadingStyle.Small} /> : 'Delete Car'}
+      </Button>
+      {deleteError !== null && <span className="text-red-400">failed to delete</span>}
     </div>
   )
 }
-
-export default CarCard

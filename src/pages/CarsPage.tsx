@@ -3,11 +3,23 @@ import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
 import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
+import useDeleteCar from '../hooks/useDeleteCar'
+import { apiUrl } from '../util/apiUrl'
 
 export default function CarsPage(): ReactElement {
-  const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
+  const loggedInUserId = localStorage.getItem('userId')
+  if (loggedInUserId === null)
+    return (
+      <>
+        <Header title="All Cars" />
+        <h1 className="text-center text-4xl text-white">No cars found!</h1>
+      </>
+    )
+
+  const [{ data: cars, loading: carsLoading, error: carsError }, refetchCars] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+  const [{ loading: deleteLoading, error: deleteError }, deleteCar] = useDeleteCar()
 
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
@@ -27,9 +39,9 @@ export default function CarsPage(): ReactElement {
         <h1 className="text-center text-4xl text-white">No cars found!</h1>
       </>
     )
-
-  const updatedCars = cars?.map(car => {
-    const owner = users?.find(user => car.ownerId === user.id)
+  const loggedInUserCars = cars?.filter(car => car.ownerId === Number(loggedInUserId))
+  const userCars = loggedInUserCars?.map(car => {
+    const owner = users?.find(user => Number(loggedInUserId) === user.id)
     const type = carTypes?.find(carType => car.carTypeId === carType.id)
     return {
       id: car?.id,
@@ -37,14 +49,23 @@ export default function CarsPage(): ReactElement {
       owner: owner?.name,
       type: type?.name,
       image: type?.imageUrl,
-      url: `${car.id}`,
+      url: `/cars/${car.id}`,
     }
   })
+  const onDeleteCar = async (id?: number) => {
+    await deleteCar({ url: `${apiUrl}/cars/${id}` })
+    await refetchCars()
+  }
 
   return (
     <>
       <Header title="All Cars" />
-      <Cars cars={updatedCars} />
+      <Cars
+        cars={userCars}
+        onDeleteCar={onDeleteCar}
+        deleteLoading={deleteLoading}
+        deleteError={deleteError}
+      />
     </>
   )
 }
