@@ -30,7 +30,7 @@ configure({
 function App(): ReactElement {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
         <Route index element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
         <Route element={<AuthLayout />}>
