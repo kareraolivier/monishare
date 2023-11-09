@@ -1,10 +1,10 @@
 import { ReactElement, useState } from 'react'
-import Input from '../components/ui/Input'
-import Button from '../components/Button'
+import Input from '../components/ui/inputs/Input'
+import Button from '../components/ui/Button'
 import ProfileIcon from '../assets/ProfileIcon'
 import PasswordIcon from '../assets/PasswordIcon'
 import useAuth from '../hooks/useAuth'
-import Loading, { LoadingStyle } from '../components/Loading'
+import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { Navigate } from 'react-router-dom'
 
 export default function LoginPage(): ReactElement {
