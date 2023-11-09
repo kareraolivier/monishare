@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Menu } from '@headlessui/react'
 import ProfileIcon from '../assets/ProfileIcon'
 import Logo from '../assets/Logo'
 import { ReactElement } from 'react'
-import { menuLink } from '../data/navbar'
+import { menuLinks } from '../data/navbar'
+import LogoutIcon from '../assets/LogoutIcon'
 
 function NavBar(): ReactElement {
+  const navigate = useNavigate()
+
+  const logoutHandler = () => {
+    localStorage.clear()
+    navigate('/')
+  }
   return (
     <div className="fixed z-10 mx-auto flex w-full items-center justify-between bg-gray-800 p-5">
       <Menu>
@@ -13,7 +20,7 @@ function NavBar(): ReactElement {
           <>
             <Menu.Button className="text-gray-100">{open ? 'Close' : 'Menu'}</Menu.Button>
             <Menu.Items className="absolute top-24 flex animate-pop flex-col rounded-lg bg-indigo-400 text-gray-100 shadow-2xl">
-              {menuLink.map(item => {
+              {menuLinks.map(item => {
                 if (item.title)
                   return (
                     <h5 key={item.id} className="px-4 py-2 font-bold">
@@ -37,6 +44,12 @@ function NavBar(): ReactElement {
                   </div>
                 )
               })}
+              <Menu.Item>
+                <button className="nav-link hover:bg-gray-800" onClick={logoutHandler}>
+                  <LogoutIcon />
+                  <span>Logout</span>
+                </button>
+              </Menu.Item>
             </Menu.Items>
           </>
         )}
