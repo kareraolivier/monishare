@@ -14,7 +14,7 @@ export default function LoginPage(): ReactElement {
   if (user) {
     localStorage.setItem('token', user.token)
     localStorage.setItem('userId', user.userId.toString())
-    return <Navigate to="/" />
+    return <Navigate to="/welcome" />
   }
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
