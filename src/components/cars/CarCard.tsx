@@ -10,7 +10,7 @@ interface Props {
   carDetails: CarDetails
   onDeleteCar: (id?: number) => void
 }
-function CarCard({ carDetails, onDeleteCar }: Props): ReactElement {
+export default function CarCard({ carDetails, onDeleteCar }: Props): ReactElement {
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
@@ -51,5 +51,3 @@ function CarCard({ carDetails, onDeleteCar }: Props): ReactElement {
     </div>
   )
 }
-
-export default CarCard
