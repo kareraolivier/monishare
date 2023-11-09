@@ -54,7 +54,7 @@ export default function CarsPage(): ReactElement {
         url: `/cars/${car.id}`,
       }
     })
-    .filter(el => el.id !== deleteCar)
+    .filter(car => car.id !== deleteCar)
 
   const onDeleteCar = (id?: number) => {
     deleteMyCar({ url: `${apiUrl}/cars/${id}` })

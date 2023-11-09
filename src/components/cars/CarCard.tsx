@@ -14,7 +14,12 @@ interface Props {
   deleteLoading: boolean
   deleteError: AxiosError<unknown> | null
 }
-function CarCard({ carDetails, onDeleteCar, deleteLoading, deleteError }: Props): ReactElement {
+export default function CarCard({
+  carDetails,
+  onDeleteCar,
+  deleteLoading,
+  deleteError,
+}: Props): ReactElement {
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
@@ -56,5 +61,3 @@ function CarCard({ carDetails, onDeleteCar, deleteLoading, deleteError }: Props)
     </div>
   )
 }
-
-export default CarCard
