@@ -43,10 +43,12 @@ export default function CarDetail({
           <FuelIcon />
           <p>{carData?.fuelType}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <AlertIcon />
-          <p className="font-bold">No smoking</p>
-        </div>
+        {carData?.info && (
+          <div className="flex items-center gap-2">
+            <AlertIcon />
+            <p className="font-bold">{carData?.info}</p>
+          </div>
+        )}
       </div>
     </div>
   )
