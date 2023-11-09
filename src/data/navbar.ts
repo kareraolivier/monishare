@@ -23,6 +23,6 @@ export const menuLinks: MenuLink[] = [
   { id: 4, title: 'My Cars' },
   { id: 5, link: 'cars', text: 'See My Cars', icon: CarsIcon },
   { id: 6, link: 'manage-bookings', text: "My Car's Bookings", icon: ListIcon },
-  { id: 7, link: 'new-car', text: 'Add New Car', icon: CarPlusIcon },
+  { id: 7, link: 'add-car', text: 'Add New Car', icon: CarPlusIcon },
   { id: 8, text: 'divider' },
 ]
