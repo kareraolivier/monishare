@@ -17,6 +17,7 @@ import ManageBookingsPage from './pages/ManageBookingsPage'
 import NewBookingsPage from './pages/NewBookingsPage'
 import NewCarPage from './pages/NewCarPage'
 import CarDetailsPage from './pages/CarDetailsPage'
+import AuthLayout from './components/layout/AuthLayout'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -31,15 +32,17 @@ function App(): ReactElement {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
-        <Route path="hello" element={<HelloPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="cars" element={<CarsPage />} />
-        <Route path="cars/:id" element={<CarDetailsPage />} />
-        <Route path="bookings" element={<BookingsPage />} />
-        <Route path="manage-bookings" element={<ManageBookingsPage />} />
-        <Route path="book" element={<NewBookingsPage />} />
-        <Route path="new-car" element={<NewCarPage />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route path="welcome" element={<AuthLayout />}>
+          <Route index element={<HelloPage />} />
+          <Route path="cars" element={<CarsPage />} />
+          <Route path="cars/:id" element={<CarDetailsPage />} />
+          <Route path="bookings" element={<BookingsPage />} />
+          <Route path="manage-bookings" element={<ManageBookingsPage />} />
+          <Route path="book" element={<NewBookingsPage />} />
+          <Route path="new-car" element={<NewCarPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
       </Route>,
     ),
   )
