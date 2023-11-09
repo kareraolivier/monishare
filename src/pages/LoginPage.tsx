@@ -14,7 +14,6 @@ export default function LoginPage(): ReactElement {
   if (user) {
     localStorage.setItem('token', user.token)
     localStorage.setItem('userId', user.userId.toString())
-    return <Navigate to="/welcome" replace />
   }
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +30,7 @@ export default function LoginPage(): ReactElement {
 
   return (
     <div className="py-10 font-lora">
+      {user && <Navigate to="/welcome" />}
       <h1 className="text-center text-5xl font-extrabold text-gray-100">
         MONI<span className="block font-italic font-medium">share</span>
       </h1>

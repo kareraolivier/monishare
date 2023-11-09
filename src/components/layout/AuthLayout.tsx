@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
-const loggedInUserId = localStorage.getItem('userId')
-loggedInUserId === null && <Navigate to="/login" />
+const token = localStorage.getItem('token')
 export default function AuthLayout(): ReactElement {
-  return <>{loggedInUserId !== null && <Outlet />}</>
+  return <>{token ? <Outlet /> : <Navigate to="/login" />}</>
 }
