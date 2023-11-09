@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 export enum LoadingStyle {
   Default = 'h-24 w-24',
   Medium = 'h-16 w-16',
-  Small = 'h-3 w-3',
+  Small = 'h-4 w-4',
 }
 
 export default function Loading({ loadingStyle }: { loadingStyle: LoadingStyle }): ReactElement {
