@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import Button from '../components/Button'
+import Button from '../components/ui/Button'
 export default function HomePage(): ReactElement {
   return (
     <main className="mx-auto flex h-screen flex-col  gap-8 py-10 font-lora lg:w-1/3">
