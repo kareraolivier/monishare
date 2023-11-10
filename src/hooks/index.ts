@@ -3,6 +3,6 @@ import useCars from './useCars'
 import useCarTypes from './useCarTypes'
 import useUser from './useUser'
 import useUsers from './useUsers'
-import addNewCar from './useAddCar'
+import useAddCar from './useAddCar'
 
-export { useBookings, useCars, useCarTypes, useUser, useUsers, addNewCar }
+export { useBookings, useCars, useCarTypes, useUser, useUsers, useAddCar }

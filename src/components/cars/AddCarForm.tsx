@@ -3,12 +3,15 @@ import Button from '../ui/Button'
 import Input from '../ui/inputs/Input'
 import SelectInput from '../ui/inputs/SelectInput'
 import { CarTypeDto, FuelType } from '../../util/api'
+import { CarPost } from '../../types/interfaces'
 
 interface Props {
   carTypes: CarTypeDto[]
+  onCancel: () => void
+  onPost: (car: CarPost) => void
 }
 // eslint-disable-next-line max-lines-per-function
-export default function AddCarForm({ carTypes }: Props) {
+export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
   const [car, setCar] = useState({
     carTypeId: '',
     name: '',
@@ -38,6 +41,7 @@ export default function AddCarForm({ carTypes }: Props) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): undefined => {
     event.preventDefault()
+    onPost(car)
   }
   return (
     <div>
@@ -109,7 +113,7 @@ export default function AddCarForm({ carTypes }: Props) {
         </div>
 
         <div className="mx-auto flex w-full max-w-sm justify-center gap-3 py-20">
-          <Button type="button" filled={false}>
+          <Button onClick={onCancel} type="button" filled={false}>
             Cancel
           </Button>
           <Button type="submit">Add car</Button>
