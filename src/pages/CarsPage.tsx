@@ -12,13 +12,13 @@ export default function CarsPage(): ReactElement {
   const [isOpen, setIsOpen] = useState(false)
   const [carId, setCarId] = useState<number | undefined>(0)
 
-  async function closeModal() {
+  async function onDeleteCar() {
     await deleteCar({ url: `${apiUrl}/cars/${carId}` })
     await refetchCars()
     setIsOpen(false)
   }
 
-  function openModal(id?: number | undefined) {
+  function openDeleteModal(id?: number | undefined) {
     setIsOpen(true)
     setCarId(id)
   }
@@ -47,14 +47,14 @@ export default function CarsPage(): ReactElement {
       </>
     )
 
-  if (cars?.length === 0)
+  const loggedInUserCars = cars?.filter(car => car.ownerId === Number(loggedInUserId))
+  if (loggedInUserCars?.length === 0)
     return (
       <>
         <Header title="All Cars" />
         <h1 className="text-center text-4xl text-white">No cars found!</h1>
       </>
     )
-  const loggedInUserCars = cars?.filter(car => car.ownerId === Number(loggedInUserId))
   const userCars = loggedInUserCars?.map(car => {
     const owner = users?.find(user => Number(loggedInUserId) === user.id)
     const type = carTypes?.find(carType => car.carTypeId === carType.id)
@@ -67,31 +67,21 @@ export default function CarsPage(): ReactElement {
       url: `/cars/${car.id}`,
     }
   })
-  // const onDeleteCar = async (id?: number) => {
-  //   await deleteCar({ url: `${apiUrl}/cars/${id}` })
-  //   await refetchCars()
-  // }
 
   return (
     <>
       <div>
         <Header title="All Cars" />
-        {/* <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-        >
-          Open dialog
-        </button> */}
+
         <Cars
           cars={userCars}
-          onDeleteCar={openModal}
+          onDeleteCar={openDeleteModal}
           deleteLoading={deleteLoading}
           deleteError={deleteError}
         />
       </div>
 
-      {isOpen && <MyDialog closeModal={closeModal} />}
+      {isOpen && <MyDialog onDeleteCar={onDeleteCar} />}
     </>
   )
 }

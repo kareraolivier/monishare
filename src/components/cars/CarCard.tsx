@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 import { ReactElement } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
 import { CarDetails } from '../../types/interfaces'
@@ -19,7 +19,7 @@ export default function CarCard({
   deleteLoading,
   deleteError,
 }: Props): ReactElement {
-  if (deleteError !== null && deleteLoading === false) <Navigate to="/cars" />
+  if (deleteError !== null && deleteLoading === false) throw new Error('Could not delete car')
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
