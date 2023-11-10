@@ -36,15 +36,12 @@ export default function MyDialog({ closeModal }: Props): ReactElement {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl bg-white p-6 text-left align-middle font-lora shadow-xl transition-all">
                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                  Payment successful
+                  Delete car
                 </Dialog.Title>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Your payment has been successfully submitted. We’ve sent you an email with all
-                    of the details of your order.
-                  </p>
+                  <p className="text-sm text-gray-500">Do you want to delete this car?</p>
                 </div>
 
                 <div className="mt-4">
