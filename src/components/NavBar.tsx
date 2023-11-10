@@ -8,7 +8,7 @@ import LogoutIcon from '../assets/LogoutIcon'
 
 function NavBar(): ReactElement {
   const navigate = useNavigate()
-  const loggedInUserId = localStorage.getItem('userId')
+  const loggedInUserId = localStorage.getItem('token')
   const logoutHandler = () => {
     localStorage.clear()
     navigate('/', { replace: true })
