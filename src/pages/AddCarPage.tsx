@@ -1,48 +1,29 @@
 // import { useState } from 'react'
 import AddCarForm from '../components/cars/AddCarForm'
 import Header from '../components/ui/Header'
+import Loading, { LoadingStyle } from '../components/ui/Loading'
+import { useCarTypes } from '../hooks'
 // import { addNewCar } from '../hooks'
 // import { CarDto, CarState, FuelType } from '../util/api'
 export default function AddCarPage() {
-  // const [formData, setFormData] = useState({
-  //   carTypeId: null,
-  //   name: '',
-  //   fuelType: '',
-  //   userId: null,
-  //   horsepower: null,
-  //   licensePlate: '',
-  //   info: '',
-  // })
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target
-  //   setFormData({ ...formData, [name]: value })
-  // }
-  // const [{ data: car, loading: carLoading, error: carError }, executePost] = addNewCar()
+  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
 
-  // const addCarHandler = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault()
-  //   executePost({
-  //     data: {
-  //       carTypeId: formData.carTypeId,
-  //       name: formData.name,
-  //       fuelType: formData.fuelType,
-  //       userId: 2,
-  //       horsepower: formData.horsepower,
-  //       licensePlate: formData.licensePlate,
-  //       info: formData.info,
-  //     },
-  //   })
-  // }
-  // console.log(car)
+  if (carTypesError) throw 'Sorry for the inconvenience'
+
+  if (carTypesLoading)
+    return (
+      <>
+        <Header title="All Cars" />
+        <Loading loadingStyle={LoadingStyle.Default} />
+      </>
+    )
+
+  if (!carTypes) throw 'The page could not be reached, sorry for the inconvenience'
+
   return (
     <div>
       <Header title="NEW CAR" />
-      <AddCarForm
-      // addCarHandler={addCarHandler}
-      // handleInputChange={handleInputChange}
-      // carLoading={carLoading}
-      // carError={carError}
-      />
+      <AddCarForm carTypes={carTypes} />
     </div>
   )
 }
