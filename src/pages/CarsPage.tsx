@@ -73,15 +73,16 @@ export default function CarsPage(): ReactElement {
       <div>
         <Header title="All Cars" />
 
-        <Cars
-          cars={userCars}
-          onDeleteCar={openDeleteModal}
+        <Cars cars={userCars} onDeleteCar={openDeleteModal} />
+      </div>
+
+      {isOpen && (
+        <MyDialog
+          onDeleteCar={onDeleteCar}
           deleteLoading={deleteLoading}
           deleteError={deleteError}
         />
-      </div>
-
-      {isOpen && <MyDialog onDeleteCar={onDeleteCar} />}
+      )}
     </>
   )
 }

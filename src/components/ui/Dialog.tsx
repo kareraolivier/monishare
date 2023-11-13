@@ -1,13 +1,16 @@
 import { ReactElement, useState, Fragment } from 'react'
+import { AxiosError } from 'axios'
 import { Dialog } from '@headlessui/react'
 import Button from './Button'
 import { ButtonVariant } from '../../types/enums'
 import { Transition } from '@headlessui/react'
-
+import Loading, { LoadingStyle } from './Loading'
 interface Props {
   onDeleteCar: () => void
+  deleteLoading: boolean
+  deleteError: AxiosError<unknown> | null
 }
-export default function MyDialog({ onDeleteCar }: Props): ReactElement {
+export default function MyDialog({ onDeleteCar, deleteLoading, deleteError }: Props): ReactElement {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
@@ -47,7 +50,14 @@ export default function MyDialog({ onDeleteCar }: Props): ReactElement {
                 <div className="mt-4">
                   <div className="flex gap-4 p-4">
                     <Button filled={false} variant={ButtonVariant.Delete} onClick={onDeleteCar}>
-                      Delete
+                      {deleteLoading ? (
+                        <p className="flex justify-center text-lachs-200">
+                          <Loading loadingStyle={LoadingStyle.Small} />
+                          <span>Deleting...</span>
+                        </p>
+                      ) : (
+                        'Delete'
+                      )}
                     </Button>
                     <Button
                       filled={false}
@@ -57,6 +67,11 @@ export default function MyDialog({ onDeleteCar }: Props): ReactElement {
                       Cancel
                     </Button>
                   </div>
+                  {deleteError !== null && (
+                    <p className="text-lachs-200">
+                      There is a problem, The car could not be deleted.
+                    </p>
+                  )}
                 </div>
               </Dialog.Panel>
             </Transition.Child>

@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
@@ -10,16 +9,8 @@ import { ButtonVariant } from '../../types/enums'
 interface Props {
   carDetails: CarDetails
   onDeleteCar: (id?: number) => void
-  deleteLoading: boolean
-  deleteError: AxiosError<unknown> | null
 }
-export default function CarCard({
-  carDetails,
-  onDeleteCar,
-  deleteLoading,
-  deleteError,
-}: Props): ReactElement {
-  if (deleteError !== null && deleteLoading === false) throw new Error('Could not delete car')
+export default function CarCard({ carDetails, onDeleteCar }: Props): ReactElement {
   return (
     <div className="group flex flex-col items-center rounded-xl bg-indigo-400 p-4">
       <div className="grid grid-cols-5 gap-2">
