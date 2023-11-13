@@ -14,7 +14,6 @@ export default function LoginPage(): ReactElement {
   if (user) {
     localStorage.setItem('token', user.token)
     localStorage.setItem('userId', user.userId.toString())
-    return <Navigate to="/" />
   }
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,15 +21,16 @@ export default function LoginPage(): ReactElement {
     setCredentials(prevCredentials => ({ ...prevCredentials, [name]: value }))
   }
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    executePost({
+    await executePost({
       data: credentials,
     })
   }
 
   return (
-    <div className="py-10">
+    <div className="py-10 font-lora">
+      {user && <Navigate to="/welcome" />}
       <h1 className="text-center text-5xl font-extrabold text-gray-100">
         MONI<span className="block font-italic font-medium">share</span>
       </h1>
