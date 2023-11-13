@@ -22,6 +22,11 @@ export default function CarsPage(): ReactElement {
     setIsOpen(true)
     setCarId(id)
   }
+
+  function onCancelDeleteCar() {
+    refetchCars()
+    setIsOpen(false)
+  }
   const loggedInUserId = localStorage.getItem('userId')
   if (loggedInUserId === null)
     return (
@@ -73,15 +78,17 @@ export default function CarsPage(): ReactElement {
       <div>
         <Header title="All Cars" />
 
-        <Cars
-          cars={userCars}
-          onDeleteCar={openDeleteModal}
+        <Cars cars={userCars} onDeleteCar={openDeleteModal} />
+      </div>
+
+      {isOpen && (
+        <MyDialog
+          onDeleteCar={onDeleteCar}
+          onCancelDeleteCar={onCancelDeleteCar}
           deleteLoading={deleteLoading}
           deleteError={deleteError}
         />
-      </div>
-
-      {isOpen && <MyDialog onDeleteCar={onDeleteCar} />}
+      )}
     </>
   )
 }

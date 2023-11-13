@@ -1,18 +1,26 @@
-import { ReactElement, useState, Fragment } from 'react'
+import { ReactElement, Fragment } from 'react'
+import { AxiosError } from 'axios'
 import { Dialog } from '@headlessui/react'
 import Button from './Button'
 import { ButtonVariant } from '../../types/enums'
 import { Transition } from '@headlessui/react'
-
+import Loading, { LoadingStyle } from './Loading'
 interface Props {
   onDeleteCar: () => void
+  onCancelDeleteCar: () => void
+  deleteLoading: boolean
+  deleteError: AxiosError<unknown> | null
 }
-export default function MyDialog({ onDeleteCar }: Props): ReactElement {
-  const [isOpen, setIsOpen] = useState(true)
 
+export default function MyDialog({
+  onDeleteCar,
+  onCancelDeleteCar,
+  deleteLoading,
+  deleteError,
+}: Props): ReactElement {
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
+    <Transition appear show={true} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onCancelDeleteCar}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -47,16 +55,28 @@ export default function MyDialog({ onDeleteCar }: Props): ReactElement {
                 <div className="mt-4">
                   <div className="flex gap-4 p-4">
                     <Button filled={false} variant={ButtonVariant.Delete} onClick={onDeleteCar}>
-                      Delete
+                      {deleteLoading ? (
+                        <p className="flex justify-center text-lachs-200">
+                          <Loading loadingStyle={LoadingStyle.Small} />
+                          <span>Deleting...</span>
+                        </p>
+                      ) : (
+                        'Delete'
+                      )}
                     </Button>
                     <Button
                       filled={false}
                       variant={ButtonVariant.Primary}
-                      onClick={() => setIsOpen(false)}
+                      onClick={onCancelDeleteCar}
                     >
                       Cancel
                     </Button>
                   </div>
+                  {deleteError !== null && (
+                    <p className="text-lachs-200">
+                      There is a problem, The car could not be deleted.
+                    </p>
+                  )}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
