@@ -8,14 +8,14 @@ import LogoutIcon from '../assets/LogoutIcon'
 
 function NavBar(): ReactElement {
   const navigate = useNavigate()
-  const loggedInUserId = localStorage.getItem('token')
+  const token = localStorage.getItem('token')
   const logoutHandler = () => {
     localStorage.clear()
     navigate('/', { replace: true })
   }
   return (
     <div className="fixed z-10 mx-auto flex h-16 w-full items-center justify-between bg-gray-800 p-5">
-      {loggedInUserId !== null && (
+      {token !== null && (
         <Menu>
           {({ open }) => (
             <>
@@ -62,7 +62,7 @@ function NavBar(): ReactElement {
       <Link to="welcome" className="absolute left-1/2 -translate-x-1/2 translate-y-2">
         <Logo className="w-18" />
       </Link>
-      <button>{loggedInUserId !== null && <ProfileIcon />}</button>
+      <button>{token !== null && <ProfileIcon />}</button>
     </div>
   )
 }
