@@ -6,11 +6,11 @@ import { useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import useDeleteCar from '../hooks/useDeleteCar'
 import { apiUrl } from '../util/apiUrl'
-import MyDialog from '../components/ui/Dialog'
+import DeleteCarDialog from '../components/ui/DeleteCarDialog'
 
 export default function CarsPage(): ReactElement {
   const [isOpen, setIsOpen] = useState(false)
-  const [carId, setCarId] = useState<number | undefined>(0)
+  const [carId, setCarId] = useState<number | undefined>()
 
   async function onDeleteCar() {
     await deleteCar({ url: `${apiUrl}/cars/${carId}` })
@@ -18,7 +18,7 @@ export default function CarsPage(): ReactElement {
     setIsOpen(false)
   }
 
-  function openDeleteModal(id?: number | undefined) {
+  function openDeleteModal(id?: number) {
     setIsOpen(true)
     setCarId(id)
   }
@@ -28,7 +28,7 @@ export default function CarsPage(): ReactElement {
     return (
       <>
         <Header title="All Cars" />
-        <h1 className="text-center text-4xl text-white">No cars found!</h1>
+        <h1 className="text-center text-2xl text-white">No cars found!</h1>
       </>
     )
 
@@ -39,9 +39,6 @@ export default function CarsPage(): ReactElement {
 
   function onCancelDeleteCar() {
     setIsOpen(false)
-    {
-      deleteError !== null && refetchCars()
-    }
   }
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
@@ -59,7 +56,7 @@ export default function CarsPage(): ReactElement {
     return (
       <>
         <Header title="All Cars" />
-        <h1 className="text-center text-4xl text-white">No cars found!</h1>
+        <h1 className="text-center text-2xl text-white">No cars found!</h1>
       </>
     )
   const userCars = loggedInUserCars?.map(car => {
@@ -79,12 +76,11 @@ export default function CarsPage(): ReactElement {
     <>
       <div>
         <Header title="All Cars" />
-
         <Cars cars={userCars} onDeleteCar={openDeleteModal} />
       </div>
 
       {isOpen && (
-        <MyDialog
+        <DeleteCarDialog
           onDeleteCar={onDeleteCar}
           onCancelDeleteCar={onCancelDeleteCar}
           deleteLoading={deleteLoading}

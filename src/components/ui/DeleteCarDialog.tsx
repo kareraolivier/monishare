@@ -5,6 +5,7 @@ import Button from './Button'
 import { ButtonVariant } from '../../types/enums'
 import { Transition } from '@headlessui/react'
 import Loading, { LoadingStyle } from './Loading'
+
 interface Props {
   onDeleteCar: () => void
   onCancelDeleteCar: () => void
@@ -12,7 +13,7 @@ interface Props {
   deleteError: AxiosError<unknown> | null
 }
 
-export default function MyDialog({
+export default function DeleteCarDialog({
   onDeleteCar,
   onCancelDeleteCar,
   deleteLoading,
@@ -56,10 +57,10 @@ export default function MyDialog({
                   <div className="flex gap-4 p-4">
                     <Button filled={false} variant={ButtonVariant.Delete} onClick={onDeleteCar}>
                       {deleteLoading ? (
-                        <p className="flex justify-center text-lachs-200">
+                        <span className="flex justify-center gap-2 text-lachs-200">
                           <Loading loadingStyle={LoadingStyle.Small} />
-                          <span>Deleting...</span>
-                        </p>
+                          Deleting...
+                        </span>
                       ) : (
                         'Delete'
                       )}
