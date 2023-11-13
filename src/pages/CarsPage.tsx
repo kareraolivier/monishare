@@ -23,10 +23,6 @@ export default function CarsPage(): ReactElement {
     setCarId(id)
   }
 
-  function onCancelDeleteCar() {
-    refetchCars()
-    setIsOpen(false)
-  }
   const loggedInUserId = localStorage.getItem('userId')
   if (loggedInUserId === null)
     return (
@@ -41,6 +37,12 @@ export default function CarsPage(): ReactElement {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ loading: deleteLoading, error: deleteError }, deleteCar] = useDeleteCar()
 
+  function onCancelDeleteCar() {
+    setIsOpen(false)
+    {
+      deleteError !== null && refetchCars()
+    }
+  }
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
 
