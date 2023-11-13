@@ -20,8 +20,16 @@ export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
     fuelType: { value: FuelType.PETROL, isValid: true },
     horsepower: { value: '', isValid: false },
     licensePlate: { value: '', isValid: false },
-    info: { value: '', isValid: false },
+    info: { value: '', isValid: true },
   })
+
+  const formIsValid =
+    car.carTypeId.isValid &&
+    car.fuelType.isValid &&
+    car.horsepower.isValid &&
+    car.info.isValid &&
+    car.licensePlate.isValid &&
+    car.name.isValid
 
   const carTypesOptions = carTypes.map(carType => ({
     id: carType.id,
@@ -52,7 +60,16 @@ export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): undefined => {
     event.preventDefault()
-    onPost(car)
+    const convertedCar = {
+      carTypeId: car.carTypeId.value,
+      name: car.name.value,
+      fuelType: car.fuelType.value,
+      horsepower: car.horsepower.value,
+      licensePlate: car.licensePlate.value,
+      info: car.info.value,
+    }
+
+    onPost(convertedCar)
   }
   return (
     <div>
@@ -134,7 +151,9 @@ export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
           <Button onClick={onCancel} type="button" filled={false}>
             Cancel
           </Button>
-          <Button type="submit">Add car</Button>
+          <Button type="submit" disabled={!formIsValid}>
+            Add car
+          </Button>
         </div>
       </form>
     </div>
