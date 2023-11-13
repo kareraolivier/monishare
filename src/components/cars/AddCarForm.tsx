@@ -13,9 +13,9 @@ interface Props {
 // eslint-disable-next-line max-lines-per-function
 export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
   const [car, setCar] = useState({
-    carTypeId: '',
+    carTypeId: String(carTypes[0].id),
     name: '',
-    fuelType: '',
+    fuelType: FuelType.PETROL,
     horsepower: '',
     licensePlate: '',
     info: '',

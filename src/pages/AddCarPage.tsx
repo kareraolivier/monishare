@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import AddCarForm from '../components/cars/AddCarForm'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
@@ -6,13 +6,14 @@ import { useCarTypes, useAddCar } from '../hooks'
 import { CarPost } from '../types/interfaces'
 
 export default function AddCarPage() {
-  const navigate = useNavigate()
-
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ data: addCarMessage, loading: addCarLoading, error: addCarError }, postCar] = useAddCar()
 
-  if (carTypesError) throw 'Sorry for the inconvenience'
-  if (addCarError) throw 'Creating a car was not successful'
+  if (carTypesError)
+    throw new Error(carTypesError.response?.data.message ?? 'Sorry for the inconvenience')
+
+  if (addCarError)
+    throw new Error(addCarError.response?.data.message ?? 'Creating a car was not successful')
 
   if (carTypesLoading || addCarLoading)
     return (
@@ -24,9 +25,9 @@ export default function AddCarPage() {
 
   if (!carTypes) throw 'The page could not be reached, sorry for the inconvenience'
 
-  if (addCarMessage) navigate('/cars')
+  if (addCarMessage) return <Navigate to="/cars" />
 
-  const cancelPostHandler = () => navigate('/cars')
+  const cancelPostHandler = () => <Navigate to="/cars" />
 
   const carPostHandler = (car: CarPost) => {
     postCar({
