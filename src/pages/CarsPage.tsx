@@ -9,17 +9,17 @@ import { apiUrl } from '../util/apiUrl'
 import DeleteCarDialog from '../components/ui/DeleteCarDialog'
 
 export default function CarsPage(): ReactElement {
-  const [isOpen, setIsOpen] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [carId, setCarId] = useState<number | undefined>()
 
   async function onDeleteCar() {
     await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
     await refetchCars()
-    setIsOpen(false)
+    setModalIsOpen(false)
   }
 
   function openDeleteModal(id?: number) {
-    setIsOpen(true)
+    setModalIsOpen(true)
     setCarId(id)
   }
 
@@ -39,7 +39,7 @@ export default function CarsPage(): ReactElement {
 
   function onCancelDeleteCar() {
     setCarId(undefined)
-    setIsOpen(false)
+    setModalIsOpen(false)
   }
 
   if (carsError || usersError || carTypesError)
@@ -81,7 +81,7 @@ export default function CarsPage(): ReactElement {
         <Cars cars={userCars} onDeleteCar={openDeleteModal} />
       </div>
 
-      {isOpen && (
+      {modalIsOpen && (
         <DeleteCarDialog
           onDeleteCar={onDeleteCar}
           onCancelDeleteCar={onCancelDeleteCar}
