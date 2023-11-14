@@ -1,21 +1,30 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Menu } from '@headlessui/react'
 import ProfileIcon from '../assets/ProfileIcon'
-import Logo from '../assets/Logo'
 import { ReactElement } from 'react'
 import { menuLinks } from '../data/navbar'
 import LogoutIcon from '../assets/LogoutIcon'
+import WelcomeLink from './WelcomeLink'
 
 function NavBar(): ReactElement {
   const navigate = useNavigate()
-  const loggedInUserId = localStorage.getItem('token')
+  const token = localStorage.getItem('token')
   const logoutHandler = () => {
     localStorage.clear()
     navigate('/', { replace: true })
   }
+
+  const navBarStyles =
+    'fixed z-10 mx-auto flex h-16 w-full items-center justify-between bg-gray-800 p-5'
+  if (token === null)
+    return (
+      <div className={navBarStyles}>
+        <WelcomeLink />
+      </div>
+    )
   return (
-    <div className="fixed z-10 mx-auto flex h-16 w-full items-center justify-between bg-gray-800 p-5">
-      {loggedInUserId !== null && (
+    <div className={navBarStyles}>
+      {token !== null && (
         <Menu>
           {({ open }) => (
             <>
@@ -25,7 +34,7 @@ function NavBar(): ReactElement {
                   if (item.title)
                     return (
                       <h5 key={item.id} className="px-4 py-2 font-bold">
-                        My Cars
+                        {item.title}
                       </h5>
                     )
                   if (item.link)
@@ -59,10 +68,8 @@ function NavBar(): ReactElement {
           )}
         </Menu>
       )}
-      <Link to="welcome" className="absolute left-1/2 -translate-x-1/2 translate-y-2">
-        <Logo className="w-18" />
-      </Link>
-      <button>{loggedInUserId !== null && <ProfileIcon />}</button>
+      <WelcomeLink />
+      <button>{token !== null && <ProfileIcon />}</button>
     </div>
   )
 }

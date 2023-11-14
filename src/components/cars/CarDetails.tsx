@@ -7,15 +7,13 @@ import FuelIcon from '../../assets/FuelIcon'
 import AlertIcon from '../../assets/AlertIcon'
 import { CarTypeDto, CarDto, UserDto } from '../../util/api'
 
-export default function CarDetail({
-  carData,
-  carType,
-  carOwner,
-}: {
+interface Props {
   carData?: CarDto
   carType?: CarTypeDto
   carOwner?: UserDto
-}): ReactElement {
+}
+
+export default function CarDetail({ carData, carType, carOwner }: Props): ReactElement {
   return (
     <div className="mx-w-3xl flex flex-col justify-start overflow-x-hidden text-gray-100 md:flex-row md:items-center">
       <img src={carType?.imageUrl} alt={carType?.name} className="animate-slideLeft md:w-1/2" />

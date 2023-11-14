@@ -6,6 +6,7 @@ import PasswordIcon from '../assets/PasswordIcon'
 import useAuth from '../hooks/useAuth'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { Navigate } from 'react-router-dom'
+import Logo from '../components/Logo'
 
 export default function LoginPage(): ReactElement {
   const [{ data: user, loading: userLoading, error: userError }, executePost] = useAuth()
@@ -31,9 +32,7 @@ export default function LoginPage(): ReactElement {
   return (
     <div className="py-10 font-lora">
       {user && <Navigate to="/welcome" />}
-      <h1 className="text-center text-5xl font-extrabold text-gray-100">
-        MONI<span className="block font-italic font-medium">share</span>
-      </h1>
+      <Logo />
 
       <form onSubmit={submitHandler}>
         <h1 className="mb-10 mt-20 text-center font-lora text-2xl text-white">Login</h1>

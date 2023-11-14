@@ -7,6 +7,7 @@ import Loading, { LoadingStyle } from '../components/ui/Loading'
 
 export default function CarDetailsPage(): ReactElement {
   const { id } = useParams()
+  const carDetails = 'Details'
 
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -19,7 +20,7 @@ export default function CarDetailsPage(): ReactElement {
   if (carsLoading || carTypesLoading || usersLoading) {
     return (
       <>
-        <Header title="Details" />
+        <Header title={carDetails} />
         <div className="flex flex-col items-center justify-center">
           <Loading loadingStyle={LoadingStyle.Default} />
         </div>
@@ -34,7 +35,7 @@ export default function CarDetailsPage(): ReactElement {
 
   return (
     <>
-      <Header title="Details" />
+      <Header title={carDetails} />
       <div className="flex flex-col items-center justify-center">
         <CarDetails carData={carData} carType={carType} carOwner={carOwner} />
       </div>
