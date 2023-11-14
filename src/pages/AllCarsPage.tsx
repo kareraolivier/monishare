@@ -13,7 +13,7 @@ export default function CarsPage(): ReactElement {
   const loggedInUserId = localStorage.getItem('userId')
   if (loggedInUserId === null) return <Navigate to="login" />
 
-  const allCars = 'All Cars'
+  const title = 'All Cars'
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [carId, setCarId] = useState<number | undefined>()
@@ -45,7 +45,7 @@ export default function CarsPage(): ReactElement {
   if (carsLoading || usersLoading || carTypesLoading)
     return (
       <>
-        <Header title={allCars} />
+        <Header title={title} />
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
@@ -54,7 +54,7 @@ export default function CarsPage(): ReactElement {
   if (loggedInUserCars?.length === 0)
     return (
       <>
-        <Header title={allCars} />
+        <Header title={title} />
         <h1 className="text-center text-2xl text-white">No cars found!</h1>
       </>
     )
@@ -74,7 +74,7 @@ export default function CarsPage(): ReactElement {
   return (
     <>
       <div>
-        <Header title={allCars} />
+        <Header title={title} />
         <Cars cars={populatedCars} onDeleteCar={openDeleteModal} />
       </div>
 
