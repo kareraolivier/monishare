@@ -1,21 +1,21 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, ButtonHTMLAttributes } from 'react'
 import { ButtonVariant } from '../../types/enums'
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   filled?: boolean
   variant?: ButtonVariant
   children: ReactNode
-  type?: 'submit' | 'button' | 'reset'
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export default function Button({
   filled = true,
   variant,
   type,
-  onClick,
   children,
+  disabled,
+  onClick,
 }: Props): ReactElement {
+  variant = disabled ? ButtonVariant.Disabled : variant
   let classes = ''
   switch (variant) {
     case ButtonVariant.Secondary:

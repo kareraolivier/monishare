@@ -3,6 +3,7 @@ import { ReactElement, SelectHTMLAttributes } from 'react'
 interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
   options: {
     id: number
+    value: string
     text: string
   }[]
 }
@@ -17,7 +18,7 @@ export default function SelectInput({ options, name, value, onChange }: Props): 
         className="w-full bg-indigo-200 text-white outline-none"
       >
         {options.map(option => (
-          <option key={option.id} value={option.text}>
+          <option key={option.id} value={option.value}>
             {option.text}
           </option>
         ))}

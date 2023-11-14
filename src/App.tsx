@@ -14,8 +14,8 @@ import WelcomePage from './pages/WelcomePage'
 import HomePage from './pages/HomePage'
 import ManageBookingsPage from './pages/ManageBookingsPage'
 import NewBookingsPage from './pages/NewBookingsPage'
-import NewCarPage from './pages/NewCarPage'
 import CarDetailsPage from './pages/CarDetailsPage'
+import AddCarPage from './pages/AddCarPage'
 import AuthLayout from './components/layout/AuthLayout'
 import LoginPage from './pages/LoginPage'
 
@@ -40,7 +40,7 @@ function App(): ReactElement {
           <Route path="bookings" element={<BookingsPage />} />
           <Route path="manage-bookings" element={<ManageBookingsPage />} />
           <Route path="book" element={<NewBookingsPage />} />
-          <Route path="new-car" element={<NewCarPage />} />
+          <Route path="add-car" element={<AddCarPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Route>,
