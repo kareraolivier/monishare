@@ -1,76 +1,36 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
 import Button from '../ui/Button'
 import Input from '../ui/inputs/Input'
 import SelectInput from '../ui/inputs/SelectInput'
-import { CarTypeDto, FuelType } from '../../util/api'
-import { CarPost } from '../../types/interfaces'
+import { FuelType } from '../../util/api'
 import ErrorMessage from '../ui/ErrorMessage'
-import { newCarValidation } from '../../util/formValidation'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 interface Props {
-  carTypes: CarTypeDto[]
-  onCancel: () => void
-  onPost: (car: CarPost) => void
+  car: {
+    carTypeId: { value: string | null; isValid: boolean }
+    name: { value: string; isValid: boolean }
+    fuelType: { value: string; isValid: boolean }
+    horsepower: { value: string; isValid: boolean }
+    licensePlate: { value: string; isValid: boolean }
+    info: { value: string; isValid: boolean }
+  }
+  carTypesOptions: { id: number; value: string; text: string }[]
+  formIsValid: boolean
+  handleSubmit: (event: FormEvent<HTMLFormElement>) => undefined
+  changeHandler: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
 }
-// eslint-disable-next-line max-lines-per-function
-export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
-  const [car, setCar] = useState({
-    carTypeId: { value: String(carTypes[0].id), isValid: true },
-    name: { value: '', isValid: false },
-    fuelType: { value: FuelType.PETROL, isValid: true },
-    horsepower: { value: '', isValid: false },
-    licensePlate: { value: '', isValid: false },
-    info: { value: '', isValid: true },
-  })
+export default function AddCarForm({
+  car,
+  carTypesOptions,
+  formIsValid,
+  handleSubmit,
+  changeHandler,
+}: Props) {
+  const [cancel, setCancel] = useState(false)
+  if (cancel) return <Navigate to="/cars" />
 
-  const formIsValid =
-    car.carTypeId.isValid &&
-    car.fuelType.isValid &&
-    car.horsepower.isValid &&
-    car.info.isValid &&
-    car.licensePlate.isValid &&
-    car.name.isValid
-
-  const carTypesOptions = carTypes.map(carType => ({
-    id: carType.id,
-    value: String(carType.id),
-    text: carType.name,
-  }))
-
-  const changeHandler = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target
-    const list = []
-    if ('options' in event.target) {
-      for (const { value } of event.target.options) {
-        list.push(value)
-      }
-    }
-
-    const inputIsValid =
-      list.length !== 0 ? newCarValidation(name, value, list) : newCarValidation(name, value)
-
-    setCar(prevCar => ({
-      ...prevCar,
-      [name]: { value: value, isValid: inputIsValid },
-    }))
-  }
-
-  const test = (): number => 5
-  test()
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): undefined => {
-    event.preventDefault()
-    const convertedCar = {
-      carTypeId: car.carTypeId.value,
-      name: car.name.value,
-      fuelType: car.fuelType.value,
-      horsepower: car.horsepower.value,
-      licensePlate: car.licensePlate.value,
-      info: car.info.value,
-    }
-
-    onPost(convertedCar)
-  }
+  const cancelPostHandler = () => setCancel(true)
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -91,7 +51,7 @@ export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
             <SelectInput
               onChange={changeHandler}
               options={carTypesOptions}
-              value={car.carTypeId.value}
+              value={car.carTypeId.value ?? carTypesOptions[0].id}
               name="carTypeId"
             />
             {!car.carTypeId.isValid && <ErrorMessage>Select type from the dropdown</ErrorMessage>}
@@ -148,7 +108,7 @@ export default function AddCarForm({ carTypes, onCancel, onPost }: Props) {
         </div>
 
         <div className="mx-auto flex w-full max-w-sm justify-center gap-3 py-20">
-          <Button onClick={onCancel} type="button" filled={false}>
+          <Button onClick={cancelPostHandler} type="button" filled={false}>
             Cancel
           </Button>
           <Button type="submit" disabled={!formIsValid}>
