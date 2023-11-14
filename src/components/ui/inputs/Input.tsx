@@ -20,6 +20,7 @@ function Input({
       {Icon && <Icon className="shrink-0" />}
       <input
         className="w-full flex-1 bg-transparent text-white outline-none placeholder:text-white"
+        autoComplete="off"
         type={type}
         placeholder={placeholder}
         name={name}

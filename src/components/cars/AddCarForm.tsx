@@ -8,12 +8,12 @@ import { Navigate } from 'react-router-dom'
 
 interface Props {
   car: {
-    carTypeId: { value: string | null; isValid: boolean }
-    name: { value: string; isValid: boolean }
-    fuelType: { value: string; isValid: boolean }
-    horsepower: { value: string; isValid: boolean }
-    licensePlate: { value: string; isValid: boolean }
-    info: { value: string; isValid: boolean }
+    carTypeId: { value: string | null; isValid: boolean; hasError: boolean }
+    name: { value: string; isValid: boolean; hasError: boolean }
+    fuelType: { value: string; isValid: boolean; hasError: boolean }
+    horsepower: { value: string; isValid: boolean; hasError: boolean }
+    licensePlate: { value: string; isValid: boolean; hasError: boolean }
+    info: { value: string; isValid: boolean; hasError: boolean }
   }
   carTypesOptions: { id: number; value: string; text: string }[]
   formIsValid: boolean
@@ -43,7 +43,7 @@ export default function AddCarForm({
               value={car.name.value}
               placeholder="e.g My Nice Moni car"
             />
-            {!car.name.isValid && <ErrorMessage>Name should not be empty !</ErrorMessage>}
+            {car.name.hasError && <ErrorMessage>Name should not be empty !</ErrorMessage>}
           </div>
 
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
@@ -54,7 +54,7 @@ export default function AddCarForm({
               value={car.carTypeId.value ?? carTypesOptions[0].id}
               name="carTypeId"
             />
-            {!car.carTypeId.isValid && <ErrorMessage>Select type from the dropdown</ErrorMessage>}
+            {car.carTypeId.hasError && <ErrorMessage>Select type from the dropdown</ErrorMessage>}
           </div>
 
           <div className="flex w-full max-w-sm gap-1 text-sm text-white">
@@ -66,7 +66,7 @@ export default function AddCarForm({
                 value={car.licensePlate.value}
                 placeholder="e.g. M-XY 123"
               />
-              {!car.licensePlate.isValid && (
+              {car.licensePlate.hasError && (
                 <ErrorMessage>Should only contain number and letters</ErrorMessage>
               )}
             </div>
@@ -78,7 +78,7 @@ export default function AddCarForm({
                 value={car.horsepower.value}
                 placeholder="110"
               />
-              {!car.horsepower.isValid && <ErrorMessage>Should only contain number</ErrorMessage>}
+              {car.horsepower.hasError && <ErrorMessage>Should only contain number</ErrorMessage>}
             </div>
           </div>
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
@@ -93,7 +93,7 @@ export default function AddCarForm({
               name="fuelType"
               value={car.fuelType.value}
             />
-            {!car.fuelType.isValid && <ErrorMessage>Select type from the dropdown.</ErrorMessage>}
+            {car.fuelType.hasError && <ErrorMessage>Select type from the dropdown.</ErrorMessage>}
           </div>
 
           <div className="w-full max-w-sm space-y-2 text-sm text-white">

@@ -14,12 +14,12 @@ export default function AddCarPage() {
   const [{ data: addCarMessage, loading: addCarLoading, error: addCarError }, executeAddCar] =
     useAddCar()
   const [car, setCar] = useState({
-    carTypeId: { value: null, isValid: true },
-    name: { value: '', isValid: false },
-    fuelType: { value: FuelType.PETROL, isValid: true },
-    horsepower: { value: '', isValid: false },
-    licensePlate: { value: '', isValid: false },
-    info: { value: '', isValid: true },
+    carTypeId: { value: null, isValid: true, hasError: false },
+    name: { value: '', isValid: false, hasError: false },
+    fuelType: { value: FuelType.PETROL, isValid: true, hasError: false },
+    horsepower: { value: '', isValid: false, hasError: false },
+    licensePlate: { value: '', isValid: false, hasError: false },
+    info: { value: '', isValid: true, hasError: false },
   })
 
   if (carTypesError)
@@ -68,7 +68,7 @@ export default function AddCarPage() {
 
     setCar(prevCar => ({
       ...prevCar,
-      [name]: { value: value, isValid: inputIsValid },
+      [name]: { value: value, isValid: inputIsValid, hasError: !inputIsValid },
     }))
   }
 
