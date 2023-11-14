@@ -1,13 +1,12 @@
 import { ReactElement } from 'react'
 import Button from '../components/ui/Button'
 import { Link } from 'react-router-dom'
+import Logo from '../components/Logo'
 
 export default function WelcomePage(): ReactElement {
   return (
     <main className="mx-auto flex h-screen flex-col justify-center gap-8 py-10 font-lora lg:w-1/3">
-      <h1 className="flex flex-col items-center text-5xl font-extrabold text-gray-100">
-        MONI <span className="font-italic font-medium">share</span>
-      </h1>
+      <Logo />
       <p className="flex flex-col items-center text-lg text-gray-100">
         Hello Manuela!
         <span>What are you up to today?</span>

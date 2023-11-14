@@ -7,10 +7,21 @@ import Loading, { LoadingStyle } from '../components/ui/Loading'
 import useDeleteCar from '../hooks/useDeleteCar'
 import { apiUrl } from '../util/apiUrl'
 import DeleteCarDialog from '../components/ui/DeleteCarDialog'
+import { Navigate } from 'react-router-dom'
 
 export default function CarsPage(): ReactElement {
+  const loggedInUserId = localStorage.getItem('userId')
+  if (loggedInUserId === null) return <Navigate to="login" />
+
+  const allCars = 'All Cars'
+
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [carId, setCarId] = useState<number | undefined>()
+
+  const [{ data: cars, loading: carsLoading, error: carsError }, refetchCars] = useCars()
+  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
+  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+  const [{ loading: deleteLoading, error: deleteError }, executeDeleteCar] = useDeleteCar()
 
   async function onDeleteCar() {
     await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
@@ -23,20 +34,6 @@ export default function CarsPage(): ReactElement {
     setCarId(id)
   }
 
-  const loggedInUserId = localStorage.getItem('userId')
-  if (loggedInUserId === null)
-    return (
-      <>
-        <Header title="All Cars" />
-        <h1 className="text-center text-2xl text-white">No cars found!</h1>
-      </>
-    )
-
-  const [{ data: cars, loading: carsLoading, error: carsError }, refetchCars] = useCars()
-  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
-  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ loading: deleteLoading, error: deleteError }, executeDeleteCar] = useDeleteCar()
-
   function onCancelDeleteCar() {
     setCarId(undefined)
     setModalIsOpen(false)
@@ -48,7 +45,7 @@ export default function CarsPage(): ReactElement {
   if (carsLoading || usersLoading || carTypesLoading)
     return (
       <>
-        <Header title="All Cars" />
+        <Header title={allCars} />
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
@@ -57,11 +54,11 @@ export default function CarsPage(): ReactElement {
   if (loggedInUserCars?.length === 0)
     return (
       <>
-        <Header title="All Cars" />
+        <Header title={allCars} />
         <h1 className="text-center text-2xl text-white">No cars found!</h1>
       </>
     )
-  const userCars = loggedInUserCars?.map(car => {
+  const populatedCars = loggedInUserCars?.map(car => {
     const owner = users?.find(user => Number(loggedInUserId) === user.id)
     const type = carTypes?.find(carType => car.carTypeId === carType.id)
     return {
@@ -77,8 +74,8 @@ export default function CarsPage(): ReactElement {
   return (
     <>
       <div>
-        <Header title="All Cars" />
-        <Cars cars={userCars} onDeleteCar={openDeleteModal} />
+        <Header title={allCars} />
+        <Cars cars={populatedCars} onDeleteCar={openDeleteModal} />
       </div>
 
       {modalIsOpen && (
