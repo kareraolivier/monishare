@@ -107,7 +107,7 @@ export default function AddCarForm({
           </div>
         </div>
 
-        <div className="mx-auto flex w-full max-w-sm justify-center gap-3 py-20">
+        <div className="mx-auto flex w-full max-w-sm justify-center gap-3 py-8">
           <Button onClick={cancelPostHandler} type="button" filled={false}>
             Cancel
           </Button>

@@ -7,9 +7,12 @@ import { useCarTypes, useAddCar } from '../hooks'
 import { newCarValidation } from '../util/formValidation'
 import { FuelType } from '../util/api'
 
+const title = 'NEW CAR'
+
 export default function AddCarPage() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ data: addCarMessage, loading: addCarLoading, error: addCarError }, postCar] = useAddCar()
+  const [{ data: addCarMessage, loading: addCarLoading, error: addCarError }, executeAddCar] =
+    useAddCar()
   const [car, setCar] = useState({
     carTypeId: { value: null, isValid: true },
     name: { value: '', isValid: false },
@@ -28,7 +31,7 @@ export default function AddCarPage() {
   if (carTypesLoading || addCarLoading)
     return (
       <>
-        <Header title="All Cars" />
+        <Header title={title} />
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
@@ -71,7 +74,7 @@ export default function AddCarPage() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): undefined => {
     event.preventDefault()
-    postCar({
+    executeAddCar({
       data: {
         carTypeId: Number(car.carTypeId.value ?? carTypesOptions[0].id),
         name: car.name.value,
@@ -85,7 +88,7 @@ export default function AddCarPage() {
 
   return (
     <div>
-      <Header title="NEW CAR" />
+      <Header title={title} />
       <AddCarForm
         car={car}
         formIsValid={formIsValid}

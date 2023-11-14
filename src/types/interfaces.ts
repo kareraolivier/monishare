@@ -7,7 +7,7 @@ export interface CarDetails {
   url?: string
 }
 
-export interface CarPost {
+export interface AddCar {
   carTypeId: string
   name: string
   fuelType: string
