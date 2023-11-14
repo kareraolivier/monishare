@@ -11,7 +11,7 @@ import { Navigate } from 'react-router-dom'
 
 export default function CarsPage(): ReactElement {
   const loggedInUserId = localStorage.getItem('userId')
-  if (loggedInUserId === null) return <Navigate to="login" />
+  if (loggedInUserId === null) return <Navigate to="/login" />
 
   const title = 'All Cars'
 
