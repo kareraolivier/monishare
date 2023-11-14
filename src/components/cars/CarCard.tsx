@@ -14,7 +14,7 @@ export default function CarCard({ carDetails, onDeleteCar }: Props): ReactElemen
   return (
     <div className="group flex flex-col items-center justify-between rounded-xl bg-indigo-400 p-4">
       <>
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-5 items-center gap-2">
           <div className="col-span-3 flex items-end justify-end">
             <img
               src={carDetails.image}

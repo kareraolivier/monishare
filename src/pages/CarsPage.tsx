@@ -13,7 +13,7 @@ export default function CarsPage(): ReactElement {
   const [carId, setCarId] = useState<number | undefined>()
 
   async function onDeleteCar() {
-    await deleteCar({ url: `${apiUrl}/cars/${carId}` })
+    await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
     await refetchCars()
     setIsOpen(false)
   }
@@ -35,11 +35,13 @@ export default function CarsPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }, refetchCars] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ loading: deleteLoading, error: deleteError }, deleteCar] = useDeleteCar()
+  const [{ loading: deleteLoading, error: deleteError }, executeDeleteCar] = useDeleteCar()
 
   function onCancelDeleteCar() {
+    setCarId(undefined)
     setIsOpen(false)
   }
+
   if (carsError || usersError || carTypesError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
 
