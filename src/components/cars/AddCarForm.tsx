@@ -6,29 +6,31 @@ import ErrorMessage from '../ui/ErrorMessage'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
+interface CarPropValue {
+  value: string
+  isValid: boolean
+  hasError: boolean
+}
+
 interface Props {
   car: {
     carTypeId: { value: string | null; isValid: boolean; hasError: boolean }
-    name: { value: string; isValid: boolean; hasError: boolean }
-    fuelType: { value: string; isValid: boolean; hasError: boolean }
-    horsepower: { value: string; isValid: boolean; hasError: boolean }
-    licensePlate: { value: string; isValid: boolean; hasError: boolean }
-    info: { value: string; isValid: boolean; hasError: boolean }
+    name: CarPropValue
+    fuelType: CarPropValue
+    horsepower: CarPropValue
+    licensePlate: CarPropValue
+    info: CarPropValue
   }
   carTypesOptions: { id: number; value: string; text: string }[]
-  formIsValid: boolean
   handleSubmit: (event: FormEvent<HTMLFormElement>) => undefined
   changeHandler: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
 }
-export default function AddCarForm({
-  car,
-  carTypesOptions,
-  formIsValid,
-  handleSubmit,
-  changeHandler,
-}: Props) {
+export default function AddCarForm({ car, carTypesOptions, handleSubmit, changeHandler }: Props) {
   const [cancel, setCancel] = useState(false)
   if (cancel) return <Navigate to="/cars" />
+
+  const formValues = Object.values(car)
+  const isFormValid = formValues.every(value => value.isValid)
 
   const cancelPostHandler = () => setCancel(true)
   return (
@@ -43,7 +45,7 @@ export default function AddCarForm({
               value={car.name.value}
               placeholder="e.g My Nice Moni car"
             />
-            {car.name.hasError && <ErrorMessage>Name should not be empty !</ErrorMessage>}
+            {car.name.hasError && <ErrorMessage>Name should not be alphanumeric !</ErrorMessage>}
           </div>
 
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
@@ -111,7 +113,7 @@ export default function AddCarForm({
           <Button onClick={cancelPostHandler} type="button" filled={false}>
             Cancel
           </Button>
-          <Button type="submit" disabled={!formIsValid}>
+          <Button type="submit" disabled={!isFormValid}>
             Add car
           </Button>
         </div>
