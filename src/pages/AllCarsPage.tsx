@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { useState } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
@@ -23,6 +23,10 @@ export default function CarsPage(): ReactElement {
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ loading: deleteLoading, error: deleteError }, executeDeleteCar] = useDeleteCar()
+
+  useEffect(() => {
+    refetchCars()
+  }, [])
 
   async function onDeleteCar() {
     await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
