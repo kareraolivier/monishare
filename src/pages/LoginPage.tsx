@@ -53,9 +53,15 @@ export default function LoginPage(): ReactElement {
             placeholder="Password"
           />
         </div>
-        <div className="flex flex-col items-center py-20">
+        <div className="flex flex-col items-center py-20 font-inter">
           <Button type="submit">
-            {userLoading ? <Loading loadingStyle={LoadingStyle.Small} /> : 'Login'}
+            {userLoading ? (
+              <span className="flex justify-center gap-2">
+                <Loading loadingStyle={LoadingStyle.Small} /> Login...
+              </span>
+            ) : (
+              'Login'
+            )}
           </Button>
           <p className="py-3 text-red-200">{userError && userError.response?.data.message}</p>
         </div>

@@ -5,6 +5,7 @@ import { FuelType } from '../../util/api'
 import ErrorMessage from '../ui/ErrorMessage'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Navigate } from 'react-router-dom'
+import { animated, useSpring } from '@react-spring/web'
 
 interface CarPropValue {
   value: string
@@ -33,8 +34,12 @@ export default function AddCarForm({ car, carTypesOptions, handleSubmit, changeH
   const isFormValid = formValues.every(value => value.isValid)
 
   const cancelPostHandler = () => setCancel(true)
+  const springs = useSpring({
+    from: { y: 100 },
+    to: { y: 0 },
+  })
   return (
-    <div>
+    <animated.div style={springs}>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col items-center gap-4">
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
@@ -118,6 +123,6 @@ export default function AddCarForm({ car, carTypesOptions, handleSubmit, changeH
           </Button>
         </div>
       </form>
-    </div>
+    </animated.div>
   )
 }
