@@ -28,16 +28,16 @@ interface Props {
 }
 export default function AddCarForm({ car, carTypesOptions, handleSubmit, changeHandler }: Props) {
   const [cancel, setCancel] = useState(false)
-  if (cancel) return <Navigate to="/cars" />
-
-  const formValues = Object.values(car)
-  const isFormValid = formValues.every(value => value.isValid)
-
-  const cancelPostHandler = () => setCancel(true)
   const springs = useSpring({
     from: { y: 100 },
     to: { y: 0 },
   })
+
+  if (cancel) return <Navigate to="/cars" />
+  const formValues = Object.values(car)
+  const isFormValid = formValues.every(value => value.isValid)
+
+  const cancelPostHandler = () => setCancel(true)
   return (
     <animated.div style={springs}>
       <form onSubmit={handleSubmit}>
