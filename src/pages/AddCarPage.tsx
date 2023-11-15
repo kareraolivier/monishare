@@ -11,7 +11,7 @@ const title = 'NEW CAR'
 
 export default function AddCarPage() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ data: addCarMessage, loading: addCarLoading, error: addCarError }, executeAddCar] =
+  const [{ data: addedCar, loading: addCarLoading, error: addCarError }, executeAddCar] =
     useAddCar()
   const [car, setCar] = useState({
     carTypeId: { value: null, isValid: true, hasError: false },
@@ -23,7 +23,10 @@ export default function AddCarPage() {
   })
 
   if (carTypesError)
-    throw new Error(carTypesError.response?.data.message ?? 'Sorry for the inconvenience')
+    throw new Error(
+      carTypesError.response?.data.message ??
+        'The page could not be reached, sorry for the inconvenience',
+    )
 
   if (addCarError)
     throw new Error(addCarError.response?.data.message ?? 'Creating a car was not successful')
@@ -36,17 +39,9 @@ export default function AddCarPage() {
       </>
     )
 
-  if (!carTypes) throw 'The page could not be reached, sorry for the inconvenience'
+  if (!carTypes) throw new Error('The page could not be reached, sorry for the inconvenience')
 
-  if (addCarMessage) return <Navigate to="/cars" />
-
-  const formIsValid =
-    car.carTypeId.isValid &&
-    car.fuelType.isValid &&
-    car.horsepower.isValid &&
-    car.info.isValid &&
-    car.licensePlate.isValid &&
-    car.name.isValid
+  if (addedCar) return <Navigate to="/cars" />
 
   const carTypesOptions = carTypes.map(carType => ({
     id: carType.id,
@@ -63,12 +58,12 @@ export default function AddCarPage() {
       }
     }
 
-    const inputIsValid =
+    const isInputValid =
       list.length !== 0 ? newCarValidation(name, value, list) : newCarValidation(name, value)
 
     setCar(prevCar => ({
       ...prevCar,
-      [name]: { value: value, isValid: inputIsValid, hasError: !inputIsValid },
+      [name]: { value: value, isValid: isInputValid, hasError: !isInputValid },
     }))
   }
 
@@ -91,7 +86,6 @@ export default function AddCarPage() {
       <Header title={title} />
       <AddCarForm
         car={car}
-        formIsValid={formIsValid}
         carTypesOptions={carTypesOptions}
         handleSubmit={handleSubmit}
         changeHandler={changeHandler}

@@ -6,12 +6,3 @@ export interface CarDetails {
   image?: string
   url?: string
 }
-
-export interface AddCar {
-  carTypeId: string
-  name: string
-  fuelType: string
-  horsepower: string
-  licensePlate: string
-  info: string
-}

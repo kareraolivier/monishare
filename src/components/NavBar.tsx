@@ -24,7 +24,7 @@ function NavBar(): ReactElement {
     )
   return (
     <div className={navBarStyles}>
-      {token !== null && (
+      {
         <Menu>
           {({ open }) => (
             <>
@@ -67,9 +67,9 @@ function NavBar(): ReactElement {
             </>
           )}
         </Menu>
-      )}
+      }
       <WelcomeLink />
-      <button>{token !== null && <ProfileIcon />}</button>
+      <button>{<ProfileIcon />}</button>
     </div>
   )
 }
