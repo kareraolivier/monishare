@@ -7,7 +7,8 @@ import Loading, { LoadingStyle } from '../components/ui/Loading'
 import useDeleteCar from '../hooks/useDeleteCar'
 import { apiUrl } from '../util/apiUrl'
 import DeleteCarDialog from '../components/ui/DeleteCarDialog'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import Button from '../components/ui/Button'
 
 export default function CarsPage(): ReactElement {
   const loggedInUserId = localStorage.getItem('userId')
@@ -86,6 +87,9 @@ export default function CarsPage(): ReactElement {
           deleteError={deleteError}
         />
       )}
+      <Link to="/add-car" className="flex w-full justify-center py-8">
+        <Button>Add new car</Button>
+      </Link>
     </>
   )
 }
