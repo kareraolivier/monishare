@@ -3,12 +3,12 @@ import Button from '../components/ui/Button'
 import { useUser } from '../hooks'
 import { Link, Navigate } from 'react-router-dom'
 import Logo from '../components/Logo'
+import { useReadLocalStorage } from 'usehooks-ts'
 
 export default function WelcomePage(): ReactElement {
-  const loggedInUserId = localStorage.getItem('userId')
+  const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
-
-  const [{ data: user, error: userError }] = useUser(loggedInUserId)
+  const [{ data: user, error: userError }] = useUser(Number(loggedInUserId))
   if (userError) throw new Error('No user found')
 
   return (
