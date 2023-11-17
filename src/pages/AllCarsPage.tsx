@@ -10,11 +10,11 @@ import DeleteCarDialog from '../components/ui/DeleteCarDialog'
 import { Link, Navigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 
+const title = 'All Cars'
+
 export default function CarsPage(): ReactElement {
   const loggedInUserId = localStorage.getItem('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
-
-  const title = 'All Cars'
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [carId, setCarId] = useState<number | undefined>()

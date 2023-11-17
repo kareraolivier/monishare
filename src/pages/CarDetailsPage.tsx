@@ -5,9 +5,10 @@ import { useCars, useCarTypes, useUsers } from '../hooks'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 
+const title = 'Details'
+
 export default function CarDetailsPage(): ReactElement {
   const { id } = useParams()
-  const title = 'Details'
 
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
