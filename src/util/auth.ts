@@ -1,3 +1,4 @@
+import { useReadLocalStorage } from 'usehooks-ts'
 export function getAuthToken(): string | null {
-  return localStorage.getItem('token')
+  return useReadLocalStorage('token')
 }
