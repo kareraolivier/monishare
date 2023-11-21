@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import Input from '../components/ui/inputs/Input'
 import Button from '../components/ui/Button'
 import ProfileIcon from '../assets/ProfileIcon'
@@ -7,15 +7,20 @@ import useAuth from '../hooks/useAuth'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { Navigate } from 'react-router-dom'
 import Logo from '../components/Logo'
+import { useLocalStorage } from 'usehooks-ts'
 
 export default function LoginPage(): ReactElement {
   const [{ data: user, loading: userLoading, error: userError }, executePost] = useAuth()
   const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [, setToken] = useLocalStorage('token', '')
+  const [, setUserId] = useLocalStorage('userId', '')
 
-  if (user) {
-    localStorage.setItem('token', user.token)
-    localStorage.setItem('userId', user.userId.toString())
-  }
+  useEffect(() => {
+    if (user) {
+      setToken(user.token)
+      setUserId(user.userId.toString())
+    }
+  }, [user])
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target

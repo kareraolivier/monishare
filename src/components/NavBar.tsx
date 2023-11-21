@@ -5,10 +5,11 @@ import { ReactElement } from 'react'
 import { menuLinks } from '../data/navbar'
 import LogoutIcon from '../assets/LogoutIcon'
 import WelcomeLink from './WelcomeLink'
+import { useReadLocalStorage } from 'usehooks-ts'
 
 function NavBar(): ReactElement {
   const navigate = useNavigate()
-  const token = localStorage.getItem('token')
+  const token = useReadLocalStorage('token')
   const logoutHandler = () => {
     localStorage.clear()
     navigate('/', { replace: true })
