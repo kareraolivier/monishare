@@ -4,3 +4,8 @@ export enum ButtonVariant {
   Disabled = 'disabled',
   Delete = 'delete',
 }
+
+export enum Action {
+  Owned = 'Owned',
+  Requested = 'Requested',
+}
