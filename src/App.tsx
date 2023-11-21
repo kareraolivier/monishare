@@ -18,6 +18,7 @@ import CarDetailsPage from './pages/CarDetailsPage'
 import AddCarPage from './pages/AddCarPage'
 import AuthLayout from './components/layout/AuthLayout'
 import LoginPage from './pages/LoginPage'
+import AvailableCarPage from './pages/AvailableCarPage'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -37,6 +38,7 @@ function App(): ReactElement {
           <Route path="welcome" element={<WelcomePage />} />
           <Route path="cars" element={<AllCarsPage />} />
           <Route path="cars/:id" element={<CarDetailsPage />} />
+          <Route path="available-cars" element={<AvailableCarPage />} />
           <Route path="bookings" element={<BookingsPage />} />
           <Route path="manage-bookings" element={<ManageBookingsPage />} />
           <Route path="book" element={<NewBookingsPage />} />
