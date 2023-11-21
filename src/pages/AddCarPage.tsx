@@ -1,26 +1,18 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { SubmitHandler } from 'react-hook-form/dist/types'
 import { Navigate } from 'react-router-dom'
 import AddCarForm from '../components/cars/AddCarForm'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useCarTypes, useAddCar } from '../hooks'
-import { newCarValidation } from '../util/formValidation'
-import { FuelType } from '../util/api'
+import { AddCar } from '../types/interfaces'
 
 const title = 'NEW CAR'
 
 export default function AddCarPage() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ data: addedCar, loading: addCarLoading, error: addCarError }, executeAddCar] =
     useAddCar()
-  const [car, setCar] = useState({
-    carTypeId: { value: null, isValid: true, hasError: false },
-    name: { value: '', isValid: false, hasError: false },
-    fuelType: { value: FuelType.PETROL, isValid: true, hasError: false },
-    horsepower: { value: '', isValid: false, hasError: false },
-    licensePlate: { value: '', isValid: false, hasError: false },
-    info: { value: '', isValid: true, hasError: false },
-  })
 
   if (carTypesError)
     throw new Error(
@@ -49,34 +41,15 @@ export default function AddCarPage() {
     text: carType.name,
   }))
 
-  const changeHandler = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target
-    const list = []
-    if ('options' in event.target) {
-      for (const { value } of event.target.options) {
-        list.push(value)
-      }
-    }
-
-    const isInputValid =
-      list.length !== 0 ? newCarValidation(name, value, list) : newCarValidation(name, value)
-
-    setCar(prevCar => ({
-      ...prevCar,
-      [name]: { value: value, isValid: isInputValid, hasError: !isInputValid },
-    }))
-  }
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): undefined => {
-    event.preventDefault()
+  const onSubmit: SubmitHandler<AddCar> = data => {
     executeAddCar({
       data: {
-        carTypeId: Number(car.carTypeId.value ?? carTypesOptions[0].id),
-        name: car.name.value,
-        fuelType: car.fuelType.value,
-        horsepower: Number(car.horsepower.value),
-        licensePlate: car.licensePlate.value,
-        info: car.info.value,
+        carTypeId: Number(data.carTypeId),
+        name: data.name,
+        fuelType: data.fuelType,
+        horsepower: Number(data.horsepower),
+        licensePlate: data.licensePlate,
+        info: data.info,
       },
     })
   }
@@ -84,12 +57,7 @@ export default function AddCarPage() {
   return (
     <div>
       <Header title={title} />
-      <AddCarForm
-        car={car}
-        carTypesOptions={carTypesOptions}
-        handleSubmit={handleSubmit}
-        changeHandler={changeHandler}
-      />
+      <AddCarForm carTypesOptions={carTypesOptions} onSubmit={onSubmit} />
     </div>
   )
 }
