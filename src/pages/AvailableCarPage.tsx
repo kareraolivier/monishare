@@ -70,10 +70,8 @@ export default function AvailableCarPage(): ReactElement {
 
   return (
     <>
-      <div>
-        <Header title={title} />
-        <Cars cars={populatedCars} onBookCar={onBookCar} />
-      </div>
+      <Header title={title} />
+      <Cars cars={populatedCars} onBookCar={onBookCar} />
     </>
   )
 }

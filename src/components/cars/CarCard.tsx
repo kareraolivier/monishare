@@ -15,17 +15,9 @@ export default function CarCard({ carDetails, onBookCar, onDeleteCar }: Props): 
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
 
-  const handleBookClick = () => {
-    if (onBookCar) {
-      onBookCar(carDetails.id)
-    }
-  }
+  const handleBookClick = () => onBookCar && onBookCar(carDetails.id)
+  const handleDeleteClick = () => onDeleteCar && onDeleteCar(carDetails.id)
 
-  const handleDeleteClick = () => {
-    if (onDeleteCar) {
-      onDeleteCar(carDetails.id)
-    }
-  }
   return (
     <div className="group flex flex-col items-center justify-between rounded-xl bg-indigo-400 p-4">
       <>
