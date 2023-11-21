@@ -10,7 +10,6 @@ const title = 'NEW CAR'
 
 export default function AddCarPage() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ data: addedCar, loading: addCarLoading, error: addCarError }, executeAddCar] =
     useAddCar()
 
