@@ -31,8 +31,6 @@ export default function ManageBookingsPage(): ReactElement {
     SetLocked(prevState => !prevState)
   }
   const returnHandler = () => {
-
-
     SetReturnCar(prev => !prev)
     SetUseCar(false)
     SetLocked(false)
