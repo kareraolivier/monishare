@@ -2,6 +2,8 @@ import { ReactElement } from 'react'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useBookings, useCarTypes } from '../hooks'
+import { setBookingState } from '../util/setBookingState'
+import { BookingState } from '../util/api'
 import BookingCarCard from '../components/cars/BookingCarCard'
 import { Action } from '../types/enums'
 import Button from '../components/ui/Button'
@@ -15,7 +17,6 @@ export default function ManageBookingsPage(): ReactElement {
   if (loggedInUserId === null) return <Navigate to="/login" />
   const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-
   if (bookingsError || carTypesError)
     throw new Error('Booking car was not successfull, sorry for inconvenience🙏')
 
@@ -26,6 +27,19 @@ export default function ManageBookingsPage(): ReactElement {
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
+  const acceptBookingHandler = async (id?: number) => {
+    if (!id) return
+    setBookingState(id, BookingState.ACCEPTED)
+      .then(res => console.log(res))
+      .catch(er => console.log(er))
+    // executeChangeStatus()
+  }
+  const cancelBookingHandler = (id?: number) => {
+    if (!id) return
+    setBookingState(id, BookingState.DECLINED)
+      .then(res => console.log(res))
+      .catch(er => console.log(er))
+  }
 
   const loggedInUserCars = bookings?.filter(
     booking => booking.car.ownerId === Number(loggedInUserId),
@@ -38,6 +52,7 @@ export default function ManageBookingsPage(): ReactElement {
         <h1 className="text-center text-2xl text-white">No cars booked!</h1>
       </>
     )
+  console.log(loggedInUserCars)
   const bookingDetails = loggedInUserCars?.map(bookedCar => {
     const type = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
     if (type)
@@ -59,8 +74,10 @@ export default function ManageBookingsPage(): ReactElement {
         <div key={bookingDetail?.id}>
           <BookingCarCard carDetails={bookingDetail} />
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            <Button>Accept</Button>
-            <Button filled={false}>Decline</Button>
+            <Button onClick={() => acceptBookingHandler(bookingDetail?.id)}>Accept</Button>
+            <Button filled={false} onClick={() => cancelBookingHandler(bookingDetail?.id)}>
+              Decline
+            </Button>
           </div>
         </div>
       ))}
