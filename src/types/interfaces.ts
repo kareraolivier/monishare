@@ -1,5 +1,4 @@
 import { FuelType } from '../util/api'
-import { Action } from './enums'
 
 export interface CarDetails {
   id?: number
@@ -22,14 +21,4 @@ export interface AddCar {
   horsepower: string
   licensePlate: string
   info: string
-}
-
-export interface BookCarDetails {
-  id: number
-  name: string
-  image: string
-  action: Action
-  user: string
-  startDate: Date
-  endDate: Date
 }

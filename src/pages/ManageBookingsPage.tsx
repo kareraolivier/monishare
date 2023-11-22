@@ -7,7 +7,6 @@ import { Action } from '../types/enums'
 import Button from '../components/ui/Button'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
-// import { BookCarDetails } from '../types/interfaces'
 
 const title = 'Manage bookings'
 
@@ -27,14 +26,16 @@ export default function ManageBookingsPage(): ReactElement {
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
+
   const loggedInUserCars = bookings?.filter(
     booking => booking.car.ownerId === Number(loggedInUserId),
   )
+
   if (loggedInUserCars?.length === 0)
     return (
       <>
         <Header title={title} />
-        <h1 className="text-center text-2xl text-white">No booked car available!</h1>
+        <h1 className="text-center text-2xl text-white">No cars booked!</h1>
       </>
     )
   const bookingDetails = loggedInUserCars?.map(bookedCar => {
@@ -50,25 +51,18 @@ export default function ManageBookingsPage(): ReactElement {
         endDate: new Date(bookedCar.endDate),
       }
   })
-  if (bookingDetails?.length === 0)
-    return (
-      <>
-        <Header title={title} />
-        <h1 className="text-center text-2xl text-white">No booked car available!</h1>
-      </>
-    )
+
   return (
     <>
       <Header title={title} />
       {bookingDetails?.map(bookingDetail => (
-        <>
-          {' '}
-          <BookingCarCard key={bookingDetail?.id} carDetails={bookingDetail} />
+        <div key={bookingDetail?.id}>
+          <BookingCarCard carDetails={bookingDetail} />
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
             <Button>Accept</Button>
             <Button filled={false}>Decline</Button>
           </div>
-        </>
+        </div>
       ))}
     </>
   )
