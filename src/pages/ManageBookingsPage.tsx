@@ -30,15 +30,11 @@ export default function ManageBookingsPage(): ReactElement {
   const acceptBookingHandler = async (id?: number) => {
     if (!id) return
     setBookingState(id, BookingState.ACCEPTED)
-      .then(res => console.log(res))
-      .catch(er => console.log(er))
-    // executeChangeStatus()
   }
   const cancelBookingHandler = (id?: number) => {
     if (!id) return
     setBookingState(id, BookingState.DECLINED)
-      .then(res => console.log(res))
-      .catch(er => console.log(er))
+    window.location.reload()
   }
 
   const loggedInUserCars = bookings?.filter(
@@ -52,7 +48,6 @@ export default function ManageBookingsPage(): ReactElement {
         <h1 className="text-center text-2xl text-white">No cars booked!</h1>
       </>
     )
-  console.log(loggedInUserCars)
   const bookingDetails = loggedInUserCars?.map(bookedCar => {
     const type = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
     if (type)
