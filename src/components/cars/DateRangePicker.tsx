@@ -16,14 +16,7 @@ export default function DateRangePicker(): ReactElement {
       <Header title={title} />
       <div className="mx-auto max-w-sm space-y-12 font-inter text-gray-100 ">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={[
-              'DateTimePicker',
-              'MobileDateTimePicker',
-              'DesktopDateTimePicker',
-              'StaticDateTimePicker',
-            ]}
-          >
+          <DemoContainer components={['MobileDateTimePicker']}>
             <DemoItem label="Start date">
               <MobileDateTimePicker
                 defaultValue={dayjs('2022-04-17T15:30')}
