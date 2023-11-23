@@ -59,7 +59,7 @@ interface BookingDto {
   startDate: Date
   endDate: Date
   carId: number
-  bookingState: BookingState
+  state: BookingState
   renterId: number
 }
 

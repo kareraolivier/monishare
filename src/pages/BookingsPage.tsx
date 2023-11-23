@@ -1,92 +1,101 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import Header from '../components/ui/Header'
 import BookingCarCard from '../components/cars/BookingCarCard'
 import { Action } from '../types/enums'
-import Button from '../components/ui/Button'
-import { useReadLocalStorage } from 'usehooks-ts'
-import useBookingData from '../hooks/useBookings'
-import { setBookingState } from '../util/setBookingState'
-import { BookingState, CarState } from '../util/api'
-import { setCarState } from '../util/setCarState'
-import CarsPage from './AllCarsPage'
+import { useBookings, useCarTypes, useCars, useUsers } from '../hooks'
+import Loading, { LoadingStyle } from '../components/ui/Loading'
+import { BookingState } from '../util/api'
 
 const title = 'My bookings'
 
-const carDetails = {
-  id: 1389,
-  name: 'karera 123',
-  image: 'img',
-  action: Action.Owned,
-  user: 'Isabella',
-  startDate: new Date(),
-  endDate: new Date(),
-}
-export default function ManageBookingsPage(): ReactElement {
-  const loggedInUserId = useReadLocalStorage('userId')
-  const { data } = useBookingData()
-  const loggedInUserBookings = data?.filter(data => data.renterId === Number(loggedInUserId))
-  const [pickUp, SetPickUp] = useState(true)
-  const [useCar, SetUseCar] = useState(true)
-  const [navigation, SetNavigation] = useState(false)
-  // const [returnCar, SetReturnCar] = useState(false)
+// commented for now because converting "16" to number is giving NaN (to be fixed)
+// const loggedInUserId = localStorage.getItem('userId')
 
-  // const id = 1389
-  console.log(data)
-  console.log('looddodo', loggedInUserBookings)
-  const pickUpHandler = async () => {
-    SetPickUp(false)
-    console.log('start')
+export default function BookingsPage(): ReactElement {
+  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
+  const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
+  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
+  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
 
-    await setBookingState(232, BookingState.PICKED_UP)
-    console.log('end')
-  }
-  const useCarHandler = () => {
-    SetUseCar(false)
-  }
+  if (bookingsError || carsError || usersError || carTypesError)
+    throw new Error('The page could not be reached! try again later')
 
-  const lockingStateHandler = async () => {
-    await setCarState(1392, CarState.LOCKED)
-  }
+  if (bookingsLoading || carsLoading || usersLoading || carTypesLoading)
+    return (
+      <>
+        <Header title={title} />
+        <Loading loadingStyle={LoadingStyle.Default} />
+      </>
+    )
 
-  const unLockingStateHandler = async () => {
-    await setCarState(1392, CarState.UNLOCKED)
-  }
+  if ([bookings, cars, users, carTypes].some(result => result?.length === 0))
+    throw new Error('Unexpected error occurred! try again later')
 
-  const returnHandler = async () => {
-    await setBookingState(232, BookingState.RETURNED)
-    SetNavigation(true)
-    // navigate('/cars')
-  }
+  const allBookingDetails = bookings
+    ?.filter(booking => booking.renterId === 16)
+    ?.map(booking => {
+      const car = cars?.find(car => car.id === booking.carId)
+      const carImage = carTypes?.find(carType => carType.id === car?.carTypeId)?.imageUrl
+      return {
+        carDetails: {
+          id: booking.id,
+          name: car?.name as string,
+          image: carImage as string,
+          action: Action.Owned,
+          user: booking.renter.name,
+          startDate: new Date(booking.startDate),
+          endDate: new Date(booking.endDate),
+        },
+        state: booking.state,
+      }
+    })
+
+  if (allBookingDetails?.length === 0)
+    return (
+      <>
+        <Header title={title} />
+        <h1 className="text-center text-2xl text-white">No bookings yet!</h1>
+      </>
+    )
+
   return (
     <>
       <Header title={title} />
-      <BookingCarCard carDetails={carDetails} />
-      <div className="flex flex-col items-center gap-4 px-2 font-inter md:mx-auto md:w-2/3">
-        {pickUp ? (
-          <Button onClick={pickUpHandler}>Pick Up</Button>
-        ) : (
-          <>
-            {useCar ? (
-              <Button onClick={useCarHandler}>Use Car</Button>
-            ) : (
-              <>
-                <Button onClick={unLockingStateHandler}>Unlock</Button>
+      <div className="flex flex-col items-center justify-center">
+        {allBookingDetails?.map((bookingDetail, index) => {
+          const classes = `${
+            allBookingDetails.length !== index + 1 && 'border-b'
+          } w-full max-w-xl px-8 md:max-w-none pb-8`
+          const canPickCar =
+            new Date().getTime() >= new Date(bookingDetail.carDetails.startDate).getTime()
 
-                <Button onClick={lockingStateHandler}>Lock</Button>
-              </>
-            )}
-
-            {navigation ? (
-              <CarsPage />
-            ) : (
-              <Button filled={false} onClick={returnHandler}>
-                Return
-              </Button>
-            )}
-          </>
-        )}
+          return (
+            <>
+              <BookingCarCard key={index} carDetails={bookingDetail.carDetails} />
+              <div className={classes}>
+                {bookingDetail.state === BookingState.PENDING && (
+                  <h2 className="text-lachs-200">Booking request pending</h2>
+                )}
+                {bookingDetail.state === BookingState.RETURNED && (
+                  <h2 className="text-mustard-200">Car was returned.</h2>
+                )}
+                {bookingDetail.state === BookingState.ACCEPTED && (
+                  <>
+                    <h2 className="text-mustard-200">Booking accepted</h2>
+                    {!canPickCar && (
+                      <h2 className="mt-2 text-lachs-200">
+                        You can not pick up your car before the agreed time.
+                      </h2>
+                    )}
+                    {/* To be implemented */}
+                    {canPickCar && <p className="text-white">Implementation of picking a car</p>}
+                  </>
+                )}
+              </div>
+            </>
+          )
+        })}
       </div>
-      <hr className="my-4 h-px bg-gray-100" />
     </>
   )
 }
