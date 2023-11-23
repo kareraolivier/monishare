@@ -72,6 +72,7 @@ export default function CarsPage(): ReactElement {
       name: car?.name,
       owner: owner?.name,
       type: type?.name,
+      ownerId: owner?.id,
       image: type?.imageUrl,
       url: `/cars/${car.id}`,
     }

@@ -1,16 +1,31 @@
 import { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
 import { CarDetails } from '../../types/interfaces'
 import Button from '../ui/Button'
+import { Link, Navigate } from 'react-router-dom'
 import { ButtonVariant } from '../../types/enums'
-
+import { useReadLocalStorage } from 'usehooks-ts'
 interface Props {
   carDetails: CarDetails
-  onDeleteCar: (id?: number) => void
+  onBookCar?: (id?: number) => void
+  onDeleteCar?: (id?: number) => void
 }
-export default function CarCard({ carDetails, onDeleteCar }: Props): ReactElement {
+export default function CarCard({ carDetails, onBookCar, onDeleteCar }: Props): ReactElement {
+  const loggedInUserId = useReadLocalStorage('userId')
+  if (loggedInUserId === null) return <Navigate to="/login" />
+
+  const handleBookClick = () => {
+    if (onBookCar) {
+      onBookCar(carDetails.id)
+    }
+  }
+
+  const handleDeleteClick = () => {
+    if (onDeleteCar) {
+      onDeleteCar(carDetails.id)
+    }
+  }
   return (
     <div className="group flex flex-col items-center justify-between rounded-xl bg-indigo-400 p-4">
       <>
@@ -43,13 +58,14 @@ export default function CarCard({ carDetails, onDeleteCar }: Props): ReactElemen
           </div>
         </div>
       </>
-      <Button
-        filled={false}
-        variant={ButtonVariant.Delete}
-        onClick={() => onDeleteCar(carDetails.id)}
-      >
-        Delete Car
-      </Button>
+
+      {Number(loggedInUserId) === carDetails.ownerId ? (
+        <Button filled={false} variant={ButtonVariant.Delete} onClick={handleDeleteClick}>
+          Delete Car
+        </Button>
+      ) : (
+        <Button onClick={handleBookClick}>Book car</Button>
+      )}
     </div>
   )
 }
