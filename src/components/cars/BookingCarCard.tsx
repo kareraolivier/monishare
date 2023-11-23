@@ -36,7 +36,7 @@ export default function BookingCarCard({ carDetails }: Props): ReactElement {
   return (
     <div className="flex max-w-xl flex-col justify-start overflow-x-hidden text-gray-100 md:max-w-none md:flex-row md:items-center">
       <img src={carDetails.image} alt={carDetails.name} className="animate-slideLeft md:w-1/2" />
-      <div className="flex animate-slideRight flex-col gap-2 p-8">
+      <div className="flex animate-slideRight flex-col gap-2 px-8 py-4">
         <div className="mb-5 space-y-2">
           <h3 className="font-lora text-2xl font-medium">{carDetails.name}</h3>
           <h5 className="font-inter font-normal">
