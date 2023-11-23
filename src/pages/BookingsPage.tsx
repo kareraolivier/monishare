@@ -2,38 +2,60 @@ import { ReactElement, useState } from 'react'
 import Header from '../components/ui/Header'
 import BookingCarCard from '../components/cars/BookingCarCard'
 import { Action } from '../types/enums'
-import { Link } from 'react-router-dom'
 import Button from '../components/ui/Button'
+import { useReadLocalStorage } from 'usehooks-ts'
+import useBookingData from '../hooks/useBookings'
+import { setBookingState } from '../util/setBookingState'
+import { BookingState, CarState } from '../util/api'
+import { setCarState } from '../util/setCarState'
+import CarsPage from './AllCarsPage'
 
 const title = 'My bookings'
 
 const carDetails = {
-  id: 1,
-  name: ' new car',
+  id: 1389,
+  name: 'karera 123',
   image: 'img',
   action: Action.Owned,
-  user: 'divine',
+  user: 'Isabella',
   startDate: new Date(),
   endDate: new Date(),
 }
 export default function ManageBookingsPage(): ReactElement {
+  const loggedInUserId = useReadLocalStorage('userId')
+  const { data } = useBookingData()
+  const loggedInUserBookings = data?.filter(data => data.renterId === Number(loggedInUserId))
   const [pickUp, SetPickUp] = useState(true)
   const [useCar, SetUseCar] = useState(true)
-  const [locked, SetLocked] = useState(true)
-  const [returnCar, SetReturnCar] = useState(false)
-  const pickUpHandler = () => {
+  const [navigation, SetNavigation] = useState(false)
+  // const [returnCar, SetReturnCar] = useState(false)
+
+  // const id = 1389
+  console.log(data)
+  console.log('looddodo', loggedInUserBookings)
+  const pickUpHandler = async () => {
     SetPickUp(false)
+    console.log('start')
+
+    await setBookingState(232, BookingState.PICKED_UP)
+    console.log('end')
   }
   const useCarHandler = () => {
     SetUseCar(false)
   }
-  const lockingStateHandler = () => {
-    SetLocked(prevState => !prevState)
+
+  const lockingStateHandler = async () => {
+    await setCarState(1392, CarState.LOCKED)
   }
-  const returnHandler = () => {
-    SetReturnCar(prev => !prev)
-    SetUseCar(false)
-    SetLocked(false)
+
+  const unLockingStateHandler = async () => {
+    await setCarState(1392, CarState.UNLOCKED)
+  }
+
+  const returnHandler = async () => {
+    await setBookingState(232, BookingState.RETURNED)
+    SetNavigation(true)
+    // navigate('/cars')
   }
   return (
     <>
@@ -48,20 +70,19 @@ export default function ManageBookingsPage(): ReactElement {
               <Button onClick={useCarHandler}>Use Car</Button>
             ) : (
               <>
-                <Button disabled={!locked} onClick={lockingStateHandler}>
-                  Unlock
-                </Button>
+                <Button onClick={unLockingStateHandler}>Unlock</Button>
 
-                <Button disabled={locked} onClick={lockingStateHandler}>
-                  Lock
-                </Button>
+                <Button onClick={lockingStateHandler}>Lock</Button>
               </>
             )}
-            <Link to="/cars" className="flex w-full justify-center">
-              <Button disabled={returnCar} filled={false} onClick={returnHandler}>
+
+            {navigation ? (
+              <CarsPage />
+            ) : (
+              <Button filled={false} onClick={returnHandler}>
                 Return
               </Button>
-            </Link>
+            )}
           </>
         )}
       </div>
