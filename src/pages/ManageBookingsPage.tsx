@@ -15,7 +15,12 @@ const title = 'Manage bookings'
 export default function ManageBookingsPage(): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
-  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
+  const {
+    data: bookings,
+    loading: bookingsLoading,
+    error: bookingsError,
+    refetch: refetchBookings,
+  } = useBookings()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   if (bookingsError || carTypesError)
     throw new Error('Booking car was not successfull, sorry for inconvenience🙏')
@@ -29,12 +34,13 @@ export default function ManageBookingsPage(): ReactElement {
     )
   const acceptBookingHandler = async (id?: number) => {
     if (!id) return
-    setBookingState(id, BookingState.ACCEPTED)
+    await setBookingState(id, BookingState.ACCEPTED)
+    refetchBookings()
   }
-  const cancelBookingHandler = (id?: number) => {
+  const cancelBookingHandler = async (id?: number) => {
     if (!id) return
-    setBookingState(id, BookingState.DECLINED)
-    window.location.reload()
+    await setBookingState(id, BookingState.DECLINED)
+    refetchBookings()
   }
 
   const loggedInUserCars = bookings?.filter(
