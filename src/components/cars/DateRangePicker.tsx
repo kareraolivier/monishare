@@ -1,37 +1,39 @@
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
-import { ReactElement } from 'react'
+import { ReactElement, SetStateAction } from 'react'
 import Button from '../ui/Button'
-import { ButtonVariant } from '../../types/enums'
 import Header from '../ui/Header'
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
+import ErrorMessage from '../ui/ErrorMessage'
 
 const title = 'BOOK CAR'
 
 export default function DateRangePicker(): ReactElement {
-  const [startDate, setStartDate] = useState(dayjs('2022-04-17T15:30'))
-  const [endDate, setEndDate] = useState(dayjs('2022-04-17T15:30'))
+  const today = dayjs()
+  const [startDate, setStartDate] = useState(today)
+  const [endDate, setEndDate] = useState(today)
+  const [endDateError, setEndDateError] = useState<string | null>(null)
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
 
-  const handleStartDateChange = (newStartDate: dayjs.Dayjs | null) => {
+  const startDateChangeHandler = (newStartDate: dayjs.Dayjs | null) => {
     if (newStartDate) setStartDate(newStartDate)
   }
-
-  const handleEndDateChange = (newEndDate: dayjs.Dayjs | null) => {
+  const endDateChangeHandler = (newEndDate: dayjs.Dayjs | null) => {
     if (newEndDate && newEndDate.isBefore(startDate)) {
-      console.error('End date cannot be less than start date')
+      setEndDateError('End date cannot be less than start date')
     } else {
-      if (newEndDate) setEndDate(newEndDate)
+      const newEndingDate = newEndDate as SetStateAction<Dayjs>
+      setEndDateError(null)
+      setEndDate(newEndingDate)
     }
   }
 
-  const handleSearchClick = () => {
+  const searchClickHandler = () => {
     const start = startDate.toISOString()
-
     const end = endDate.toISOString()
     const url = `/available-cars?startDate=${start}&&endDate=${end}`
     setRedirectUrl(url)
@@ -45,7 +47,8 @@ export default function DateRangePicker(): ReactElement {
             <DemoItem label="Start date">
               <MobileDateTimePicker
                 value={startDate}
-                onChange={handleStartDateChange}
+                onChange={startDateChangeHandler}
+                minDateTime={today}
                 className="rounded-full  bg-indigo-200 text-white"
                 sx={{
                   '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
@@ -60,7 +63,7 @@ export default function DateRangePicker(): ReactElement {
             <DemoItem label="End date">
               <MobileDateTimePicker
                 value={endDate}
-                onChange={handleEndDateChange}
+                onChange={endDateChangeHandler}
                 className=" rounded-full bg-indigo-200"
                 sx={{
                   '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
@@ -71,10 +74,11 @@ export default function DateRangePicker(): ReactElement {
                   },
                 }}
               />
+              {endDateError && <ErrorMessage>{endDateError}</ErrorMessage>}
             </DemoItem>
           </DemoContainer>
         </LocalizationProvider>
-        <Button filled={true} variant={ButtonVariant.Primary} onClick={handleSearchClick}>
+        <Button filled={true} disabled={endDateError ? true : false} onClick={searchClickHandler}>
           Search Available Cars
         </Button>
         {redirectUrl && <Navigate to={redirectUrl} />}
