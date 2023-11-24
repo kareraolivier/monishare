@@ -42,11 +42,9 @@ export default function ManageBookingsPage(): ReactElement {
     await setBookingState(id, BookingState.DECLINED)
     refetchBookings()
   }
-
   const loggedInUserCars = bookings?.filter(
     booking => booking.car.ownerId === Number(loggedInUserId),
   )
-
   if (loggedInUserCars?.length === 0)
     return (
       <>
@@ -70,7 +68,6 @@ export default function ManageBookingsPage(): ReactElement {
         bookingState: bookedCar?.state,
       }
   })
-
   return (
     <>
       <Header title={title} />
@@ -78,13 +75,19 @@ export default function ManageBookingsPage(): ReactElement {
         <div key={bookingDetail?.booking.id}>
           {bookingDetail && <BookingCarCard carDetails={bookingDetail?.booking} />}
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            {bookingDetail?.bookingState === BookingState.ACCEPTED ? (
+            {bookingDetail?.bookingState === BookingState.ACCEPTED && (
               <h2 className="text-mustard-200">Booking accepted</h2>
-            ) : bookingDetail?.bookingState === BookingState.DECLINED ? (
+            )}
+            {bookingDetail?.bookingState === BookingState.DECLINED && (
               <h2 className="text-lachs-200">Booking declined</h2>
-            ) : bookingDetail?.bookingState === BookingState.PICKED_UP ? (
+            )}
+            {bookingDetail?.bookingState === BookingState.PICKED_UP && (
               <h2 className="text-mustard-200">Car was picked up</h2>
-            ) : (
+            )}
+            {bookingDetail?.bookingState === BookingState.RETURNED && (
+              <h2 className="text-mustard-200">Booking returned</h2>
+            )}
+            {bookingDetail?.bookingState === BookingState.PENDING && (
               <>
                 <Button onClick={() => acceptBookingHandler(bookingDetail?.booking.id)}>
                   Accept
