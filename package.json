@@ -23,6 +23,7 @@
   "dependencies": {
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.17",
+    "@hookform/error-message": "^2.0.1",
     "@mui/material": "^5.14.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "@mui/x-date-pickers": "^6.18.1",
