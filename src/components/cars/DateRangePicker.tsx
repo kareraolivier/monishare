@@ -9,9 +9,8 @@ import { Navigate, useNavigate } from 'react-router-dom'
 const title = 'BOOK CAR'
 
 export default function DateRangePicker(): ReactElement {
-  const today = dayjs()
-  const [startDate, setStartDate] = useState(today)
-  const [endDate, setEndDate] = useState(today)
+  const [startDate, setStartDate] = useState(dayjs())
+  const [endDate, setEndDate] = useState(dayjs().add(2, 'hours'))
   const [redirectUrl] = useState<string | null>(null)
 
   const startDateChangeHandler = (newStartDate: Dayjs | null) => {
@@ -43,7 +42,7 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={startDate}
               onChange={startDateChangeHandler}
-              minDateTime={today}
+              minDateTime={dayjs()}
               className="rounded-full bg-indigo-200 text-white"
               sx={{
                 '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
@@ -60,7 +59,7 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={endDate}
               onChange={endDateChangeHandler}
-              minDateTime={today}
+              minDateTime={dayjs().add(2, 'hours')}
               className="rounded-full bg-indigo-200"
               sx={{
                 '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
