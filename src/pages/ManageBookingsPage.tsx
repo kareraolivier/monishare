@@ -37,7 +37,7 @@ export default function ManageBookingsPage(): ReactElement {
     await setBookingState(id, BookingState.ACCEPTED)
     refetchBookings()
   }
-  const cancelBookingHandler = async (id?: number) => {
+  const declineBookingHandler = async (id?: number) => {
     if (!id) return
     await setBookingState(id, BookingState.DECLINED)
     refetchBookings()
@@ -58,13 +58,16 @@ export default function ManageBookingsPage(): ReactElement {
     const type = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
     if (type)
       return {
-        id: bookedCar.id,
-        name: bookedCar.car.name,
-        image: type.imageUrl,
-        action: Action.Requested,
-        user: bookedCar.renter.name,
-        startDate: new Date(bookedCar.startDate),
-        endDate: new Date(bookedCar.endDate),
+        booking: {
+          id: bookedCar.id,
+          name: bookedCar.car.name,
+          image: type.imageUrl,
+          action: Action.Requested,
+          user: bookedCar.renter.name,
+          startDate: new Date(bookedCar.startDate),
+          endDate: new Date(bookedCar.endDate),
+        },
+        bookingState: bookedCar?.state,
       }
   })
 
@@ -72,13 +75,28 @@ export default function ManageBookingsPage(): ReactElement {
     <>
       <Header title={title} />
       {bookingDetails?.map(bookingDetail => (
-        <div key={bookingDetail?.id}>
-          <BookingCarCard carDetails={bookingDetail} />
+        <div key={bookingDetail?.booking.id}>
+          {bookingDetail && <BookingCarCard carDetails={bookingDetail?.booking} />}
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            <Button onClick={() => acceptBookingHandler(bookingDetail?.id)}>Accept</Button>
-            <Button filled={false} onClick={() => cancelBookingHandler(bookingDetail?.id)}>
-              Decline
-            </Button>
+            {bookingDetail?.bookingState === BookingState.ACCEPTED ? (
+              <h2 className="text-mustard-200">Booking accepted</h2>
+            ) : bookingDetail?.bookingState === BookingState.DECLINED ? (
+              <h2 className="text-lachs-200">Booking declined</h2>
+            ) : bookingDetail?.bookingState === BookingState.PICKED_UP ? (
+              <h2 className="text-mustard-200">Car was picked up</h2>
+            ) : (
+              <>
+                <Button onClick={() => acceptBookingHandler(bookingDetail?.booking.id)}>
+                  Accept
+                </Button>
+                <Button
+                  filled={false}
+                  onClick={() => declineBookingHandler(bookingDetail?.booking.id)}
+                >
+                  Decline
+                </Button>
+              </>
+            )}
           </div>
         </div>
       ))}

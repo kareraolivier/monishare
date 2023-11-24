@@ -6,10 +6,10 @@ import { Action } from '../../types/enums'
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 interface Props {
-  carDetails?: {
+  carDetails: {
     id: number
     name: string
-    image: string | undefined
+    image: string
     action: Action
     user: string
     startDate: Date
@@ -18,7 +18,6 @@ interface Props {
 }
 
 export default function BookingCarCard({ carDetails }: Props): ReactElement {
-  if (!carDetails) throw new Error('no car details')
   const startDate = `${carDetails.startDate.getDate()} ${
     months[carDetails.startDate.getMonth()]
   } ${carDetails.startDate.getFullYear()}`
