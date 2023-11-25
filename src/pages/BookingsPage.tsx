@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import Header from '../components/ui/Header'
-import BookingCarCard from '../components/cars/BookingCarCard'
+import BookingCarCard from '../components/bookings/BookingCarCard'
 import { Action } from '../types/enums'
 import { useBookings, useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
@@ -85,9 +85,8 @@ export default function BookingsPage(): ReactElement {
       <Header title={title} />
       <div className="flex flex-col items-center justify-center">
         {allBookingDetails?.map((bookingDetail, index) => {
-          const classes = `${
-            allBookingDetails.length !== index + 1 && 'border-b'
-          } w-full max-w-xl px-8 md:max-w-none pb-8`
+          const classes =
+            'border-b w-full max-w-xl px-8 md:max-w-none pb-8 flex flex-wrap justify-center gap-2'
           const canPickCar =
             new Date().getTime() >= new Date(bookingDetail.carDetails.startDate).getTime()
 
@@ -101,27 +100,26 @@ export default function BookingsPage(): ReactElement {
                 {bookingDetail.bookingState === BookingState.RETURNED && (
                   <h2 className="text-mustard-200">Car was returned.</h2>
                 )}
+                {bookingDetail.bookingState === BookingState.DECLINED && (
+                  <h2 className="text-lachs-200">Your booking was declined.</h2>
+                )}
                 {bookingDetail.bookingState === BookingState.ACCEPTED && (
-                  <>
-                    <h2 className="text-mustard-200">
-                      Booking accepted {bookingDetail?.carDetails.id}
-                    </h2>
-                    {!canPickCar ? (
+                  <div className="flex w-full flex-col items-center justify-center">
+                    <h2 className="text-mustard-200">Booking accepted</h2>
+                    {!canPickCar && (
                       <h2 className="mt-2 text-lachs-200">
                         You can not pick up your car before the agreed time.
                       </h2>
-                    ) : (
-                      <div className="flex flex-wrap justify-center gap-2 px-2 font-inter md:mx-auto md:w-2/3">
-                        <Button onClick={() => pickUpHandler(bookingDetail?.carDetails.id)}>
-                          Pick Up
-                        </Button>
-                      </div>
                     )}
-                    {canPickCar && <p className="text-white">Implementation of picking a car</p>}
-                  </>
+                    {canPickCar && (
+                      <Button onClick={() => pickUpHandler(bookingDetail?.carDetails.id)}>
+                        Pick Up
+                      </Button>
+                    )}
+                  </div>
                 )}
                 {bookingDetail.bookingState === BookingState.PICKED_UP && (
-                  <div className="flex flex-wrap justify-center gap-2 px-2 font-inter md:mx-auto">
+                  <>
                     {!useCar ? (
                       <Button onClick={() => setUseCar(true)}>Use Car</Button>
                     ) : (
@@ -138,7 +136,7 @@ export default function BookingsPage(): ReactElement {
                     <Button filled={false} onClick={returnHandler}>
                       Return
                     </Button>
-                  </div>
+                  </>
                 )}
               </div>
             </>
