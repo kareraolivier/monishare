@@ -4,17 +4,17 @@ import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useBookings, useCarTypes } from '../hooks'
 import { setBookingState } from '../util/setBookingState'
 import { BookingState } from '../util/api'
-import BookingCarCard from '../components/cars/BookingCarCard'
 import { Action } from '../types/enums'
-import Button from '../components/ui/Button'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
+import ManageBookingCard from '../components/bookings/ManageBookingCard'
 
 const title = 'Manage bookings'
 
 export default function ManageBookingsPage(): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
+
   const {
     data: bookings,
     loading: bookingsLoading,
@@ -22,8 +22,9 @@ export default function ManageBookingsPage(): ReactElement {
     refetch: refetchBookings,
   } = useBookings()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+
   if (bookingsError || carTypesError)
-    throw new Error('Booking car was not successfull, sorry for inconvenience🙏')
+    throw new Error(' Oops! Something went wrong. Please try again later.🙏')
 
   if (bookingsLoading || carTypesLoading)
     return (
@@ -32,16 +33,15 @@ export default function ManageBookingsPage(): ReactElement {
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
-  const acceptBookingHandler = async (id?: number) => {
-    if (!id) return
+  const acceptBookingHandler = async (id: number) => {
     await setBookingState(id, BookingState.ACCEPTED)
     refetchBookings()
   }
-  const declineBookingHandler = async (id?: number) => {
-    if (!id) return
+  const declineBookingHandler = async (id: number) => {
     await setBookingState(id, BookingState.DECLINED)
     refetchBookings()
   }
+
   const loggedInUserCars = bookings?.filter(
     booking => booking.car.ownerId === Number(loggedInUserId),
   )
@@ -54,55 +54,29 @@ export default function ManageBookingsPage(): ReactElement {
     )
   const bookingDetails = loggedInUserCars?.map(bookedCar => {
     const type = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
-    if (type)
-      return {
-        booking: {
-          id: bookedCar.id,
-          name: bookedCar.car.name,
-          image: type.imageUrl,
-          action: Action.Requested,
-          user: bookedCar.renter.name,
-          startDate: new Date(bookedCar.startDate),
-          endDate: new Date(bookedCar.endDate),
-        },
-        bookingState: bookedCar?.state,
-      }
+
+    return {
+      booking: {
+        id: bookedCar.id,
+        name: bookedCar.car.name,
+        image: type?.imageUrl,
+        action: Action.Requested,
+        user: bookedCar.renter.name,
+        startDate: new Date(bookedCar.startDate),
+        endDate: new Date(bookedCar.endDate),
+      },
+      bookingState: bookedCar.state,
+    }
   })
+
   return (
     <>
       <Header title={title} />
-      {bookingDetails?.map(bookingDetail => (
-        <div key={bookingDetail?.booking.id}>
-          {bookingDetail && <BookingCarCard carDetails={bookingDetail?.booking} />}
-          <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            {bookingDetail?.bookingState === BookingState.ACCEPTED && (
-              <h2 className="text-mustard-200">Booking accepted</h2>
-            )}
-            {bookingDetail?.bookingState === BookingState.DECLINED && (
-              <h2 className="text-lachs-200">Booking declined</h2>
-            )}
-            {bookingDetail?.bookingState === BookingState.PICKED_UP && (
-              <h2 className="text-mustard-200">Car was picked up</h2>
-            )}
-            {bookingDetail?.bookingState === BookingState.RETURNED && (
-              <h2 className="text-mustard-200">Booking returned</h2>
-            )}
-            {bookingDetail?.bookingState === BookingState.PENDING && (
-              <>
-                <Button onClick={() => acceptBookingHandler(bookingDetail?.booking.id)}>
-                  Accept
-                </Button>
-                <Button
-                  filled={false}
-                  onClick={() => declineBookingHandler(bookingDetail?.booking.id)}
-                >
-                  Decline
-                </Button>
-              </>
-            )}
-          </div>
-        </div>
-      ))}
+      <ManageBookingCard
+        bookingDetails={bookingDetails}
+        acceptBookingHandler={acceptBookingHandler}
+        declineBookingHandler={declineBookingHandler}
+      />
     </>
   )
 }

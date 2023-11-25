@@ -1,20 +1,11 @@
 import { ReactElement } from 'react'
 import CalendarIcon from '../../assets/CalendarIcon'
 import TimeIcon from '../../assets/TimeIcon'
-import { Action } from '../../types/enums'
-
+import { BookingDetails } from '../../types/interfaces'
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 interface Props {
-  carDetails: {
-    id: number
-    name: string
-    image: string
-    action: Action
-    user: string
-    startDate: Date
-    endDate: Date
-  }
+  carDetails: BookingDetails
 }
 
 export default function BookingCarCard({ carDetails }: Props): ReactElement {
