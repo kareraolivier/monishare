@@ -15,7 +15,7 @@ export interface BookCar {
   startDate: string | null
   endDate: string | null
 }
-export interface AddCar {
+export interface CarInfo {
   carTypeId: string
   name: string
   fuelType: FuelType

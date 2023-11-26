@@ -7,11 +7,11 @@ import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { animated, useSpring } from '@react-spring/web'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { AddCar } from '../../types/interfaces'
+import { CarInfo } from '../../types/interfaces'
 
 interface Props {
   carTypesOptions: { id: number; value: string; text: string }[]
-  onSubmit: SubmitHandler<AddCar>
+  onSubmit: SubmitHandler<CarInfo>
 }
 export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
   const [cancel, setCancel] = useState(false)
@@ -24,7 +24,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AddCar>()
+  } = useForm<CarInfo>()
 
   const isFormValid = Object.keys(errors).length === 0
 
