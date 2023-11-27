@@ -12,6 +12,7 @@ const title = 'My bookings'
 export default function BookingsPage(): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
+
   const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
@@ -43,7 +44,7 @@ export default function BookingsPage(): ReactElement {
           name: car?.name,
           image: carImage?.imageUrl,
           action: Action.Owned,
-          user: car?.name,
+          user: booking.car.owner.name,
           startDate: new Date(booking.startDate),
           endDate: new Date(booking.endDate),
         },

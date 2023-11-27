@@ -5,6 +5,8 @@ import { setBookingState } from '../../util/setBookingState'
 import BookingCarCard from './BookingCarCard'
 import { BookingState, CarState } from '../../util/api'
 import { BookingDetails } from '../../types/interfaces'
+import { useNavigate } from 'react-router-dom'
+import { useBookings } from '../../hooks'
 
 interface Props {
   allBookingDetails: {
@@ -17,21 +19,31 @@ interface Props {
 
 export default function MyBookingCard({ allBookingDetails }: Props): ReactElement {
   const [useCar, setUseCar] = useState(false)
-
+  const [locked, SetLocked] = useState(true)
+  const [unLocked, SetUnLocked] = useState(true)
+  const { refetch: refetchBookings } = useBookings()
+  const navigate = useNavigate()
   const pickUpHandler = async (id: number) => {
     await setBookingState(id, BookingState.PICKED_UP)
   }
 
   const lockingStateHandler = async (id: number) => {
     await setCarState(id, CarState.LOCKED)
+    refetchBookings()
+    SetUnLocked(prevState => !prevState)
+    SetLocked(prevState => !prevState)
   }
 
   const unLockingStateHandler = async (id: number) => {
     await setCarState(id, CarState.UNLOCKED)
+    refetchBookings()
+    SetLocked(prevState => !prevState)
+    SetUnLocked(prevState => !prevState)
   }
 
   const returnHandler = async (id: number) => {
     await setBookingState(id, BookingState.RETURNED)
+    navigate('/cars')
   }
 
   return (
@@ -78,11 +90,19 @@ export default function MyBookingCard({ allBookingDetails }: Props): ReactElemen
                     <Button onClick={() => setUseCar(true)}>Use Car</Button>
                   ) : (
                     <>
-                      <Button onClick={() => unLockingStateHandler(bookingDetail.carId)}>
+                      <Button
+                        disabled={!unLocked}
+                        onClick={() => unLockingStateHandler(bookingDetail.carId)}
+                      >
                         Unlock
                       </Button>
 
-                      <Button onClick={() => lockingStateHandler(bookingDetail.carId)}>Lock</Button>
+                      <Button
+                        disabled={locked}
+                        onClick={() => lockingStateHandler(bookingDetail.carId)}
+                      >
+                        Lock
+                      </Button>
                     </>
                   )}
                   <Button filled={false} onClick={() => returnHandler(bookingDetail.carDetails.id)}>
