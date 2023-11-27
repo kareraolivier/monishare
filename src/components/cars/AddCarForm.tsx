@@ -38,6 +38,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
     <animated.div style={springs}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center gap-4">
+          {/* Name input */}
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
             <label htmlFor="name">Name *</label>
             <Input
@@ -47,7 +48,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
                   maxLength: { value: 10, message: 'Name should not be more than 10 characters' },
                   pattern: {
                     value: /^[\d\w ]+$/,
-                    message: 'Name should contains only alphanumeric characters',
+                    message: 'Name should only contain alphanumeric characters',
                   },
                 }),
               }}
@@ -60,6 +61,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
             />
           </div>
 
+          {/* Type input */}
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
             <label htmlFor="carTypeId">Type *</label>
             <SelectInput
@@ -70,6 +72,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
           </div>
 
           <div className="flex w-full max-w-sm gap-1 text-sm text-white">
+            {/* License plate input */}
             <div className="w-full max-w-sm space-y-2 text-sm text-white">
               <label htmlFor="licensePlate">License Plate *</label>
               <Input
@@ -90,6 +93,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
                 render={error => error && <ErrorMessage>{error.message}</ErrorMessage>}
               />
             </div>
+            {/* Horse power input */}
             <div className="w-full max-w-sm space-y-2 text-sm text-white">
               <label htmlFor="horsepower">Horse Power *</label>
               <Input
@@ -108,6 +112,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
               />
             </div>
           </div>
+          {/* Fuel type input */}
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
             <label htmlFor="fuelType">Fuel type *</label>
             <SelectInput
@@ -120,6 +125,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
             />
           </div>
 
+          {/* Additional information input */}
           <div className="w-full max-w-sm space-y-2 text-sm text-white">
             <label htmlFor="info">Additional Information </label>
             <Input register={{ ...register('info') }} placeholder="e.g No smoking" />
