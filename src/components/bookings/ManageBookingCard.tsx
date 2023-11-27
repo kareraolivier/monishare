@@ -39,12 +39,12 @@ export default function ManageBookingCard({
     booking: BookingDetails
     bookingState: BookingState
   }) => {
-    const canPickCar = new Date().getTime() <= new Date(bookingDetail.booking.endDate).getTime()
+    const pickCarDate = new Date().getTime() <= new Date(bookingDetail.booking.endDate).getTime()
 
     if (bookingDetail?.bookingState === BookingState.PENDING) {
       return (
         <>
-          {canPickCar ? (
+          {pickCarDate ? (
             <>
               <Button onClick={() => acceptBookingHandler(bookingDetail.booking.id)}>Accept</Button>
               <Button
