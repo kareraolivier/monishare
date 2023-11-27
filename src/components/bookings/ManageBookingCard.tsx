@@ -55,7 +55,7 @@ export default function ManageBookingCard({
               </Button>
             </>
           ) : (
-            <h2 className="text-lachs-200">Booking declined</h2>
+            <h2 className="text-lachs-200">Booking outdated</h2>
           )}
         </>
       )
