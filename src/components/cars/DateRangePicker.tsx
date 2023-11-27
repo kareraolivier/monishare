@@ -11,8 +11,8 @@ const title = 'BOOK CAR'
 export default function DateRangePicker(): ReactElement {
   const initialStartDate = dayjs()
   const initialEndDate = dayjs().add(2, 'hours')
-  const [startDate, setStartDate] = useState(dayjs())
-  const [endDate, setEndDate] = useState(dayjs().add(2, 'hours'))
+  const [startDate, setStartDate] = useState(initialStartDate)
+  const [endDate, setEndDate] = useState(initialEndDate)
 
   const navigate = useNavigate()
 
