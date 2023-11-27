@@ -29,23 +29,34 @@ export default function ManageBookingCard({
       case BookingState.PICKED_UP:
         return <h2 className="text-mustard-200">Car was picked up</h2>
       case BookingState.RETURNED:
-        return <h2 className="text-mustard-200">Booking returned</h2>
+        return <h2 className="text-mustard-200">Car was returned</h2>
       default:
         return null
     }
   }
 
-  const renderBookingActions = (bookingDetail?: {
+  const renderBookingActions = (bookingDetail: {
     booking: BookingDetails
     bookingState: BookingState
   }) => {
+    const canPickCar = new Date().getTime() <= new Date(bookingDetail.booking.endDate).getTime()
+
     if (bookingDetail?.bookingState === BookingState.PENDING) {
       return (
         <>
-          <Button onClick={() => acceptBookingHandler(bookingDetail.booking.id)}>Accept</Button>
-          <Button filled={false} onClick={() => declineBookingHandler(bookingDetail.booking.id)}>
-            Decline
-          </Button>
+          {canPickCar ? (
+            <>
+              <Button onClick={() => acceptBookingHandler(bookingDetail.booking.id)}>Accept</Button>
+              <Button
+                filled={false}
+                onClick={() => declineBookingHandler(bookingDetail.booking.id)}
+              >
+                Decline
+              </Button>
+            </>
+          ) : (
+            <h2 className="text-lachs-200">Booking declined</h2>
+          )}
         </>
       )
     }
