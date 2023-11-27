@@ -49,7 +49,7 @@ export default function MyBookingCard({ allBookingDetails }: Props): ReactElemen
   return (
     <div className="flex flex-col items-center justify-center">
       {allBookingDetails?.map(bookingDetail => {
-        const canPickCar =
+        const pickCarDate =
           new Date().getTime() >= new Date(bookingDetail.carDetails.startDate).getTime() &&
           new Date().getTime() <= new Date(bookingDetail.carDetails.endDate).getTime()
 
@@ -72,12 +72,12 @@ export default function MyBookingCard({ allBookingDetails }: Props): ReactElemen
               {bookingDetail.bookingState === BookingState.ACCEPTED && (
                 <div className="flex w-full flex-col items-center justify-center">
                   <h2 className="py-2 text-mustard-200">Booking accepted</h2>
-                  {!canPickCar && (
+                  {!pickCarDate && (
                     <h2 className="mt-2 text-lachs-200">
                       You can not pick up your car before or after the agreed time.
                     </h2>
                   )}
-                  {canPickCar && (
+                  {pickCarDate && (
                     <Button onClick={() => pickUpHandler(bookingDetail.carDetails.id)}>
                       Pick Up
                     </Button>

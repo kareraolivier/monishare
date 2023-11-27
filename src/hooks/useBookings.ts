@@ -73,14 +73,14 @@ function useBookingData() {
   }, [bookingsData, bookingsError])
 
   const isLoading = bookingsLoading || loading
-  const handleRefetch = async () => {
+  const refetchHandler = async () => {
     try {
       await refetch()
     } catch (err) {
       setError(err)
     }
   }
-  return { data, loading: isLoading, error, refetch: handleRefetch }
+  return { data, loading: isLoading, error, refetch: refetchHandler }
 }
 
 export default useBookingData
