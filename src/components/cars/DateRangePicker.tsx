@@ -4,28 +4,29 @@ import { LocalizationProvider, MobileDateTimePicker } from '@mui/x-date-pickers'
 import { ReactElement, useState } from 'react'
 import Button from '../ui/Button'
 import Header from '../ui/Header'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const title = 'BOOK CAR'
 
 export default function DateRangePicker(): ReactElement {
+  const initialStartDate = dayjs()
+  const initialEndDate = dayjs().add(2, 'hours')
   const [startDate, setStartDate] = useState(dayjs())
   const [endDate, setEndDate] = useState(dayjs().add(2, 'hours'))
-  const [redirectUrl] = useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   const startDateChangeHandler = (newStartDate: Dayjs | null) => {
     if (newStartDate) setStartDate(newStartDate)
   }
 
-  const endDateChangeHandler = (newEndDate: dayjs.Dayjs | null) => {
+  const endDateChangeHandler = (newEndDate: Dayjs | null) => {
     if (newEndDate == null) return
     if (newEndDate && newEndDate.isBefore(startDate)) {
       return
     }
     setEndDate(newEndDate)
   }
-
-  const navigate = useNavigate()
 
   const searchClickHandler = () => {
     const start = startDate.toISOString()
@@ -42,7 +43,7 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={startDate}
               onChange={startDateChangeHandler}
-              minDateTime={dayjs()}
+              minDateTime={initialStartDate}
               className="rounded-full bg-indigo-200 text-white"
               sx={{
                 '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
@@ -59,7 +60,7 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={endDate}
               onChange={endDateChangeHandler}
-              minDateTime={dayjs().add(2, 'hours')}
+              minDateTime={initialEndDate}
               className="rounded-full bg-indigo-200"
               sx={{
                 '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
@@ -75,7 +76,6 @@ export default function DateRangePicker(): ReactElement {
         <Button filled={true} onClick={searchClickHandler}>
           Search Available Cars
         </Button>
-        {redirectUrl && <Navigate to={redirectUrl} />}
       </div>
     </>
   )
