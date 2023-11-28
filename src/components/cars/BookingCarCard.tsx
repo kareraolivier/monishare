@@ -2,8 +2,7 @@ import { ReactElement } from 'react'
 import CalendarIcon from '../../assets/CalendarIcon'
 import TimeIcon from '../../assets/TimeIcon'
 import { Action } from '../../types/enums'
-
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+import { Dayjs } from 'dayjs'
 
 interface Props {
   carDetails: {
@@ -12,26 +11,17 @@ interface Props {
     image: string
     action: Action
     user: string
-    startDate: Date
-    endDate: Date
+    startDate: Dayjs
+    endDate: Dayjs
   }
 }
 
 export default function BookingCarCard({ carDetails }: Props): ReactElement {
-  const startDate = `${carDetails.startDate.getDate()} ${
-    months[carDetails.startDate.getMonth()]
-  } ${carDetails.startDate.getFullYear()}`
-  const startMinutes = carDetails.startDate.getMinutes()
-  const startTime = `${carDetails.startDate.getHours()}:${
-    Number(startMinutes) >= 10 ? startMinutes : '0' + startMinutes
-  }`
+  const startDate = carDetails.startDate.format('DD MMM YYYY')
+  const startTime = carDetails.startDate.format('HH:mm')
 
-  const endDate = `${carDetails.endDate.getDate()} ${months[carDetails.endDate.getMonth()]}
-  ${carDetails.endDate.getFullYear()}`
-  const endMinutes = carDetails.endDate.getMinutes()
-  const endTime = `${carDetails.endDate.getHours()}:${
-    Number(endMinutes) >= 10 ? endMinutes : '0' + endMinutes
-  }`
+  const endDate = carDetails.endDate.format('DD MMM YYYY')
+  const endTime = carDetails.endDate.format('HH:mm')
 
   return (
     <div className="flex max-w-xl flex-col justify-start overflow-x-hidden text-gray-100 md:max-w-none md:flex-row md:items-center">

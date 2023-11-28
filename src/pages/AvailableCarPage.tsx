@@ -29,20 +29,9 @@ export default function AvailableCarPage(): ReactElement {
   const startDate = searchParams.get('startDate')
   const endDate = searchParams.get('endDate')
 
-  function onBookCar(carId?: number) {
-    const bookCar: BookCar = {
-      carId,
-      startDate,
-      endDate,
-    }
-    executeBookCar({
-      data: bookCar,
-    })
-  }
-
   if (!startDate || !endDate) throw new Error('Please provide valid dates')
 
-  if (bookedCarError) throw new Error('Booking car was not successfull, sorry for inconvenience🙏')
+  if (bookedCarError) throw new Error('Booking car was not successful, sorry for inconvenience🙏')
   if (!bookedCarLoading && bookedCar) return <Navigate to="/bookings" />
 
   if (carsError || usersError || carTypesError || bookingsError)
@@ -58,9 +47,6 @@ export default function AvailableCarPage(): ReactElement {
 
   const notUserCars = cars?.filter(car => car.ownerId !== Number(loggedInUserId))
 
-  const availableCars = notUserCars?.filter(
-    car => bookings?.every(booking => booking.carId !== car.id),
-  )
   const bookedCars = notUserCars?.filter(car => bookings?.some(booking => booking.carId === car.id))
 
   const bookedCarsBookings = bookedCars?.reduce((combinedCars: CombinedCars, bookedCar: CarDto) => {
@@ -84,13 +70,27 @@ export default function AvailableCarPage(): ReactElement {
   console.log(availableBookedCarIds.length, Object.keys(bookedCarsBookings ?? []))
 
   if (notUserCars?.length === 0)
+    const currrentUserCars = cars?.filter(car => car.ownerId !== Number(loggedInUserId))
+  if (currrentUserCars?.length === 0)
     return (
       <>
         <Header title={title} />
         <h1 className="text-center text-2xl text-white">No cars found for this time slot!</h1>
       </>
     )
-  const populatedCars = availableCars?.map(car => {
+  function onBookCar(carId?: number) {
+    const startDate = searchParams.get('startDate')
+    const endDate = searchParams.get('endDate')
+    const bookCar: BookCar = {
+      carId,
+      startDate,
+      endDate,
+    }
+    executeBookCar({
+      data: bookCar,
+    })
+  }
+  const populatedCars = currrentUserCars?.map(car => {
     const owner = users?.find(user => car.ownerId === user.id)
     const type = carTypes?.find(carType => car.carTypeId === carType.id)
     return {
