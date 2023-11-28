@@ -1,13 +1,11 @@
 import { BookingDetails } from '../../types/interfaces'
 import { BookingState } from '../../util/api'
+import AllBookingState from './AllBookingState'
 import Button from '../ui/Button'
 import BookingCarCard from './BookingCarCard'
-
+import dayjs from 'dayjs'
 interface Props {
-  bookingDetails?: {
-    booking: BookingDetails
-    bookingState: BookingState
-  }[]
+  bookingDetails?: BookingDetails[]
   acceptBookingHandler: (id: number) => Promise<void>
   declineBookingHandler: (id: number) => Promise<void>
 }
@@ -17,40 +15,16 @@ export default function ManageBookingCard({
   acceptBookingHandler,
   declineBookingHandler,
 }: Props) {
-  const renderBookingStatus = (bookingDetail?: {
-    booking: BookingDetails
-    bookingState: BookingState
-  }) => {
-    switch (bookingDetail?.bookingState) {
-      case BookingState.ACCEPTED:
-        return <h2 className="text-mustard-200">Booking accepted</h2>
-      case BookingState.DECLINED:
-        return <h2 className="text-lachs-200">Booking declined</h2>
-      case BookingState.PICKED_UP:
-        return <h2 className="text-mustard-200">Car was picked up</h2>
-      case BookingState.RETURNED:
-        return <h2 className="text-mustard-200">Car was returned</h2>
-      default:
-        return null
-    }
-  }
+  const renderBookingActions = (bookingDetail: BookingDetails) => {
+    const pickCarDate = dayjs(new Date().getTime()) <= dayjs(bookingDetail.endDate)
 
-  const renderBookingActions = (bookingDetail: {
-    booking: BookingDetails
-    bookingState: BookingState
-  }) => {
-    const pickCarDate = new Date().getTime() <= new Date(bookingDetail.booking.endDate).getTime()
-
-    if (bookingDetail?.bookingState === BookingState.PENDING) {
+    if (bookingDetail.bookingState === BookingState.PENDING) {
       return (
         <>
           {pickCarDate ? (
             <>
-              <Button onClick={() => acceptBookingHandler(bookingDetail.booking.id)}>Accept</Button>
-              <Button
-                filled={false}
-                onClick={() => declineBookingHandler(bookingDetail.booking.id)}
-              >
+              <Button onClick={() => acceptBookingHandler(bookingDetail.id)}>Accept</Button>
+              <Button filled={false} onClick={() => declineBookingHandler(bookingDetail.id)}>
                 Decline
               </Button>
             </>
@@ -66,10 +40,10 @@ export default function ManageBookingCard({
   return (
     <div>
       {bookingDetails?.map(bookingDetail => (
-        <div key={bookingDetail.booking.id}>
-          <BookingCarCard carDetails={bookingDetail.booking} />
+        <div key={bookingDetail.id}>
+          <BookingCarCard bookingDetails={bookingDetail} />
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            {renderBookingStatus(bookingDetail)}
+            <AllBookingState bookingState={bookingDetail.bookingState} />
             {renderBookingActions(bookingDetail)}
           </div>
         </div>

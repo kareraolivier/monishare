@@ -8,6 +8,7 @@ import { Action } from '../types/enums'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
 import ManageBookingCard from '../components/bookings/ManageBookingCard'
+import dayjs from 'dayjs'
 
 const title = 'Manage bookings'
 
@@ -22,6 +23,14 @@ export default function ManageBookingsPage(): ReactElement {
     refetch: refetchBookings,
   } = useBookings()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+  const acceptBookingHandler = async (id: number) => {
+    await setBookingState(id, BookingState.ACCEPTED)
+    refetchBookings()
+  }
+  const declineBookingHandler = async (id: number) => {
+    await setBookingState(id, BookingState.DECLINED)
+    refetchBookings()
+  }
 
   if (bookingsError || carTypesError)
     throw new Error(' Oops! Something went wrong. Please try again later.🙏')
@@ -33,14 +42,6 @@ export default function ManageBookingsPage(): ReactElement {
         <Loading loadingStyle={LoadingStyle.Default} />
       </>
     )
-  const acceptBookingHandler = async (id: number) => {
-    await setBookingState(id, BookingState.ACCEPTED)
-    refetchBookings()
-  }
-  const declineBookingHandler = async (id: number) => {
-    await setBookingState(id, BookingState.DECLINED)
-    refetchBookings()
-  }
 
   const loggedInUserCars = bookings?.filter(
     booking => booking.car.ownerId === Number(loggedInUserId),
@@ -56,15 +57,13 @@ export default function ManageBookingsPage(): ReactElement {
     const type = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
 
     return {
-      booking: {
-        id: bookedCar.id,
-        name: bookedCar.car.name,
-        image: type?.imageUrl,
-        action: Action.Requested,
-        user: bookedCar.renter.name,
-        startDate: new Date(bookedCar.startDate),
-        endDate: new Date(bookedCar.endDate),
-      },
+      id: bookedCar.id,
+      name: bookedCar.car.name,
+      image: type?.imageUrl,
+      action: Action.Requested,
+      user: bookedCar.renter.name,
+      startDate: dayjs(bookedCar.startDate),
+      endDate: dayjs(bookedCar.endDate),
       bookingState: bookedCar.state,
     }
   })

@@ -3,7 +3,7 @@ import ProfileIcon from '../../assets/ProfileIcon'
 import CarIcon from '../../assets/CarIcon'
 import { CarDetails } from '../../types/interfaces'
 import Button from '../ui/Button'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ButtonVariant } from '../../types/enums'
 import { useReadLocalStorage } from 'usehooks-ts'
 interface Props {
@@ -13,7 +13,6 @@ interface Props {
 }
 export default function CarCard({ carDetails, onBookCar, onDeleteCar }: Props): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
-  if (loggedInUserId === null) return <Navigate to="/login" />
 
   const bookingHandler = () => onBookCar && onBookCar(carDetails.id)
   const deleteHandler = () => onDeleteCar && onDeleteCar(carDetails.id)
