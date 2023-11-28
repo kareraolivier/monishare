@@ -4,7 +4,7 @@ interface Props {
   bookingState: BookingState
 }
 
-export default function AllBookingState({ bookingState }: Props) {
+export default function AllBookingStates({ bookingState }: Props) {
   switch (bookingState) {
     case BookingState.ACCEPTED:
       return <h2 className="text-mustard-200">Booking accepted</h2>

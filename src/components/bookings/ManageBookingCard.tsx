@@ -1,6 +1,6 @@
 import { BookingDetails } from '../../types/interfaces'
 import { BookingState } from '../../util/api'
-import AllBookingState from './AllBookingState'
+import AllBookingStates from './AllBookingStates'
 import Button from '../ui/Button'
 import BookingCarCard from './BookingCarCard'
 import dayjs from 'dayjs'
@@ -43,7 +43,7 @@ export default function ManageBookingCard({
         <div key={bookingDetail.id}>
           <BookingCarCard bookingDetails={bookingDetail} />
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            <AllBookingState bookingState={bookingDetail.bookingState} />
+            <AllBookingStates bookingState={bookingDetail.bookingState} />
             {renderBookingActions(bookingDetail)}
           </div>
         </div>
