@@ -4,7 +4,7 @@ import AddCarForm from '../components/cars/AddCarForm'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useCarTypes, useAddCar } from '../hooks'
-import { AddCar } from '../types/interfaces'
+import { CarInfo } from '../types/interfaces'
 
 const title = 'NEW CAR'
 
@@ -40,7 +40,7 @@ export default function AddCarPage() {
     text: carType.name,
   }))
 
-  const onSubmit: SubmitHandler<AddCar> = data => {
+  const onSubmit: SubmitHandler<CarInfo> = data => {
     executeAddCar({
       data: {
         carTypeId: Number(data.carTypeId),
