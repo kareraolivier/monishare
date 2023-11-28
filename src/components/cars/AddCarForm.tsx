@@ -66,7 +66,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
             <label htmlFor="carTypeId">Type *</label>
             <SelectInput
               options={carTypesOptions}
-              value={'' ?? carTypesOptions[0].id}
+              value={carTypesOptions[0].id}
               register={{ ...register('carTypeId') }}
             />
           </div>
@@ -100,7 +100,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
                 register={{
                   ...register('horsepower', {
                     required: 'Horse power is required',
-                    pattern: { value: /^[1-9]+$/, message: 'Should be positive number' },
+                    pattern: { value: /^[0-9]+$/, message: 'Should be positive number' },
                   }),
                 }}
                 placeholder="110"
