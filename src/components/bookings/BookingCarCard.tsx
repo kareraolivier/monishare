@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function BookingCarCard({ carDetails }: Props): ReactElement {
-  if (!carDetails) throw new Error('no car details')
   const startDate = `${carDetails.startDate.getDate()} ${
     months[carDetails.startDate.getMonth()]
   } ${carDetails.startDate.getFullYear()}`

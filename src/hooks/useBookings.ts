@@ -11,11 +11,12 @@ function useBookingData() {
   const [error, setError] = useState<unknown>(null)
   const token = getAuthToken()
 
-  const [{ data: bookingsData, loading: bookingsLoading, error: bookingsError }, refetch] =
-    useAxios<BookingDto[]>({
-      url: `${apiUrl}/bookings`,
-      headers: { Authorization: `Bearer ${token}` },
-    })
+  const [{ data: bookingsData, loading: bookingsLoading, error: bookingsError }] = useAxios<
+    BookingDto[]
+  >({
+    url: `${apiUrl}/bookings`,
+    headers: { Authorization: `Bearer ${token}` },
+  })
 
   useEffect(() => {
     if (bookingsData) {
@@ -73,14 +74,7 @@ function useBookingData() {
   }, [bookingsData, bookingsError])
 
   const isLoading = bookingsLoading || loading
-  const refetchHandler = async () => {
-    try {
-      await refetch()
-    } catch (err) {
-      setError(err)
-    }
-  }
-  return { data, loading: isLoading, error, refetch: refetchHandler }
+  return { data, loading: isLoading, error }
 }
 
 export default useBookingData

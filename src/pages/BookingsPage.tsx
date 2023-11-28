@@ -14,7 +14,8 @@ export default function BookingsPage(): ReactElement {
   if (loggedInUserId === null) return <Navigate to="/login" />
 
   const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
-  const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
+  const [{ data: cars, loading: carsLoading, error: carsError }, refetch] = useCars()
+
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
 
@@ -32,7 +33,7 @@ export default function BookingsPage(): ReactElement {
   if ([bookings, cars, users, carTypes].some(result => result?.length === 0))
     throw new Error('Unexpected error occurred! try again later')
 
-  const allBookingDetails = bookings
+  const bookingDetails = bookings
     ?.filter(booking => booking.renterId === Number(loggedInUserId))
     ?.map(booking => {
       const car = cars?.find(car => car.id === booking.carId)
@@ -54,7 +55,7 @@ export default function BookingsPage(): ReactElement {
       }
     })
 
-  if (allBookingDetails?.length === 0 || !allBookingDetails)
+  if (bookingDetails?.length === 0 || !bookingDetails)
     return (
       <>
         <Header title={title} />
@@ -65,7 +66,7 @@ export default function BookingsPage(): ReactElement {
   return (
     <>
       <Header title={title} />
-      <MyBookingCard allBookingDetails={allBookingDetails} />
+      <MyBookingCard bookingDetails={bookingDetails} refetch={refetch} />
     </>
   )
 }

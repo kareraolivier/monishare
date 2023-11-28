@@ -6,49 +6,43 @@ import BookingCarCard from './BookingCarCard'
 import { BookingState, CarState } from '../../util/api'
 import { BookingDetails } from '../../types/interfaces'
 import { useNavigate } from 'react-router-dom'
-import { useBookings } from '../../hooks'
 
 interface Props {
-  allBookingDetails: {
+  bookingDetails: {
     carDetails: BookingDetails
     carId: number
     bookingState: BookingState
     carState?: CarState
   }[]
+  refetch: () => void
 }
 
-export default function MyBookingCard({ allBookingDetails }: Props): ReactElement {
+export default function MyBookingCard({ bookingDetails, refetch }: Props): ReactElement {
   const [useCar, setUseCar] = useState(false)
-  const [locked, SetLocked] = useState(true)
-  const [unLocked, SetUnLocked] = useState(true)
-  const { refetch: refetchBookings } = useBookings()
+
   const navigate = useNavigate()
-  const pickUpHandler = async (id: number) => {
+  const pickUpCarHandler = async (id: number) => {
     await setBookingState(id, BookingState.PICKED_UP)
   }
 
   const lockingStateHandler = async (id: number) => {
     await setCarState(id, CarState.LOCKED)
-    refetchBookings()
-    SetUnLocked(prevState => !prevState)
-    SetLocked(prevState => !prevState)
+    refetch()
   }
 
   const unLockingStateHandler = async (id: number) => {
     await setCarState(id, CarState.UNLOCKED)
-    refetchBookings()
-    SetLocked(prevState => !prevState)
-    SetUnLocked(prevState => !prevState)
+    refetch()
   }
 
-  const returnHandler = async (id: number) => {
+  const returnCarHandler = async (id: number) => {
     await setBookingState(id, BookingState.RETURNED)
     navigate('/cars')
   }
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {allBookingDetails?.map(bookingDetail => {
+      {bookingDetails?.map(bookingDetail => {
         const pickCarDate =
           new Date().getTime() >= new Date(bookingDetail.carDetails.startDate).getTime() &&
           new Date().getTime() <= new Date(bookingDetail.carDetails.endDate).getTime()
@@ -78,7 +72,7 @@ export default function MyBookingCard({ allBookingDetails }: Props): ReactElemen
                     </h2>
                   )}
                   {pickCarDate && (
-                    <Button onClick={() => pickUpHandler(bookingDetail.carDetails.id)}>
+                    <Button onClick={() => pickUpCarHandler(bookingDetail.carDetails.id)}>
                       Pick Up
                     </Button>
                   )}
@@ -86,26 +80,29 @@ export default function MyBookingCard({ allBookingDetails }: Props): ReactElemen
               )}
               {bookingDetail.bookingState === BookingState.PICKED_UP && (
                 <>
-                  {!useCar ? (
-                    <Button onClick={() => setUseCar(true)}>Use Car</Button>
-                  ) : (
+                  {!useCar && <Button onClick={() => setUseCar(true)}>Use Car</Button>}
+                  {useCar && (
                     <>
                       <Button
-                        disabled={!unLocked}
+                        disabled={bookingDetail.carState === CarState.UNLOCKED}
                         onClick={() => unLockingStateHandler(bookingDetail.carId)}
                       >
                         Unlock
                       </Button>
 
                       <Button
-                        disabled={locked}
+                        disabled={bookingDetail.carState === CarState.LOCKED}
                         onClick={() => lockingStateHandler(bookingDetail.carId)}
                       >
                         Lock
                       </Button>
                     </>
                   )}
-                  <Button filled={false} onClick={() => returnHandler(bookingDetail.carDetails.id)}>
+
+                  <Button
+                    filled={false}
+                    onClick={() => returnCarHandler(bookingDetail.carDetails.id)}
+                  >
                     Return
                   </Button>
                 </>
