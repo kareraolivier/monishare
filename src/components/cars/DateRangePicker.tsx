@@ -7,6 +7,14 @@ import Header from '../ui/Header'
 import { useNavigate } from 'react-router-dom'
 
 const title = 'BOOK CAR'
+const styles = {
+  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+  '& .MuiOutlinedInput-root .MuiInputBase-input': {
+    color: 'white',
+  },
+}
 
 export default function DateRangePicker(): ReactElement {
   const initialStartDate = dayjs()
@@ -45,14 +53,7 @@ export default function DateRangePicker(): ReactElement {
               onChange={startDateChangeHandler}
               minDateTime={initialStartDate}
               className="rounded-full bg-indigo-200 text-white"
-              sx={{
-                '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
-                '& .MuiOutlinedInput-root .MuiInputBase-input': {
-                  color: 'white',
-                },
-              }}
+              sx={styles}
             />
           </div>
           <div className="grid gap-2">
@@ -62,14 +63,7 @@ export default function DateRangePicker(): ReactElement {
               onChange={endDateChangeHandler}
               minDateTime={initialEndDate}
               className="rounded-full bg-indigo-200"
-              sx={{
-                '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
-                '& .MuiOutlinedInput-root .MuiInputBase-input': {
-                  color: 'white',
-                },
-              }}
+              sx={styles}
             />
           </div>
         </LocalizationProvider>

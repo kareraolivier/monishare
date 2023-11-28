@@ -9,7 +9,7 @@ import { BookCar } from '../types/interfaces'
 
 const title = 'Available Cars'
 
-export default function AvailableCarPage(): ReactElement {
+export default function AvailableCarsPage(): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
   const [searchParams] = useSearchParams()
