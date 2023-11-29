@@ -50,23 +50,23 @@ export default function ManageBookingsPage(): ReactElement {
       </>
     )
 
-  const loggedInUserCars = bookings?.filter(
+  const loggedInUserBookings = bookings?.filter(
     booking => booking.car.ownerId === Number(loggedInUserId),
   )
-  if (loggedInUserCars?.length === 0)
+  if (loggedInUserBookings?.length === 0)
     return (
       <>
         <Header title={title} />
         <h1 className="text-center text-2xl text-white">No cars booked!</h1>
       </>
     )
-  const bookingDetails = loggedInUserCars?.map(bookedCar => {
-    const type = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
+  const bookingDetails = loggedInUserBookings?.map(bookedCar => {
+    const image = carTypes?.find(carType => bookedCar.car.carTypeId === carType.id)
 
     return {
       id: bookedCar.id,
       name: bookedCar.car.name,
-      image: type?.imageUrl,
+      image: image?.imageUrl,
       action: Action.Requested,
       user: bookedCar.renter.name,
       startDate: dayjs(bookedCar.startDate),
