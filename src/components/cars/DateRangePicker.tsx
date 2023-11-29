@@ -5,9 +5,10 @@ import { ReactElement, useState } from 'react'
 import Button from '../ui/Button'
 import Header from '../ui/Header'
 import { useNavigate } from 'react-router-dom'
+import ErrorMessage from '../ui/ErrorMessage'
 
 const title = 'BOOK CAR'
-const styles = {
+const datePickerStyles = {
   '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
     border: 'none',
   },
@@ -22,17 +23,16 @@ export default function DateRangePicker(): ReactElement {
   const [startDate, setStartDate] = useState(initialStartDate)
   const [endDate, setEndDate] = useState(initialEndDate)
 
+  const isDateRangeInvalid = endDate.isBefore(startDate)
+
   const navigate = useNavigate()
 
   const startDateChangeHandler = (newStartDate: Dayjs | null) => {
     if (newStartDate) setStartDate(newStartDate)
   }
-
   const endDateChangeHandler = (newEndDate: Dayjs | null) => {
     if (newEndDate == null) return
-    if (newEndDate && newEndDate.isBefore(startDate)) {
-      return
-    }
+    if (newEndDate.isBefore(startDate)) return
     setEndDate(newEndDate)
   }
 
@@ -53,7 +53,7 @@ export default function DateRangePicker(): ReactElement {
               onChange={startDateChangeHandler}
               minDateTime={initialStartDate}
               className="rounded-full bg-indigo-200 text-white"
-              sx={styles}
+              sx={datePickerStyles}
             />
           </div>
           <div className="grid gap-2">
@@ -63,11 +63,12 @@ export default function DateRangePicker(): ReactElement {
               onChange={endDateChangeHandler}
               minDateTime={initialEndDate}
               className="rounded-full bg-indigo-200"
-              sx={styles}
+              sx={datePickerStyles}
             />
+            {isDateRangeInvalid && <ErrorMessage>End date should be after start date</ErrorMessage>}
           </div>
         </LocalizationProvider>
-        <Button filled={true} onClick={searchClickHandler}>
+        <Button filled={true} onClick={searchClickHandler} disabled={isDateRangeInvalid}>
           Search Available Cars
         </Button>
       </div>
