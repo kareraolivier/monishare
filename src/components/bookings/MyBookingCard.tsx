@@ -1,12 +1,13 @@
 import { ReactElement, useState } from 'react'
 import Button from '../ui/Button'
 import { setCarState } from '../../util/setCarState'
-import { setBookingState } from '../../util/setBookingState'
+
 import BookingCarCard from './BookingCarCard'
 import { BookingState, CarState } from '../../util/api'
 import { BookingDetails } from '../../types/interfaces'
-import { useNavigate } from 'react-router-dom'
+
 import dayjs from 'dayjs'
+import { toast } from 'react-toastify'
 interface Props {
   bookingDetails: {
     carDetails: BookingDetails
@@ -15,29 +16,32 @@ interface Props {
     carState?: CarState
   }[]
   refetch: () => void
+  returnCarHandler: (id: number) => Promise<void>
+  pickUpCarHandler: (id: number) => Promise<void>
 }
 
-export default function MyBookingCard({ bookingDetails, refetch }: Props): ReactElement {
+export default function MyBookingCard({
+  bookingDetails,
+  refetch,
+  returnCarHandler,
+  pickUpCarHandler,
+}: Props): ReactElement {
   const [useCar, setUseCar] = useState(false)
-
-  const navigate = useNavigate()
-  const pickUpCarHandler = async (id: number) => {
-    await setBookingState(id, BookingState.PICKED_UP)
-  }
 
   const lockingStateHandler = async (id: number) => {
     await setCarState(id, CarState.LOCKED)
+    toast('Car is locked', {
+      type: 'success',
+    })
     refetch()
   }
 
   const unLockingStateHandler = async (id: number) => {
     await setCarState(id, CarState.UNLOCKED)
+    toast('Car is unlocked', {
+      type: 'success',
+    })
     refetch()
-  }
-
-  const returnCarHandler = async (id: number) => {
-    await setBookingState(id, BookingState.RETURNED)
-    navigate('/cars')
   }
 
   return (

@@ -7,10 +7,16 @@ import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
 import MyBookingCard from '../components/bookings/MyBookingCard'
 import dayjs from 'dayjs'
+import { BookingState } from '../util/api'
+import { useNavigate } from 'react-router-dom'
+import { setBookingState } from '../util/setBookingState'
+import { toast } from 'react-toastify'
 
 const title = 'My bookings'
 
 export default function BookingsPage(): ReactElement {
+  const navigate = useNavigate()
+
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
 
@@ -20,6 +26,20 @@ export default function BookingsPage(): ReactElement {
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
 
+  const pickUpCarHandler = async (id: number) => {
+    await setBookingState(id, BookingState.PICKED_UP)
+    toast('Car is picked-up', {
+      type: 'success',
+    })
+  }
+
+  const returnCarHandler = async (id: number) => {
+    await setBookingState(id, BookingState.RETURNED)
+    toast('Car is returned', {
+      type: 'success',
+    })
+    navigate('/cars')
+  }
   if (bookingsError || carsError || usersError || carTypesError)
     throw new Error('The page could not be reached! try again later')
 
@@ -67,7 +87,12 @@ export default function BookingsPage(): ReactElement {
   return (
     <>
       <Header title={title} />
-      <MyBookingCard bookingDetails={bookingDetails} refetch={refetch} />
+      <MyBookingCard
+        bookingDetails={bookingDetails}
+        returnCarHandler={returnCarHandler}
+        pickUpCarHandler={pickUpCarHandler}
+        refetch={refetch}
+      />
     </>
   )
 }

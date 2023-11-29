@@ -10,6 +10,7 @@ import DeleteCarDialog from '../components/ui/DeleteCarDialog'
 import { Link, Navigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import { useReadLocalStorage } from 'usehooks-ts'
+import { toast } from 'react-toastify'
 
 const title = 'All Cars'
 
@@ -31,6 +32,9 @@ export default function CarsPage(): ReactElement {
 
   async function onDeleteCar() {
     await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
+    toast('Car deleted successfully', {
+      type: 'success',
+    })
     await refetchCars()
     setModalIsOpen(false)
   }

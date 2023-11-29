@@ -19,6 +19,8 @@ import AddCarPage from './pages/AddCarPage'
 import AuthLayout from './components/layout/AuthLayout'
 import LoginPage from './pages/LoginPage'
 import AvailableCarsPage from './pages/AvailableCarsPage'
+import 'react-toastify/ReactToastify.min.css'
+import { ToastContainer } from 'react-toastify'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -48,7 +50,12 @@ function App(): ReactElement {
       </Route>,
     ),
   )
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <ToastContainer position="top-center" autoClose={2000} hideProgressBar={true} newestOnTop />
+      <RouterProvider router={router} />
+    </>
+  )
 }
 
 export default App

@@ -7,6 +7,7 @@ import { useSearchParams, Navigate } from 'react-router-dom'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { BookCar } from '../types/interfaces'
 import dayjs from 'dayjs'
+import { toast } from 'react-toastify'
 import { getAvailableCars } from '../helpers/frontend'
 
 const title = 'Available Cars'
@@ -57,7 +58,7 @@ export default function AvailableCarPage(): ReactElement {
       </>
     )
 
-  function onBookCar(carId?: number) {
+  async function onBookCar(carId?: number) {
     const startDate = searchParams.get('startDate')
     const endDate = searchParams.get('endDate')
     const bookCar: BookCar = {
@@ -65,8 +66,11 @@ export default function AvailableCarPage(): ReactElement {
       startDate,
       endDate,
     }
-    executeBookCar({
+    await executeBookCar({
       data: bookCar,
+    })
+    toast('Car booked successfully', {
+      type: 'success',
     })
   }
 
