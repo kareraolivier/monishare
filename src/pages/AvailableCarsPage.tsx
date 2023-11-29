@@ -27,7 +27,10 @@ export default function AvailableCarPage(): ReactElement {
   const startDate = dayjs(searchParams.get('startDate'))
   const endDate = dayjs(searchParams.get('endDate'))
 
-  if (!startDate.isValid() || !endDate.isValid()) throw new Error('Please provide valid dates')
+  if (!startDate.isValid() || !endDate.isValid() || startDate.isAfter(endDate)) {
+    toast('Please provide valid dates', { type: 'error' })
+    return <Navigate to="/book" />
+  }
 
   if (carsError || usersError || carTypesError || bookingsError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
@@ -59,12 +62,10 @@ export default function AvailableCarPage(): ReactElement {
     )
 
   async function onBookCar(carId?: number) {
-    const startDate = searchParams.get('startDate')
-    const endDate = searchParams.get('endDate')
     const bookCar: BookCar = {
       carId,
-      startDate,
-      endDate,
+      startDate: startDate.toString(),
+      endDate: endDate.toString(),
     }
     await executeBookCar({
       data: bookCar,
