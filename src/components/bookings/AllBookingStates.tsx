@@ -1,7 +1,7 @@
 import { BookingState } from '../../util/api'
 
 interface Props {
-  bookingState: BookingState
+  bookingState?: BookingState
 }
 
 export default function AllBookingStates({ bookingState }: Props) {
