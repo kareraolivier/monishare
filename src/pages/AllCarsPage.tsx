@@ -24,19 +24,26 @@ export default function CarsPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }, refetchCars] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ loading: deleteLoading, error: deleteError }, executeDeleteCar] = useDeleteCar()
+  const [{ loading: deleteLoading }, executeDeleteCar] = useDeleteCar()
 
   useEffect(() => {
     refetchCars()
   }, [])
 
   async function onDeleteCar() {
-    await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
-    toast('Car deleted successfully', {
-      type: 'success',
-    })
-    await refetchCars()
-    setModalIsOpen(false)
+    try {
+      await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
+      toast('Car deleted successfully', {
+        type: 'success',
+      })
+      await refetchCars()
+      setModalIsOpen(false)
+    } catch (error) {
+      toast('The car could not be deleted.', {
+        type: 'error',
+      })
+      setModalIsOpen(false)
+    }
   }
 
   function openDeleteModal(id?: number) {
@@ -94,7 +101,6 @@ export default function CarsPage(): ReactElement {
           onDeleteCar={onDeleteCar}
           onCancelDeleteCar={onCancelDeleteCar}
           deleteLoading={deleteLoading}
-          deleteError={deleteError}
         />
       )}
       <Link to="/add-car" className="flex w-full justify-center py-8">

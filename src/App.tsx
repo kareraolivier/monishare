@@ -52,7 +52,7 @@ function App(): ReactElement {
   )
   return (
     <>
-      <ToastContainer position="top-center" autoClose={2000} hideProgressBar={true} newestOnTop />
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar={true} newestOnTop />
       <RouterProvider router={router} />
     </>
   )
