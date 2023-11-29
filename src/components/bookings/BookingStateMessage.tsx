@@ -15,6 +15,6 @@ export default function BookingStateMessage({ bookingState }: Props): ReactEleme
     case BookingState.RETURNED:
       return <p className="text-mustard-200">Car was returned</p>
     default:
-      return <p className="text-mustard-200">Invalid booking state</p>
+      return <></>
   }
 }
