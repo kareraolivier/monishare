@@ -7,7 +7,7 @@ import Header from '../ui/Header'
 import { useNavigate } from 'react-router-dom'
 
 const title = 'BOOK CAR'
-const styles = {
+const datePickerStyles = {
   '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
     border: 'none',
   },
@@ -17,23 +17,16 @@ const styles = {
 }
 
 export default function DateRangePicker(): ReactElement {
-  const initialStartDate = dayjs()
-  const initialEndDate = dayjs().add(2, 'hours')
-  const [startDate, setStartDate] = useState(initialStartDate)
-  const [endDate, setEndDate] = useState(initialEndDate)
+  const [startDate, setStartDate] = useState(dayjs())
+  const [endDate, setEndDate] = useState(dayjs())
 
   const navigate = useNavigate()
 
   const startDateChangeHandler = (newStartDate: Dayjs | null) => {
     if (newStartDate) setStartDate(newStartDate)
   }
-
   const endDateChangeHandler = (newEndDate: Dayjs | null) => {
-    if (newEndDate == null) return
-    if (newEndDate && newEndDate.isBefore(startDate)) {
-      return
-    }
-    setEndDate(newEndDate)
+    if (newEndDate) setEndDate(newEndDate)
   }
 
   const searchClickHandler = () => {
@@ -51,19 +44,19 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={startDate}
               onChange={startDateChangeHandler}
-              minDateTime={initialStartDate}
+              minDateTime={dayjs()}
               className="rounded-full bg-indigo-200 text-white"
-              sx={styles}
+              sx={datePickerStyles}
             />
           </div>
           <div className="grid gap-2">
             <label>End date</label>
             <MobileDateTimePicker
-              value={endDate}
+              value={startDate.add(2, 'hours')}
               onChange={endDateChangeHandler}
-              minDateTime={initialEndDate}
+              minDateTime={startDate}
               className="rounded-full bg-indigo-200"
-              sx={styles}
+              sx={datePickerStyles}
             />
           </div>
         </LocalizationProvider>
