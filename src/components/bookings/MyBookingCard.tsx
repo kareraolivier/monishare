@@ -68,7 +68,7 @@ export default function MyBookingCard({ bookingDetails, refetch }: Props): React
                   <h2 className="py-2 text-mustard-200">Booking accepted</h2>
                   {!pickCarDate && (
                     <h2 className="mt-2 text-lachs-200">
-                      You can not pick up your car before or after the agreed time.
+                      You can not pick up your car before the agreed time.
                     </h2>
                   )}
                   {pickCarDate && (
