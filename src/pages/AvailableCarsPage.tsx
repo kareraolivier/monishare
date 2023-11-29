@@ -8,7 +8,7 @@ import { useReadLocalStorage } from 'usehooks-ts'
 import { BookCar } from '../types/interfaces'
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
-import { getAvailableCars } from '../helpers/frontend'
+import { getAvailableCars } from '../helpers'
 
 const title = 'Available Cars'
 
@@ -35,7 +35,7 @@ export default function AvailableCarPage(): ReactElement {
   if (carsError || usersError || carTypesError || bookingsError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
 
-  if (carsLoading || usersLoading || carTypesLoading || bookingsLoading)
+  if (carsLoading || !cars || usersLoading || carTypesLoading || bookingsLoading || !bookings)
     return (
       <>
         <Header title={title} />
@@ -64,8 +64,8 @@ export default function AvailableCarPage(): ReactElement {
   async function onBookCar(carId?: number) {
     const bookCar: BookCar = {
       carId,
-      startDate: startDate.toString(),
-      endDate: endDate.toString(),
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
     }
     await executeBookCar({
       data: bookCar,

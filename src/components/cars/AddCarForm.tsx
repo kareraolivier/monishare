@@ -3,7 +3,7 @@ import Input from '../ui/inputs/Input'
 import SelectInput from '../ui/inputs/SelectInput'
 import { FuelType } from '../../util/api'
 import ErrorMessage from '../ui/ErrorMessage'
-import { ErrorMessage as ErrorMsg } from '@hookform/error-message'
+import { ErrorMessage as ErrorMessageContainer } from '@hookform/error-message'
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { animated, useSpring } from '@react-spring/web'
@@ -54,7 +54,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
               }}
               placeholder="e.g My Nice Moni car"
             />
-            <ErrorMsg
+            <ErrorMessageContainer
               errors={errors}
               name="name"
               render={error => error && <ErrorMessage>{error.message}</ErrorMessage>}
@@ -87,7 +87,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
                 }}
                 placeholder="e.g. M-XY 123"
               />
-              <ErrorMsg
+              <ErrorMessageContainer
                 errors={errors}
                 name="licensePlate"
                 render={error => error && <ErrorMessage>{error.message}</ErrorMessage>}
@@ -105,7 +105,7 @@ export default function AddCarForm({ carTypesOptions, onSubmit }: Props) {
                 }}
                 placeholder="110"
               />
-              <ErrorMsg
+              <ErrorMessageContainer
                 errors={errors}
                 name="horsepower"
                 render={error => error && <ErrorMessage>{error.message}</ErrorMessage>}
