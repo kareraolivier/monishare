@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
-import { useBookings, useCarTypes } from '../hooks'
+import { useManageBookings, useCarTypes } from '../hooks'
 import { setBookingState } from '../util/setBookingState'
 import { BookingState } from '../util/api'
 import { Action } from '../types/enums'
@@ -22,7 +22,7 @@ export default function ManageBookingsPage(): ReactElement {
     loading: bookingsLoading,
     error: bookingsError,
     refetch: refetchBookings,
-  } = useBookings()
+  } = useManageBookings()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const acceptBookingHandler = async (id: number) => {
     await setBookingState(id, BookingState.ACCEPTED)

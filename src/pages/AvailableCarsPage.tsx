@@ -1,14 +1,14 @@
 import { ReactElement } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
-import { useCarTypes, useCars, useUsers, useBookCar, useBookings } from '../hooks'
+import { useCarTypes, useCars, useUsers, useBookCar, useManageBookings } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useSearchParams, Navigate } from 'react-router-dom'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { BookCar } from '../types/interfaces'
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
-import { getAvailableCars } from '../helpers/frontend'
+import { getAvailableCars } from '../helpers'
 
 const title = 'Available Cars'
 
@@ -20,7 +20,7 @@ export default function AvailableCarPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
+  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useManageBookings()
   const [{ data: bookedCar, loading: bookedCarLoading, error: bookedCarError }, executeBookCar] =
     useBookCar()
 
@@ -35,7 +35,7 @@ export default function AvailableCarPage(): ReactElement {
   if (carsError || usersError || carTypesError || bookingsError)
     throw new Error('Fetching cars was not successful, sorry for inconvenience🙏')
 
-  if (carsLoading || usersLoading || carTypesLoading || bookingsLoading)
+  if (carsLoading || !cars || usersLoading || carTypesLoading || bookingsLoading || !bookings)
     return (
       <>
         <Header title={title} />
