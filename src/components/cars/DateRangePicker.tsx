@@ -17,10 +17,8 @@ const datePickerStyles = {
 }
 
 export default function DateRangePicker(): ReactElement {
-  const initialStartDate = dayjs()
-  const initialEndDate = dayjs().add(2, 'hours')
-  const [startDate, setStartDate] = useState(initialStartDate)
-  const [endDate, setEndDate] = useState(initialEndDate)
+  const [startDate, setStartDate] = useState(dayjs())
+  const [endDate, setEndDate] = useState(dayjs())
 
   const navigate = useNavigate()
 
@@ -28,9 +26,7 @@ export default function DateRangePicker(): ReactElement {
     if (newStartDate) setStartDate(newStartDate)
   }
   const endDateChangeHandler = (newEndDate: Dayjs | null) => {
-    if (newEndDate == null) return
-    if (newEndDate.isBefore(startDate)) return
-    setEndDate(newEndDate)
+    if (newEndDate) setEndDate(newEndDate)
   }
 
   const searchClickHandler = () => {
@@ -48,7 +44,7 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={startDate}
               onChange={startDateChangeHandler}
-              minDateTime={initialStartDate}
+              minDateTime={dayjs()}
               className="rounded-full bg-indigo-200 text-white"
               sx={datePickerStyles}
             />
@@ -56,7 +52,7 @@ export default function DateRangePicker(): ReactElement {
           <div className="grid gap-2">
             <label>End date</label>
             <MobileDateTimePicker
-              value={endDate}
+              value={startDate.add(2, 'hours')}
               onChange={endDateChangeHandler}
               minDateTime={startDate}
               className="rounded-full bg-indigo-200"
