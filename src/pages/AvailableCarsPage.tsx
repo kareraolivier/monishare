@@ -64,8 +64,8 @@ export default function AvailableCarPage(): ReactElement {
   async function onBookCar(carId?: number) {
     const bookCar: BookCar = {
       carId,
-      startDate: startDate.toString(),
-      endDate: endDate.toString(),
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
     }
     await executeBookCar({
       data: bookCar,

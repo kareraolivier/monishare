@@ -8,19 +8,21 @@ import { Navigate } from 'react-router-dom'
 import MyBookingCard from '../components/bookings/MyBookingCard'
 import dayjs from 'dayjs'
 import { BookingState } from '../util/api'
-import { useNavigate } from 'react-router-dom'
 import { setBookingState } from '../util/setBookingState'
 import { toast } from 'react-toastify'
 
 const title = 'My bookings'
 
 export default function BookingsPage(): ReactElement {
-  const navigate = useNavigate()
-
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
 
-  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
+  const {
+    data: bookings,
+    loading: bookingsLoading,
+    error: bookingsError,
+    refetch: refetchBookings,
+  } = useBookings()
   const [{ data: cars, loading: carsLoading, error: carsError }, refetch] = useCars()
 
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
@@ -31,6 +33,7 @@ export default function BookingsPage(): ReactElement {
     toast('Car is picked-up', {
       type: 'success',
     })
+    refetchBookings()
   }
 
   const returnCarHandler = async (id: number) => {
@@ -38,7 +41,7 @@ export default function BookingsPage(): ReactElement {
     toast('Car is returned', {
       type: 'success',
     })
-    navigate('/cars')
+    refetchBookings()
   }
   if (bookingsError || carsError || usersError || carTypesError)
     throw new Error('The page could not be reached! try again later')
