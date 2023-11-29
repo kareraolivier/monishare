@@ -1,6 +1,6 @@
 import { BookingDetails } from '../../types/interfaces'
 import { BookingState } from '../../util/api'
-import AllBookingStates from './AllBookingStates'
+import BookingStateMessage from './BookingStateMessage'
 import Button from '../ui/Button'
 import BookingCarCard from './BookingCarCard'
 import dayjs from 'dayjs'
@@ -16,12 +16,12 @@ export default function ManageBookingCard({
   declineBookingHandler,
 }: Props) {
   const renderBookingActions = (bookingDetail: BookingDetails) => {
-    const pickCarDate = dayjs(new Date().getTime()) <= dayjs(bookingDetail.endDate)
+    const isBookingExpired = dayjs() <= dayjs(bookingDetail.endDate)
 
     if (bookingDetail.bookingState === BookingState.PENDING) {
       return (
         <>
-          {pickCarDate ? (
+          {isBookingExpired ? (
             <>
               <Button onClick={() => acceptBookingHandler(bookingDetail.id)}>Accept</Button>
               <Button filled={false} onClick={() => declineBookingHandler(bookingDetail.id)}>
@@ -43,7 +43,7 @@ export default function ManageBookingCard({
         <div key={bookingDetail.id}>
           <BookingCarCard bookingDetails={bookingDetail} />
           <div className="flex flex-wrap justify-center gap-2 border-b border-b-gray-100 pb-4">
-            <AllBookingStates bookingState={bookingDetail.bookingState} />
+            <BookingStateMessage bookingState={bookingDetail.bookingState} />
             {renderBookingActions(bookingDetail)}
           </div>
         </div>
