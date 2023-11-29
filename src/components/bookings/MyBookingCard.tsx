@@ -1,11 +1,9 @@
 import { ReactElement, useState } from 'react'
 import Button from '../ui/Button'
 import { setCarState } from '../../util/setCarState'
-
 import BookingCarCard from './BookingCarCard'
 import { BookingState, CarState } from '../../util/api'
 import { BookingDetails } from '../../types/interfaces'
-
 import dayjs from 'dayjs'
 import { toast } from 'react-toastify'
 interface Props {
@@ -25,31 +23,24 @@ export default function MyBookingCard({
   returnCarHandler,
   pickUpCarHandler,
 }: Props): ReactElement {
-  const [useCar, setUseCar] = useState(false)
-
-  const lockingStateHandler = async (id: number) => {
-    await setCarState(id, CarState.LOCKED)
-    toast('Car is locked', {
-      type: 'success',
-    })
+  const [useCar, setUseCar] = useState(() => Boolean(localStorage.getItem('useCar')) || false)
+  const carStateChangeHandler = async (newState: CarState, id: number) => {
+    await setCarState(id, newState)
+    newState === CarState.UNLOCKED
+      ? toast('Car is unlocked', {
+          type: 'success',
+        })
+      : toast('Car is locked', {
+          type: 'success',
+        })
     refetch()
   }
-
-  const unLockingStateHandler = async (id: number) => {
-    await setCarState(id, CarState.UNLOCKED)
-    toast('Car is unlocked', {
-      type: 'success',
-    })
-    refetch()
-  }
-
   return (
     <div className="flex flex-col items-center justify-center">
       {bookingDetails?.map(bookingDetail => {
         const pickCarDate =
           dayjs() >= dayjs(bookingDetail.carDetails.startDate) &&
           dayjs() <= dayjs(bookingDetail.carDetails.endDate)
-
         return (
           <div key={bookingDetail?.carDetails.id} className="w-full border-b">
             <BookingCarCard
@@ -83,25 +74,34 @@ export default function MyBookingCard({
               )}
               {bookingDetail.carDetails.bookingState === BookingState.PICKED_UP && (
                 <>
-                  {!useCar && <Button onClick={() => setUseCar(true)}>Use Car</Button>}
+                  {!useCar && (
+                    <Button
+                      onClick={() => {
+                        localStorage.setItem('useCar', 'true')
+                        setUseCar(true)
+                      }}
+                    >
+                      Use Car
+                    </Button>
+                  )}
                   {useCar && (
                     <>
                       <Button
                         disabled={bookingDetail.carState === CarState.UNLOCKED}
-                        onClick={() => unLockingStateHandler(bookingDetail.carId)}
+                        onClick={() =>
+                          carStateChangeHandler(CarState.UNLOCKED, bookingDetail.carId)
+                        }
                       >
                         Unlock
                       </Button>
-
                       <Button
                         disabled={bookingDetail.carState === CarState.LOCKED}
-                        onClick={() => lockingStateHandler(bookingDetail.carId)}
+                        onClick={() => carStateChangeHandler(CarState.LOCKED, bookingDetail.carId)}
                       >
                         Lock
                       </Button>
                     </>
                   )}
-
                   <Button
                     filled={false}
                     onClick={() => returnCarHandler(bookingDetail.carDetails.id)}
