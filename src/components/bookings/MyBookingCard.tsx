@@ -6,7 +6,7 @@ import BookingCarCard from './BookingCarCard'
 import { BookingState, CarState } from '../../util/api'
 import { BookingDetails } from '../../types/interfaces'
 import { useNavigate } from 'react-router-dom'
-
+import dayjs from 'dayjs'
 interface Props {
   bookingDetails: {
     carDetails: BookingDetails
@@ -44,14 +44,14 @@ export default function MyBookingCard({ bookingDetails, refetch }: Props): React
     <div className="flex flex-col items-center justify-center">
       {bookingDetails?.map(bookingDetail => {
         const pickCarDate =
-          new Date().getTime() >= new Date(bookingDetail.carDetails.startDate).getTime() &&
-          new Date().getTime() <= new Date(bookingDetail.carDetails.endDate).getTime()
+          dayjs(new Date().getTime()) >= dayjs(bookingDetail.carDetails.startDate) &&
+          dayjs(new Date().getTime()) <= dayjs(bookingDetail.carDetails.endDate)
 
         return (
           <div key={bookingDetail?.carDetails.id} className="w-full border-b">
             <BookingCarCard
               key={bookingDetail?.carDetails.id}
-              carDetails={bookingDetail?.carDetails}
+              bookingDetails={bookingDetail?.carDetails}
             />
             <div className="flex flex-wrap justify-center gap-2 pb-8">
               {bookingDetail.bookingState === BookingState.PENDING && (

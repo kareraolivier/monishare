@@ -6,6 +6,7 @@ import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
 import MyBookingCard from '../components/bookings/MyBookingCard'
+import dayjs from 'dayjs'
 
 const title = 'My bookings'
 
@@ -46,8 +47,8 @@ export default function BookingsPage(): ReactElement {
           image: carImage?.imageUrl,
           action: Action.Owned,
           user: booking.car.owner.name,
-          startDate: new Date(booking.startDate),
-          endDate: new Date(booking.endDate),
+          startDate: dayjs(booking.startDate),
+          endDate: dayjs(booking.endDate),
         },
         carId: booking.carId,
         bookingState: booking.state,
