@@ -1,5 +1,4 @@
 import { ReactElement, Fragment } from 'react'
-import { AxiosError } from 'axios'
 import { Dialog } from '@headlessui/react'
 import Button from './Button'
 import { ButtonVariant } from '../../types/enums'
@@ -10,14 +9,12 @@ interface Props {
   onDeleteCar: () => void
   onCancelDeleteCar: () => void
   deleteLoading: boolean
-  deleteError: AxiosError<unknown> | null
 }
 
 export default function DeleteCarDialog({
   onDeleteCar,
   onCancelDeleteCar,
   deleteLoading,
-  deleteError,
 }: Props): ReactElement {
   return (
     <Transition appear show={true} as={Fragment}>
@@ -73,11 +70,6 @@ export default function DeleteCarDialog({
                       Cancel
                     </Button>
                   </div>
-                  {deleteError !== null && (
-                    <p className="text-lachs-200">
-                      There is a problem, The car could not be deleted.
-                    </p>
-                  )}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
