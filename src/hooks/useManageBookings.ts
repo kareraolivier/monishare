@@ -5,7 +5,7 @@ import { BookingDto, BookingWithReferences, CarDto, UserDto } from '../util/api'
 import { apiUrl } from '../util/apiUrl'
 import { getAuthToken } from '../util/auth'
 
-function useBookingData() {
+function useManageBookingData() {
   const [data, setData] = useState<BookingWithReferences[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<unknown>(null)
@@ -83,4 +83,4 @@ function useBookingData() {
   return { data, loading: isLoading, error, refetch: refetchHandler }
 }
 
-export default useBookingData
+export default useManageBookingData

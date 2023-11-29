@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import Header from '../components/ui/Header'
 import { Action } from '../types/enums'
-import { useBookings, useCarTypes, useCars, useUsers } from '../hooks'
+import { useMyBookings, useCarTypes, useCars, useUsers } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
@@ -20,7 +20,11 @@ export default function BookingsPage(): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
 
-  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
+  const {
+    data: bookings,
+    loading: bookingsLoading,
+    error: bookingsError,
+  } = useMyBookings({ currentUserId: Number(loggedInUserId) })
   const [{ data: cars, loading: carsLoading, error: carsError }, refetch] = useCars()
 
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()

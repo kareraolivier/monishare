@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import Cars from '../components/cars/Cars'
 import Header from '../components/ui/Header'
-import { useCarTypes, useCars, useUsers, useBookCar, useBookings } from '../hooks'
+import { useCarTypes, useCars, useUsers, useBookCar, useManageBookings } from '../hooks'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useSearchParams, Navigate } from 'react-router-dom'
 import { useReadLocalStorage } from 'usehooks-ts'
@@ -20,7 +20,7 @@ export default function AvailableCarPage(): ReactElement {
   const [{ data: cars, loading: carsLoading, error: carsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useBookings()
+  const { data: bookings, loading: bookingsLoading, error: bookingsError } = useManageBookings()
   const [{ data: bookedCar, loading: bookedCarLoading, error: bookedCarError }, executeBookCar] =
     useBookCar()
 
