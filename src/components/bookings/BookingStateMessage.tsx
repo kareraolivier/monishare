@@ -1,10 +1,10 @@
+import { ReactElement } from 'react'
 import { BookingState } from '../../util/api'
-
 interface Props {
   bookingState: BookingState
 }
 
-export default function BookingStateMessage({ bookingState }: Props) {
+export default function BookingStateMessage({ bookingState }: Props): ReactElement {
   switch (bookingState) {
     case BookingState.ACCEPTED:
       return <p className="text-mustard-200">Booking accepted</p>
@@ -15,6 +15,6 @@ export default function BookingStateMessage({ bookingState }: Props) {
     case BookingState.RETURNED:
       return <p className="text-mustard-200">Car was returned</p>
     default:
-      return null
+      return <p className="text-mustard-200">Invalid booking state</p>
   }
 }
