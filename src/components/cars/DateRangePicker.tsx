@@ -5,7 +5,6 @@ import { ReactElement, useState } from 'react'
 import Button from '../ui/Button'
 import Header from '../ui/Header'
 import { useNavigate } from 'react-router-dom'
-import ErrorMessage from '../ui/ErrorMessage'
 
 const title = 'BOOK CAR'
 const datePickerStyles = {
@@ -22,8 +21,6 @@ export default function DateRangePicker(): ReactElement {
   const initialEndDate = dayjs().add(2, 'hours')
   const [startDate, setStartDate] = useState(initialStartDate)
   const [endDate, setEndDate] = useState(initialEndDate)
-
-  const isDateRangeInvalid = endDate.isBefore(startDate)
 
   const navigate = useNavigate()
 
@@ -61,14 +58,13 @@ export default function DateRangePicker(): ReactElement {
             <MobileDateTimePicker
               value={endDate}
               onChange={endDateChangeHandler}
-              minDateTime={initialEndDate}
+              minDateTime={startDate}
               className="rounded-full bg-indigo-200"
               sx={datePickerStyles}
             />
-            {isDateRangeInvalid && <ErrorMessage>End date should be after start date</ErrorMessage>}
           </div>
         </LocalizationProvider>
-        <Button filled={true} onClick={searchClickHandler} disabled={isDateRangeInvalid}>
+        <Button filled={true} onClick={searchClickHandler}>
           Search Available Cars
         </Button>
       </div>
