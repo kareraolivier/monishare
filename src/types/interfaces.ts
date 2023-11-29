@@ -32,6 +32,6 @@ export interface BookingDetails {
   user?: string
   startDate: Dayjs
   endDate: Dayjs
-  bookingState?: BookingState
+  bookingState: BookingState
   carState?: CarState
 }

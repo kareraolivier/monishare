@@ -69,9 +69,9 @@ export default function BookingsPage(): ReactElement {
           user: booking.car.owner.name,
           startDate: dayjs(booking.startDate),
           endDate: dayjs(booking.endDate),
+          bookingState: booking.state,
         },
         carId: booking.carId,
-        bookingState: booking.state,
         carState: car?.state,
       }
     })
