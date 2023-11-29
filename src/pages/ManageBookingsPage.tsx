@@ -9,6 +9,7 @@ import { useReadLocalStorage } from 'usehooks-ts'
 import { Navigate } from 'react-router-dom'
 import ManageBookingCard from '../components/bookings/ManageBookingCard'
 import dayjs from 'dayjs'
+import { toast } from 'react-toastify'
 
 const title = 'Manage bookings'
 
@@ -25,10 +26,16 @@ export default function ManageBookingsPage(): ReactElement {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const acceptBookingHandler = async (id: number) => {
     await setBookingState(id, BookingState.ACCEPTED)
+    toast('Booking is accepted', {
+      type: 'success',
+    })
     refetchBookings()
   }
   const declineBookingHandler = async (id: number) => {
     await setBookingState(id, BookingState.DECLINED)
+    toast('Booking is declined', {
+      type: 'success',
+    })
     refetchBookings()
   }
 

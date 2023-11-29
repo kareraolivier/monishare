@@ -1,17 +1,18 @@
 import { SubmitHandler } from 'react-hook-form/dist/types'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import AddCarForm from '../components/cars/AddCarForm'
 import Header from '../components/ui/Header'
 import Loading, { LoadingStyle } from '../components/ui/Loading'
 import { useCarTypes, useAddCar } from '../hooks'
+import { toast } from 'react-toastify'
 import { CarInfo } from '../types/interfaces'
 
 const title = 'NEW CAR'
 
 export default function AddCarPage() {
+  const navigate = useNavigate()
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
-  const [{ data: addedCar, loading: addCarLoading, error: addCarError }, executeAddCar] =
-    useAddCar()
+  const [{ loading: addCarLoading, error: addCarError }, executeAddCar] = useAddCar()
 
   if (carTypesError)
     throw new Error(
@@ -32,8 +33,6 @@ export default function AddCarPage() {
 
   if (!carTypes) throw new Error('The page could not be reached, sorry for the inconvenience')
 
-  if (addedCar) return <Navigate to="/cars" />
-
   const carTypesOptions = carTypes.map(carType => ({
     id: carType.id,
     value: String(carType.id),
@@ -51,6 +50,10 @@ export default function AddCarPage() {
         info: data.info,
       },
     })
+    toast('Car added successfully', {
+      type: 'success',
+    })
+    navigate('/cars')
   }
 
   return (
