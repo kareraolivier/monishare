@@ -1,87 +1,75 @@
 import dayjs, { Dayjs } from 'dayjs'
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker'
-import { ReactElement, SetStateAction } from 'react'
+import { LocalizationProvider, MobileDateTimePicker } from '@mui/x-date-pickers'
+import { ReactElement, useState } from 'react'
 import Button from '../ui/Button'
 import Header from '../ui/Header'
-import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import ErrorMessage from '../ui/ErrorMessage'
+import { useNavigate } from 'react-router-dom'
 
 const title = 'BOOK CAR'
+const styles = {
+  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+  '& .MuiOutlinedInput-root .MuiInputBase-input': {
+    color: 'white',
+  },
+}
 
 export default function DateRangePicker(): ReactElement {
-  const today = dayjs()
-  const [startDate, setStartDate] = useState(today)
-  const [endDate, setEndDate] = useState(today)
-  const [endDateError, setEndDateError] = useState<string | null>(null)
-  const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
+  const initialStartDate = dayjs()
+  const initialEndDate = dayjs().add(2, 'hours')
+  const [startDate, setStartDate] = useState(initialStartDate)
+  const [endDate, setEndDate] = useState(initialEndDate)
 
-  const startDateChangeHandler = (newStartDate: dayjs.Dayjs | null) => {
+  const navigate = useNavigate()
+
+  const startDateChangeHandler = (newStartDate: Dayjs | null) => {
     if (newStartDate) setStartDate(newStartDate)
   }
-  const endDateChangeHandler = (newEndDate: dayjs.Dayjs | null) => {
+
+  const endDateChangeHandler = (newEndDate: Dayjs | null) => {
+    if (newEndDate == null) return
     if (newEndDate && newEndDate.isBefore(startDate)) {
-      setEndDateError('End date cannot be less than start date')
-    } else {
-      const newEndingDate = newEndDate as SetStateAction<Dayjs>
-      setEndDateError(null)
-      setEndDate(newEndingDate)
+      return
     }
+    setEndDate(newEndDate)
   }
 
   const searchClickHandler = () => {
     const start = startDate.toISOString()
     const end = endDate.toISOString()
-    const url = `/available-cars?startDate=${start}&&endDate=${end}`
-    setRedirectUrl(url)
+    navigate(`/available-cars?startDate=${start}&&endDate=${end}`)
   }
   return (
     <>
       <Header title={title} />
       <div className="mx-auto max-w-sm space-y-12 font-inter text-gray-100 ">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={['MobileDateTimePicker']}>
-            <DemoItem label="Start date">
-              <MobileDateTimePicker
-                value={startDate}
-                onChange={startDateChangeHandler}
-                minDateTime={today}
-                className="rounded-full  bg-indigo-200 text-white"
-                sx={{
-                  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                    border: 'none',
-                  },
-                  '& .MuiOutlinedInput-root .MuiInputBase-input': {
-                    color: 'white',
-                  },
-                }}
-              />
-            </DemoItem>
-            <DemoItem label="End date">
-              <MobileDateTimePicker
-                value={endDate}
-                onChange={endDateChangeHandler}
-                className=" rounded-full bg-indigo-200"
-                sx={{
-                  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                    border: 'none',
-                  },
-                  '& .MuiOutlinedInput-root .MuiInputBase-input': {
-                    color: 'white',
-                  },
-                }}
-              />
-              {endDateError && <ErrorMessage>{endDateError}</ErrorMessage>}
-            </DemoItem>
-          </DemoContainer>
+          <div className="grid gap-2">
+            <label>Start date</label>
+            <MobileDateTimePicker
+              value={startDate}
+              onChange={startDateChangeHandler}
+              minDateTime={initialStartDate}
+              className="rounded-full bg-indigo-200 text-white"
+              sx={styles}
+            />
+          </div>
+          <div className="grid gap-2">
+            <label>End date</label>
+            <MobileDateTimePicker
+              value={endDate}
+              onChange={endDateChangeHandler}
+              minDateTime={initialEndDate}
+              className="rounded-full bg-indigo-200"
+              sx={styles}
+            />
+          </div>
         </LocalizationProvider>
-        <Button filled={true} disabled={endDateError ? true : false} onClick={searchClickHandler}>
+        <Button filled={true} onClick={searchClickHandler}>
           Search Available Cars
         </Button>
-        {redirectUrl && <Navigate to={redirectUrl} />}
       </div>
     </>
   )
