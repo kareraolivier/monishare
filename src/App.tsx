@@ -13,7 +13,7 @@ import ErrorPage from './pages/ErrorPage'
 import WelcomePage from './pages/WelcomePage'
 import HomePage from './pages/HomePage'
 import ManageBookingsPage from './pages/ManageBookingsPage'
-import NewBookingsPage from './pages/NewBookingsPage'
+import BookCarPage from './pages/BookCarPage'
 import CarDetailsPage from './pages/CarDetailsPage'
 import AddCarPage from './pages/AddCarPage'
 import AuthLayout from './components/layout/AuthLayout'
@@ -43,7 +43,7 @@ function App(): ReactElement {
           <Route path="available-cars" element={<AvailableCarsPage />} />
           <Route path="bookings" element={<BookingsPage />} />
           <Route path="manage-bookings" element={<ManageBookingsPage />} />
-          <Route path="book" element={<NewBookingsPage />} />
+          <Route path="book" element={<BookCarPage />} />
           <Route path="add-car" element={<AddCarPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>

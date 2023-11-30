@@ -12,7 +12,7 @@ import { getAvailableCars } from '../helpers'
 
 const title = 'Available Cars'
 
-export default function AvailableCarPage(): ReactElement {
+export default function AvailableCarsPage(): ReactElement {
   const loggedInUserId = useReadLocalStorage('userId')
   if (loggedInUserId === null) return <Navigate to="/login" />
 
