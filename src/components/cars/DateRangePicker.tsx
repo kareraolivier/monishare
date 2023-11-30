@@ -18,7 +18,7 @@ const datePickerStyles = {
 
 export default function DateRangePicker(): ReactElement {
   const [startDate, setStartDate] = useState(dayjs())
-  const [endDate, setEndDate] = useState(dayjs())
+  const [endDate, setEndDate] = useState(dayjs().add(2, 'hours'))
 
   const navigate = useNavigate()
 
