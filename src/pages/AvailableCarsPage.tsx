@@ -61,7 +61,7 @@ export default function AvailableCarsPage(): ReactElement {
       </>
     )
 
-  async function onBookCar(carId?: number) {
+  const onBookCar = async (carId?: number) => {
     const bookCar: BookCar = {
       carId,
       startDate: startDate.toISOString(),

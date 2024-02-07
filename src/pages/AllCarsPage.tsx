@@ -30,7 +30,7 @@ export default function CarsPage(): ReactElement {
     refetchCars()
   }, [])
 
-  async function onDeleteCar() {
+  const onDeleteCar = async () => {
     try {
       await executeDeleteCar({ url: `${apiUrl}/cars/${carId}` })
       toast('Car deleted successfully', {
@@ -46,12 +46,13 @@ export default function CarsPage(): ReactElement {
     }
   }
 
-  function openDeleteModal(id?: number) {
+  const openDeleteModal = (id?: number) => {
     setModalIsOpen(true)
     setCarId(id)
   }
-
-  function onCancelDeleteCar() {
+  function ok() {}
+  ok()
+  const onCancelDeleteCar = () => {
     setCarId(undefined)
     setModalIsOpen(false)
   }

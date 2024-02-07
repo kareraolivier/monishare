@@ -44,6 +44,16 @@ module.exports = {
         'plugin:tailwindcss/recommended',
       ],
       rules: {
+        'react/jsx-no-bind': [
+          'error',
+          {
+            ignoreDOMComponents: true,
+            ignoreRefs: true,
+            allowFunctions: false,
+            allowArrowFunctions: true,
+            allowBind: false,
+          },
+        ],
         'no-unused-vars': 'off',
         'no-use-before-define': 'off',
         '@typescript-eslint/array-type': 'error',
